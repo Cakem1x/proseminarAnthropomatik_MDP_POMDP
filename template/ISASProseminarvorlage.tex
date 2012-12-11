@@ -1,0 +1,163 @@
+\documentclass[a4paper]{IEEEtran}
+
+
+% Ein paar hilfreiche Pakete
+\usepackage{german}
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx} 
+\usepackage{amsmath} 
+\usepackage{amssymb}  
+\usepackage{mathtools}
+\mathtoolsset{showonlyrefs}
+\usepackage{subfigure}
+\usepackage{flushend}
+\usepackage{url}
+
+% Ein paar am ISAS übliche Formelzeichen
+\def\rv#1{{\mathbf #1}} %Random Variable
+\def\vec#1{\underline{#1}} %Vector
+\def\rvv#1{{\vec{\rv{#1}}}} %Random Vector
+\def\mat#1{{\mathbf #1}} %Matrix
+\def\Var{\mathrm{Var}} %Variance
+\def\E{\mathrm{E}} %Expectation
+\def\Cov{\mathrm{Cov}} %Covariance
+\def\IN{\mathrm{I\hspace{-2pt}N}} %Natural Numbers
+\def\IR{\mathrm{I\hspace{-2pt}R}} %Real Numbers 
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+\title{Thema des Beitrags}
+
+\author{Max~Musterstudent,~\IEEEmembership{E-Mail: max.musterstudent@ira.uka.de}}% <-this % stops a space
+
+
+
+
+% The paper headers
+\markboth{Proseminar WS 12/13: Anthropomatik: Von der Theorie zur Anwendung}%
+{Proseminar WS 12/13: Anthropomatik: Von der Theorie zur Anwendung}
+
+
+
+% make the title area
+\maketitle
+
+
+\begin{abstract}
+Die Ausarbeitung beginnt mit einer kurzen Zusammenfassung.
+\end{abstract}
+
+
+
+
+
+
+
+\section{Einleitung}
+Hier beginnt der Text...
+
+\section{Ein paar Hinweise}
+
+\subsection{Absätze, etc.}
+Ein neuer Absatz sollte nicht durch einen Zeilenumbruchs-Befehl sondern durch eine Leerzeile im Code erzeugt werden.
+Vor und nach Formeln sollte durch Kommentarmarken "`\%"' sichergestellt werden, dass kein neuer Absatz beginnt (es sei denn, dies ist explizit gewünscht).
+Also
+%
+\begin{equation}
+  a = b + 3~,
+\end{equation}
+%
+und nicht 
+
+\begin{equation}
+  a = b + 4~,
+\end{equation}
+
+was komisch aussehen würde. 
+
+
+\subsection{Mathematischer Formelsatz}
+Bitte bei der Ausarbeitung die vorgefertigten Makros verwenden:
+
+Vektoren und Matrizen
+%
+\begin{equation}
+  \vec{x}, \mat{A}
+\end{equation}
+%
+Mengenzeichen
+%
+\begin{equation}
+  \IR, \IN
+\end{equation}
+%
+Zufallsvariablen, etc...
+%
+\begin{equation}
+  \rv{y}, \rvv{z},
+  \Var, \E, \Cov
+\end{equation}
+%
+Bitte nur Gleichungen nummerieren, auf die sich auch später bezogen wird (sollte automatisch geschehen)
+%
+\begin{equation}
+  \label{eq:NameDergleichung}
+  a = b + c ~.
+\end{equation}
+%
+Laut \eqref{eq:NameDergleichung} ist $a=b+c$.
+
+Mehrzeiliger Formelsatz mit \emph{align}
+%
+\begin{align}
+  a &= b + c \enspace ,\\
+  a_{ij} &= b_{ij} + c_{ij} \enspace .
+\end{align}
+%
+oder mit \emph{multline}
+%
+\begin{multline}
+  a_{2343443} = \\
+  b + c + \frac{346}{324557} 
+  \cdot \left( b_{ij} + c_{ij} \right)\\
+  \cdot \int_{x=55}^{88} x^{67823+x} \frac{x}{32455767567567575677} \text{d}x
+  \enspace .
+\end{multline}
+%
+
+Funktionen sollen in Formeln \emph{nicht} kursiv gesetzt werden. Dazu gibt es in LaTeX für fast alle Funktionen schon Makros, z.B. 
+%
+\begin{align}
+  y= \sin (x)
+\end{align}
+%
+und nicht 
+\begin{align}
+  y= sin (x)~.
+\end{align}
+
+%So werden Bilder eingebunden (als pdf, jpg oder png)
+%\begin{figure}[ht]
+%  \centering
+%  \caption{Hier kommen weitere Erklärungen zum Bild}
+% \label{fig:autorname_bild1}
+%\end{figure}
+%
+% Auf diese Abbildung wird dann mit Abb. \ref{fig:autorname_bild1} verwiesen.
+
+\section{Zitate}
+Bitte immer korrekt zitiernen \cite{ITM07_BrunnSawo,IPSN07_Huber}!
+
+\section{Zusammenfassung und Ausblick}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Literaturverzeichnis (in literatur.bib, z.B. mit Jabref editieren) 
+\bibliographystyle{plain}
+\bibliography{literatur}
+\end{document}
+
+
