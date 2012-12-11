@@ -1,0 +1,95 @@
+\documentclass[a4paper]{IEEEtran}
+
+
+% Ein paar hilfreiche Pakete
+\usepackage{german}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} 
+\usepackage{amsmath} 
+\usepackage{amssymb}  
+\usepackage{mathtools}
+\mathtoolsset{showonlyrefs}
+\usepackage{subfigure}
+\usepackage{flushend}
+\usepackage{url}
+
+% Ein paar am ISAS übliche Formelzeichen
+\def\rv#1{{\mathbf #1}} %Random Variable
+\def\vec#1{\underline{#1}} %Vector
+\def\rvv#1{{\vec{\rv{#1}}}} %Random Vector
+\def\mat#1{{\mathbf #1}} %Matrix
+\def\Var{\mathrm{Var}} %Variance
+\def\E{\mathrm{E}} %Expectation
+\def\Cov{\mathrm{Cov}} %Covariance
+\def\IN{\mathrm{I\hspace{-2pt}N}} %Natural Numbers
+\def\IR{\mathrm{I\hspace{-2pt}R}} %Real Numbers 
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+\title{Markov Decision Process am Beispiel von autonomen Robotern} %TODO Get the right title
+
+\author{Matthias~Holoch,~\IEEEmembership{E-Mail: matthias.holoch@student.kit.edu}}% <-this % stops a space
+
+
+
+
+% The paper headers
+\markboth{Proseminar WS 12/13: Anthropomatik: Von der Theorie zur Anwendung}%
+{Proseminar WS 12/13: Anthropomatik: Von der Theorie zur Anwendung}
+
+
+
+% make the title area
+\maketitle
+
+
+\begin{abstract}
+Diese Ausarbeitung beschäftigt sich mit dem Thema Markov Descision Process (MDP) am Beispiel von autonomen Robotern. 
+\end{abstract}
+
+
+\section{Einleitung}
+Traditionelle reine Planung klappt bei Robotern nicht besonders gut --> Suche andere Modelle!
+
+\section{MDP}
+\subsection{Motivation}
+Annahme: Sensoren der Roboter sind perfekt. Nur Fehler bei der Ausführung von Aktionen.
+
+\subsection{MDP Formal}
+Formale Definition von MDP hier.
+
+
+\section{Lösung von MDPs}
+\subsection{Motivation}
+Man möchte in jedem Zustand eine optimale Aktion vorberechnet haben. So kann ein Roboter während der Aktionsausführung effizient entscheiden, was als nächstes getan werden soll.
+
+\subsection{Value Iteration} %TODO german title?
+Algorithmus beschreiben: Lösungshorizont, ...
+
+
+\section{Ausblick: POMDP}
+\subsection{Motivation}
+Die Annahme, dass Sensoren perfekt sind ist offensichtlich in der Realität nicht erfüllbar. Daher: POMDP!
+
+\subsection{POMDP}
+Unterschied zu MDP: Es ist nie klar, in welchem Zustand man sich befindet. Stattdessen gibt es eine Funktion, die eine Wahrscheinlichkeitsverteilung über die Zustände beschreibt.
+
+
+\section{Lösen von POMDPs}
+\subsection{Motivation}
+Motivierender Text hier! :)
+
+\subsection{Value Iteration?}
+Idee ein POMDP als Coninuous Space MDP zu sehen. --> Value Iteration artig lösen. Eventuell tatsächliche Algorithmen nennen.
+
+\section{Zusammenfassung und Ausblick}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Literaturverzeichnis (in literatur.bib, z.B. mit Jabref editieren) 
+\bibliographystyle{plain}
+\bibliography{literatur}
+\end{document}
