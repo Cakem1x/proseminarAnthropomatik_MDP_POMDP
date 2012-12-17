@@ -51,13 +51,34 @@ Aufbereitung des Markow-Entscheidungsprozess am Beispiel von autonomen Robotern.
 
 
 \section{Einleitung}
-Diese Ausarbeitung beschäftigt sich mit dem Markov-Entscheidungsprozess (Englisch: Markov decision process, kurz MDP), ein mathematisches Modell zur Modellierung von Entscheidungsproblemen. Es wurde nach dem russischen Mathematiker Andrey Markov benannt.
+Diese Ausarbeitung beschäftigt sich mit dem Markov-Entscheidungsprozess (Englisch: Markov decision process, kurz MDP), ein mathematisches Modell zur Modellierung von Entscheidungsproblemen. Es wurde nach dem russischen Mathematiker Andrey Markov benannt. Der MDP wird verwendet um Situationen, bei denen Aktionen nicht deterministische Folgen haben können zu modellieren und aus dem Modell eine Strategie, also die statistisch beste Aktion für jeden Zustand, zu errechnen.
 
-Die Erklärungen zu dem MDP werden unterstützt und motiviert durch Beispiele aus dem Bereich der autonomen Robotern. Die angeführten Beispiele basieren auf denen in den Kapiteln Markov Decision Process und Partially Observable Markov Decision Process verwendeten Beispielen des Buches \emph{Probabilistic Robotics} \cite{PR_ThrunBurgardFox}.
+Die Erklärungen zu dem MDP werden unterstützt und motiviert durch Beispiele aus dem Bereich der autonomen Robotern. Die angeführten Beispiele basieren auf denen in den Kapiteln Markov Decision Process und Partially Observable Markov Decision Process verwendeten Beispielen des Buches \emph{Probabilistic Robotics} \cite{PR_ThrunBurgardFox}. Damit soll in keinster Weise impliziert werden, dass der MDP lediglich in diesem Bereich für von Interesse ist.
+
 
 \section{MDP}
 \subsection{Motivation}
-Traditionelle reine Planung klappt bei Robotern nicht besonders gut --> Suche andere Modelle!
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=0.42]{images/autnmRobot_basicSituation.png}
+	\caption{Eine beispielhafte Umgebung mit Roboter und Ziel. Der Roboter befindet sich mittig mit der Aufgabe sich zu dem Zielpunkt im linken Bereich der Umgebung zu bewegen.}
+	\label{fig:holoch_autnmRob_bSit}
+\end{figure}
+Im Folgenden wird immer wieder das Beispiel eines autonomen Roboters angeführt. In der Abbildung \ref{fig:holoch_autnmRob_bSit} ist eine beispielhafte Umgebung zu sehen mit Roboter und Ziel zu sehen. Der Roboter befindet sich in der Mitte der Umgebung und seine Aufgabe ist es, den Zielpunkt im linken Bereich der Umgebung zu erreichen. 
+
+Es existiert mehr als ein Weg für den Roboter das Ziel zu erreichen. Der kürzeste Pfad führt durch den engen Korridor und zwei weitere Pfade, die zwar länger aber auch breiter sind, führen außen herum.
+
+(Aus \cite{PR_ThrunBurgardFox}) In einem klassischen Planungsbeispiel für Roboter existiert keine Unsicherheit. Der Roboter würde seine genau Position und die des Zielpunktes kennen. Außerdem hätten ausgeführte Aktionen exakt vorhersehbare Effekte und solche Effekte können eingeplant werden. In so einer Situation würde es ausreichen vor Ausführung als Strategie eine einzelne Abfolge von Aktionen zu berechnen, die den Roboter möglichst schnell ans Ziel bringt.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=0.42]{images/autnmRobot_directPath.png}
+	\caption{Ohne die Anwesenheit von Fehlern in der Bewegung des Roboters ist der kürzere, enge Pfad dem längeren, breiten Pfad klar überlegen.}
+	\label{fig:holoch_autnmRob_dirPath}
+\end{figure}
+Abbildung \ref{fig:holoch_autnmRob_dirPath} zeigt eine solche Strategie. Da bisher angenommen wurde, dass der Roboter absolut fehlerfrei funktioniert ist der kürzere, enge Pfad jedem der längeren, breiten Pfade vorzuziehen.
+
+In der Praxis: Fail; enger Pfad höheres Risiko. usw ... Sowas will man modellieren.
 Annahme: Sensoren der Roboter sind perfekt. Nur Fehler bei der Ausführung von Aktionen.
 
 \subsection{MDP Formal}
