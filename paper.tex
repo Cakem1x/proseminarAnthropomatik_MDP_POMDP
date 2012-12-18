@@ -121,17 +121,28 @@ In Abbildung \ref{fig:holoch_MDP_example} ist ein MDP mit drei Zuständen $s_1, 
 	\centering
 	\includegraphics[scale=0.42]{images/autnmRobot_detActionMDP.png}
 	\caption{Darstellung einer Strategie bei \emph{nicht} probabilistischen Effekten bei der Aktionsausführung. Hier ist der kurze Pfad klar überlegen.}
+	\label{holoch_autnmRobot_detA}
 \end{figure}
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.42]{images/autnmRobot_ndetActionMDP.png}
 	\caption{Darstellung einer Strategie bei probabilistischen Effekten bei der Aktionsausführung. Hier wird der längere Pfad bevorzugt.}
+	\label{holoch_autnmRobot_ndetA}
 \end{figure}
-Nun haben wir ein Modell, mit dem wir Unsicherheit in der Aktionsausführung korrekt modellieren können. 
-Man möchte in jedem Zustand eine optimale Aktion vorberechnet haben. So kann ein Roboter während der Aktionsausführung effizient entscheiden, was als nächstes getan werden soll.
+Nun haben wir ein Modell kennengelernt, mit dem wir Unsicherheit in der Aktionsausführung korrekt modellieren können. Um damit in der Praxis etwas anfangen zu können müssen wir einen Weg finden aus dem Modell eine Lösung zu errechnen. Eine Lösung für ein MDP nennt man \textbf{Strategie}. Eine solche Strategie ist eine Abbildung, die jedem Zustand eine optimale Aktion zuordnet:
+\begin{equation}
+	\pi: S \rightarrow A
+\end{equation}
+Abbildung \ref{holoch_autnmRobot_detA} zeigt eine beispielhafte Strategie bei \emph{nicht} probabilistischen Effekten bei der Aktionsausführung. Hier ist wie in vorherigen Kapitel schon besprochen der kürzere, enge Pfad überlegen. Abbildung \ref{holoch_autnmRobot_ndetA} hingegen zeigt eine beispielhafte Strategie mit Unsicherheit in der Aktionsausführung. Im Gegensatz zu Abbildung \ref{holoch_autnmRobot_detA} wird hier der enge Pfad gemieden bis zu einem gewissen Grade gemieden.
+
+Als nächstes müssen wir uns darüber klar werden, was eine \"beste\" Lösung ist...
+...Strategie versucht auf irgendeine Art und Weise die Gütefunktion zu maximieren...
 
 \subsection{Value Iteration} %TODO german title?
-Algorithmus beschreiben: Lösungshorizont, ...
+Algorithmus beschreiben: Zeit Horizont, ... %TODO schönerer deutscher Begriff hierfür?
+Greedy Case: T=1
+Endlicher Horizont: T=n
+Unendlicher Horizont: Probleme ohne discount factor (siehe Buch)
 
 
 \section{Ausblick: POMDP}
