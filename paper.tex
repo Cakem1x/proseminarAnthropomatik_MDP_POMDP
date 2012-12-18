@@ -82,8 +82,31 @@ In der Praxis funktionieren solche Strategien meist aus mehreren Gründen nicht 
 
 Ein Modell, was die Unsicherheit bei der Aktionsausführung von Robotern mit einbezieht ist der MDP. Dazu nehmen wir allerdings weiterhin an, dass die Sensoren des Roboters perfekt sind. Es ist uns als zu jeden Zeitpunkt den exakten Zustand unserer Umgebung wahrzunehmen.
 
-\subsection{MDP Formal}
-Formale Definition von MDP hier.
+\subsection{Was ist der MDP?}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=0.42]{images/MDP_example.png}
+	\caption{Beispiel eines simplen MDP mit drei Zuständen $S_1, S_2, S_3$ und zwei Aktionen $a_0$ und $a_1$ dargestellt als Graph. Für jeden Zustand gibt es bei jeder Aktion eine ausgehende Kante mit der Wahrscheinlichkeit des Übergangs in den entsprechenden Zustand als Kantengewicht. Die gelben Pfeile symbolisieren die Belohnung bzw. die Kosten für bestimmte Übergänge. Im Allgemeinen müssen nicht notwendigerweise alle Aktionen von jedem Zustand aus wählbar sein. TODO Quelle: Wikipedia..?} %TODO Zu lang?
+\end{figure}
+Der MDP besteht aus vier grundlegenden Elementen:
+\begin{enumerate}
+	\item \textbf{Zustände} beschreiben jeweils einen bestimmten Zustand in dem man sich befinden kann. Von jedem Zustand aus gibt es eine bestimmte Menge von ausführbaren Aktionen. Die Menge der Zustände bezeichnen wir im Folgenden als $S$. %TODO Frage: Böse? Equation wäre hier komisch.
+	\item \textbf{Aktionen} beschreiben Dinge, die ausgeführt werden können. Das Hauptproblem beim Lösen von MDPs ist eine beste Aktion für jeden Zustand zu finden. Die Menge an Zuständen bezeichnen wir im Folgenden als $A$.
+	\item Der \textbf{Übergang} $P(s, a, s')$ drückt die Wahrscheinlichkeit aus, dass man sich nach Wählen der Aktion $a$ in Zustand $s$ im Zustand $s'$ befindet. P ist also eine wie folgt geartete Abbildung:	
+	\begin{equation}
+		P: S \times A \times S \rightarrow [0..1]
+	\end{equation}
+	\item Die \textbf{Gütefunktion} $R$ drückt sowohl die Belohnung als auch die Kosten für bestimmte Übergänge aus. Kosten werden als negative Zahlen und Belohnungen als positive Zahlen dargestellt.
+	\begin{equation}
+		R: S \times S \rightarrow \mathbb{Z}
+	\end{equation}
+	Beim Lösen von MDPs gilt es in einem gewissen Zeitraum die 
+\end{enumerate}
+Ein MDP ist also das 4-Tupel.
+\begin{equation}
+	(S, A, P, R)
+\end{equation}
+
 
 
 \section{Lösung von MDPs}
