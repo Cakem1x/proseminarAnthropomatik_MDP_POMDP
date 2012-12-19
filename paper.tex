@@ -53,7 +53,7 @@ Aufbereitung des Markow-Entscheidungsprozess am Beispiel von autonomen Robotern.
 \section{Einleitung}
 Diese Ausarbeitung beschäftigt sich mit dem Markov-Entscheidungsprozess (Englisch: Markov decision process, kurz MDP), ein mathematisches Modell zur Modellierung von Entscheidungsproblemen. Es wurde nach dem russischen Mathematiker Andrey Markov benannt. Der MDP wird verwendet um Situationen, bei denen Aktionen nicht deterministische Folgen haben können zu modellieren und aus dem Modell eine Strategie, also eine Aktion für jeden Zustand, zu errechnen.
 
-Die Erklärungen zu dem MDP werden unterstützt und motiviert durch Beispiele aus dem Bereich der autonomen Robotern. Die angeführten Beispiele basieren auf denen in den Kapiteln Markov Decision Process und Partially Observable Markov Decision Process verwendeten Beispielen des Buches \emph{Probabilistic Robotics} \cite{PR_ThrunBurgardFox}. Damit soll in keinster Weise impliziert werden, dass der MDP lediglich in diesem Bereich für von Interesse ist.
+Die Erklärungen zu dem MDP werden unterstützt und motiviert durch Beispiele aus dem Bereich der autonomen Robotern. Die angeführten Beispiele basieren auf denen in den Kapiteln Markov Decision Process und Partially Observable Markov Decision Process verwendeten Beispielen des Buches \emph{Probabilistic Robotics} \cite{thrun2005probabilistic}. Damit soll in keinster Weise impliziert werden, dass der MDP lediglich in diesem Bereich für von Interesse ist.
 
 
 \section{MDP}
@@ -68,7 +68,7 @@ Im Folgenden wird immer wieder das Beispiel eines autonomen Roboters angeführt.
 
 Es existiert mehr als ein Weg für den Roboter das Ziel zu erreichen. Der kurze Pfad, der durch den engen Korridor führt und zwei weitere längere und breitere Pfade, die außen herum führen.
 
-(Aus \cite{PR_ThrunBurgardFox}) In einem klassischen Planungsbeispiel für Roboter existiert keine Unsicherheit. Der Roboter würde seine Position und die des Zielpunktes exakt kennen. Außerdem hätten ausgeführte Aktionen exakt vorhersehbare Effekte und solche Effekte können eingeplant werden. In so einer Situation würde es ausreichen vor Ausführung als Strategie eine einzelne Abfolge von Aktionen zu berechnen, die den Roboter möglichst schnell ans Ziel bringt.
+(Aus \cite{thrun2005probabilistic}) In einem klassischen Planungsbeispiel für Roboter existiert keine Unsicherheit. Der Roboter würde seine Position und die des Zielpunktes exakt kennen. Außerdem hätten ausgeführte Aktionen exakt vorhersehbare Effekte und solche Effekte können eingeplant werden. In so einer Situation würde es ausreichen vor Ausführung als Strategie eine einzelne Abfolge von Aktionen zu berechnen, die den Roboter möglichst schnell ans Ziel bringt.
 
 \begin{figure}[ht]
 	\centering
