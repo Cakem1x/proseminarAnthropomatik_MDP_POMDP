@@ -60,8 +60,8 @@ Die Erklärungen zu dem MDP werden unterstützt und motiviert durch Beispiele au
 \subsection{Motivation}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=0.42]{images/autnmRobot_basicSituation.png}
-	\caption{Eine beispielhafte Umgebung mit Roboter und Ziel. Der Roboter befindet sich mittig mit der Aufgabe sich zu dem Zielpunkt im linken Bereich der Umgebung zu bewegen.}
+	\includegraphics[scale=0.72]{images/autnmRobot_basicSituation.png}
+	\caption{Eine beispielhafte Umgebung mit Roboter und Ziel. Der Roboter befindet sich mittig mit der Aufgabe sich zu dem Zielpunkt im linken Bereich der Umgebung zu bewegen. (Aus \cite{thrun2005probabilistic})}
 	\label{fig:holoch_autnmRob_bSit}
 \end{figure}
 Im Folgenden wird immer wieder das Beispiel eines autonomen Roboters angeführt. In der Abbildung \ref{fig:holoch_autnmRob_bSit} ist eine beispielhafte Umgebung mit Roboter und Ziel zu sehen. Der Roboter befindet sich in der Mitte der Umgebung und seine Aufgabe ist es, den Zielpunkt im linken Bereich der Umgebung zu erreichen. 
@@ -72,8 +72,8 @@ Es existiert mehr als ein Weg für den Roboter das Ziel zu erreichen. Der kurze 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=0.42]{images/autnmRobot_directPath.png}
-	\caption{Ohne die Anwesenheit von Fehlern in der Bewegung des Roboters ist der kürzere, enge Pfad dem längeren, breiten Pfad klar überlegen.}
+	\includegraphics[scale=0.72]{images/autnmRobot_directPath.png}
+	\caption{Ohne die Anwesenheit von Fehlern in der Bewegung des Roboters ist der kürzere, enge Pfad dem längeren, breiten Pfad klar überlegen. (Aus \cite{thrun2005probabilistic})}
 	\label{fig:holoch_autnmRob_dirPath}
 \end{figure}
 Abbildung \ref{fig:holoch_autnmRob_dirPath} zeigt eine solche Strategie. Da bisher angenommen wurde, dass der Roboter absolut fehlerfrei funktioniert ist der kürzere, enge Pfad jedem der längeren, breiten Pfade vorzuziehen.
@@ -119,14 +119,14 @@ In Abbildung \ref{fig:holoch_MDP_example} ist ein MDP mit drei Zuständen $s_1, 
 \subsection{Motivation}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=0.42]{images/autnmRobot_detActionMDP.png}
-	\caption{Darstellung einer Strategie bei \emph{nicht} probabilistischen Effekten bei der Aktionsausführung. Hier ist der kurze Pfad klar überlegen.}
+	\includegraphics[scale=0.72]{images/autnmRobot_detActionMDP.png}
+	\caption{Darstellung einer Strategie bei \emph{nicht} probabilistischen Effekten bei der Aktionsausführung. Hier ist der kurze Pfad klar überlegen. (Aus \cite{thrun2005probabilistic})}
 	\label{holoch_autnmRobot_detA}
 \end{figure}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=0.42]{images/autnmRobot_ndetActionMDP.png}
-	\caption{Darstellung einer Strategie bei probabilistischen Effekten bei der Aktionsausführung. Hier wird der längere Pfad bevorzugt.}
+	\includegraphics[scale=0.72]{images/autnmRobot_ndetActionMDP.png}
+	\caption{Darstellung einer Strategie bei probabilistischen Effekten bei der Aktionsausführung. Hier wird der längere Pfad bevorzugt. (Aus \cite{thrun2005probabilistic})}
 	\label{holoch_autnmRobot_ndetA}
 \end{figure}
 Nun haben wir ein Modell kennengelernt, mit dem wir Unsicherheit in der Aktionsausführung korrekt modellieren können. Um damit in der Praxis etwas anfangen zu können müssen wir einen Weg finden aus dem Modell eine Lösung zu errechnen. Eine Lösung für ein MDP nennt man \textbf{Strategie}. Eine solche Strategie ist eine Abbildung, die jedem Zustand eine optimale Aktion zuordnet:
