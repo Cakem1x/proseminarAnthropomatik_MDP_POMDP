@@ -157,20 +157,25 @@ In Abbildung \ref{fig:MDP_example} ist ein MDP mit drei Zuständen $s_1, s_2, s_
 
 \section{Lösung von MDPs}
 \subsection{Motivation}
-Nun haben wir ein Modell kennengelernt, mit dem wir Unsicherheit in der Aktionsausführung korrekt modellieren können. Um damit in der Praxis etwas anfangen zu können müssen wir einen Weg finden aus dem Modell eine Lösung zu errechnen. Eine Lösung für ein MDP nennt man \textbf{Strategie}. Eine solche Strategie ist eine Abbildung, die jedem Zustand eine optimale Aktion zuordnet
+Nun haben wir ein Modell kennengelernt, mit dem wir Unsicherheit in der Aktionsausführung korrekt modellieren können. Eine Strategie, die wir aus einem MDP errechnen ist eine Abbildung, die jedem Zustand eine optimale Aktion zuordnet
 \begin{equation}
 	\pi: S \rightarrow A.
 \end{equation}
-Abbildung \ref{autnmRobot_detA} zeigt eine beispielhafte Strategie bei \emph{nicht} probabilistischen Effekten bei der Aktionsausführung. Hier ist wie in vorherigen Kapitel schon besprochen der kürzere, enge Pfad überlegen. Abbildung \ref{autnmRobot_ndetA} hingegen zeigt eine beispielhafte Strategie mit Unsicherheit in der Aktionsausführung. Im Gegensatz zu Abbildung \ref{autnmRobot_detA} wird hier der enge Pfad gemieden bis zu einem gewissen Grade gemieden.
+Stichpunktartig:
 
-Als nächstes müssen wir uns darüber klar werden, was eine \"beste\" Lösung ist...
-...Strategie versucht auf irgendeine Art und Weise die Gütefunktion zu maximieren...
+Was ist eine \"optimale\" Aktion?
+
+Unsere Strategie versucht auf irgendeine Art und Weise die Gütefunktion zu maximieren...
+
+Meistens möchte man nicht, dass die Aktion gewählt wird, die unmittelbar die höchste Belohnung liefert. Viel mehr ist es interessant bis zu einem gewissen zeitlichen Horizont Aktionen so zu wählen, dass die erwartete Summe der Belohnungen bzw. Kosten maximal wird.
+
+In unserem Beispiel könnte die Gütefunktion so modelliert sein, dass nur das Erreichen das Zielpunktes eine Belohnung gibt, jede andere Bewegung kostet. 
 
 \subsection{Value Iteration} %TODO german title?
 Algorithmus beschreiben: Zeit Horizont, ... %TODO schönerer deutscher Begriff hierfür?
 Greedy Case: T=1
 Endlicher Horizont: T=n
-Unendlicher Horizont: Probleme ohne discount factor (siehe Buch)
+Unendlicher Horizont: Probleme ohne discount factor (siehe Buch) %TODO schönerer deutscher Begriff hierfür?
 
 
 \section{Ausblick: POMDP}
@@ -182,14 +187,16 @@ Unterschied zu MDP: Es ist nie klar, in welchem Zustand man sich befindet. Statt
 
 
 \section{Lösen von POMDPs}
-\subsection{Motivation}
-Motivierender Text hier! :)
-
 \subsection{Value Iteration?}
 Idee ein POMDP als Coninuous Space MDP zu sehen. --> Value Iteration artig lösen. Eventuell tatsächliche Algorithmen nennen.
 
+\subsection{Weitere Algorithmen}
+
+
 \section{Zusammenfassung und Ausblick}
-Foo
+Zusammenfassung hier.
+
+Dann eine Liste von weiteren Anwendungsgebieten. (aus Papier zitiert)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Literaturverzeichnis (in literatur.bib, z.B. mit Jabref editieren) 
