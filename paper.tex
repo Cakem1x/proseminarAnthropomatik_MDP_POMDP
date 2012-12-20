@@ -51,9 +51,9 @@ Aufbereitung des Markow-Entscheidungsprozess am Beispiel von autonomen Robotern.
 
 
 \section{Einleitung}
-Diese Ausarbeitung beschäftigt sich mit dem Markov-Entscheidungsprozess (Englisch: Markov decision process, kurz MDP), ein mathematisches Modell zur Modellierung von Entscheidungsproblemen. Es wurde nach dem russischen Mathematiker Andrey Markov benannt. Der MDP wird verwendet um Situationen, bei denen Aktionen nicht deterministische Folgen haben können zu modellieren und aus dem Modell eine Strategie, also eine Aktion für jeden Zustand, zu errechnen.
+Diese Ausarbeitung beschäftigt sich mit dem Markov-Entscheidungsprozess (englisch: Markov decision process, kurz MDP), ein mathematisches Modell zur Modellierung von Entscheidungsproblemen. Es wurde nach dem russischen Mathematiker Andrey Markov benannt. Der MDP wird verwendet um Situationen, bei denen Aktionen nicht deterministische Folgen haben können zu modellieren und aus dem Modell eine Strategie, also eine Aktion für jeden Zustand, zu errechnen.
 
-Die Erklärungen zu dem MDP werden unterstützt und motiviert durch Beispiele aus dem Bereich der autonomen Robotern. Die angeführten Beispiele basieren auf denen in den Kapiteln Markov Decision Process und Partially Observable Markov Decision Process verwendeten Beispielen des Buches \emph{Probabilistic Robotics} \cite{thrun2005probabilistic}. Damit soll in keinster Weise impliziert werden, dass der MDP lediglich in diesem Bereich für von Interesse ist.
+Die Erklärungen zu dem MDP werden unterstützt und motiviert durch Beispiele aus dem Bereich der autonomen Robotern. Die angeführten Beispiele basieren auf Beispielen aus \cite{thrun2005probabilistic}. Damit soll in keinster Weise impliziert werden, dass der MDP lediglich in diesem Bereich für von Interesse ist.
 
 
 \section{MDP}
@@ -68,7 +68,7 @@ Im Folgenden wird immer wieder das Beispiel eines autonomen Roboters angeführt.
 
 Es existiert mehr als ein Weg für den Roboter das Ziel zu erreichen. Der kurze Pfad, der durch den engen Korridor führt und zwei weitere längere und breitere Pfade, die außen herum führen.
 
-(Aus \cite{thrun2005probabilistic}) In einem klassischen Planungsbeispiel für Roboter existiert keine Unsicherheit. Der Roboter würde seine Position und die des Zielpunktes exakt kennen. Außerdem hätten ausgeführte Aktionen exakt vorhersehbare Effekte und solche Effekte können eingeplant werden. In so einer Situation würde es ausreichen vor Ausführung als Strategie eine einzelne Abfolge von Aktionen zu berechnen, die den Roboter möglichst schnell ans Ziel bringt.
+In einem klassischen Planungsbeispiel für Roboter existiert keine Unsicherheit. Der Roboter würde seine Position und die des Zielpunktes exakt kennen. Außerdem hätten ausgeführte Aktionen exakt vorhersehbare Effekte und solche Effekte können eingeplant werden. In so einer Situation würde es ausreichen vor Ausführung als Strategie eine einzelne Abfolge von Aktionen zu berechnen, die den Roboter möglichst schnell ans Ziel bringt.
 
 \begin{figure}[ht]
 	\centering
@@ -86,31 +86,30 @@ Ein Modell, was die Unsicherheit bei der Aktionsausführung von Robotern mit ein
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.42]{images/MDP_example.png}
-	\caption{Beispiel eines simplen MDP mit drei Zuständen $s_1, s_2, s_3$ und zwei Aktionen $a_0$ und $a_1$ dargestellt als Graph. Im Allgemeinen müssen nicht notwendigerweise alle Aktionen von jedem Zustand aus wählbar sein. (Aus \cite{mistWitz_MDPexample}} %TODO
+	\caption{Beispiel eines simplen MDP mit drei Zuständen $s_1, s_2, s_3$ und zwei Aktionen $a_0$ und $a_1$ dargestellt als Graph. Im Allgemeinen müssen nicht notwendigerweise alle Aktionen von jedem Zustand aus wählbar sein. (Aus \cite{mistWitz_MDPexample}}
 	\label{fig:holoch_MDP_example}
 \end{figure}
-Der MDP besteht aus vier grundlegenden Elementen:
+Ein MDP ist ein 4-Tupel
+\begin{equation}
+	(S, A, P, R) \ .
+\end{equation}
+Es gibt also folgende vier grundlegende Komponenten:
 \begin{enumerate}
-	\item \textbf{Zustände} beschreiben jeweils einen bestimmten Zustand in dem man sich befinden kann. Von jedem Zustand aus gibt es eine bestimmte Menge von ausführbaren Aktionen. Die Menge der Zustände bezeichnen wir im Folgenden als $S$. %TODO Frage: Böse? Equation wäre hier komisch.
-	\item \textbf{Aktionen} beschreiben Dinge, die ausgeführt werden können. Das Hauptproblem beim Lösen von MDPs ist eine beste Aktion für jeden Zustand zu finden. Die Menge an Zuständen bezeichnen wir im Folgenden als $A$.
-	\item Der \textbf{Übergang} $P(s, a, s')$ drückt die Wahrscheinlichkeit aus, dass man sich nach Wählen der Aktion $a$ in Zustand $s$ im Zustand $s'$ befindet. P ist also eine wie folgt geartete Abbildung:	
+	\item \textbf{Zustände} beschreiben jeweils einen bestimmten Zustand in dem man sich befinden kann. Von jedem Zustand aus gibt es eine bestimmte Menge von ausführbaren Aktionen. Die Menge der Zustände bezeichnen wir als $S$.
+	\item \textbf{Aktionen} beschreiben Dinge, die ausgeführt werden können. Das Hauptproblem beim Lösen von MDPs ist eine beste Aktion für jeden Zustand zu finden. Die Menge an Zuständen bezeichnen wir als $A$.
+	\item Der \textbf{Übergang} $P(s, a, s')$ drückt die Wahrscheinlichkeit aus, dass man sich nach Wählen der Aktion $a$ in Zustand $s$ im Zustand $s'$ befindet. $P$ ist also die Abbildung
 	\begin{equation}
 		\begin{split}
 			P: S \times A \times S \rightarrow [0..1] \text{, mit} \\
-			\forall s \in S, \forall a \in A: \sum_{s' \in S} P(s, a, s') = 1
+			\forall s \in S, \forall a \in A: \sum_{s' \in S} P(s, a, s') = 1 \ .
 		\end{split}
-	\end{equation} %TODO böse? Und korrekt?
-	\item Die \textbf{Gütefunktion} $R$ drückt sowohl die Belohnung als auch die Kosten für bestimmte Übergänge aus. Kosten werden als negative Zahlen und Belohnungen als positive Zahlen dargestellt.
+	\end{equation}
+	\item Die \textbf{Gütefunktion} $R$ drückt sowohl die Belohnung als auch die Kosten für bestimmte Übergänge aus. Kosten werden als negative Zahlen und Belohnungen als positive Zahlen dargestellt. $R$ ist also die Abbildung
 	\begin{equation}
-		R: S \times S \rightarrow \mathbb{Z}
+		R: S \times S \rightarrow \mathbb{Z} \ .
 		\label{eq:guetefkt}
 	\end{equation}
-	Beim Lösen von MDPs gilt es in einem gewissen Zeitraum die 
 \end{enumerate}
-Ein MDP ist also ein 4-Tupel.
-\begin{equation}
-	(S, A, P, R)
-\end{equation}
 Wie in Abbildung \ref{fig:holoch_MDP_example} dargestellt kann man ein MDP als Graph veranschaulichen. Man kann sich allerdings leicht vorstellen, dass es ein solcher Graph bei steigender Zustandszahl zunehmen unübersichtlich wird.
 In Abbildung \ref{fig:holoch_MDP_example} ist ein MDP mit drei Zuständen $s_1, s_2, s_3$ und zwei Aktionen $a_0$ und $a_1$. Für jeden Zustand gibt es bei jeder Aktion eine ausgehende Kante mit der Wahrscheinlichkeit des Übergangs in den entsprechenden Zustand als Kantengewicht. Die gelben Pfeile symbolisieren die Belohnung bzw. die Kosten (siehe Gütefunktion(\ref{eq:guetefkt})) für bestimmte Übergänge.
 
@@ -129,9 +128,9 @@ In Abbildung \ref{fig:holoch_MDP_example} ist ein MDP mit drei Zuständen $s_1, 
 	\caption{Darstellung einer Strategie bei probabilistischen Effekten bei der Aktionsausführung. Hier wird der längere Pfad bevorzugt. (Aus \cite{thrun2005probabilistic})}
 	\label{holoch_autnmRobot_ndetA}
 \end{figure}
-Nun haben wir ein Modell kennengelernt, mit dem wir Unsicherheit in der Aktionsausführung korrekt modellieren können. Um damit in der Praxis etwas anfangen zu können müssen wir einen Weg finden aus dem Modell eine Lösung zu errechnen. Eine Lösung für ein MDP nennt man \textbf{Strategie}. Eine solche Strategie ist eine Abbildung, die jedem Zustand eine optimale Aktion zuordnet:
+Nun haben wir ein Modell kennengelernt, mit dem wir Unsicherheit in der Aktionsausführung korrekt modellieren können. Um damit in der Praxis etwas anfangen zu können müssen wir einen Weg finden aus dem Modell eine Lösung zu errechnen. Eine Lösung für ein MDP nennt man \textbf{Strategie}. Eine solche Strategie ist eine Abbildung, die jedem Zustand eine optimale Aktion zuordnet
 \begin{equation}
-	\pi: S \rightarrow A
+	\pi: S \rightarrow A.
 \end{equation}
 Abbildung \ref{holoch_autnmRobot_detA} zeigt eine beispielhafte Strategie bei \emph{nicht} probabilistischen Effekten bei der Aktionsausführung. Hier ist wie in vorherigen Kapitel schon besprochen der kürzere, enge Pfad überlegen. Abbildung \ref{holoch_autnmRobot_ndetA} hingegen zeigt eine beispielhafte Strategie mit Unsicherheit in der Aktionsausführung. Im Gegensatz zu Abbildung \ref{holoch_autnmRobot_detA} wird hier der enge Pfad gemieden bis zu einem gewissen Grade gemieden.
 
