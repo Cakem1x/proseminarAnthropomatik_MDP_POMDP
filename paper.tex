@@ -99,36 +99,15 @@ Abbildung \ref{autnmRobot_detA} zeigt eine solche Strategie für einen Roboter m
 
 Allerdings setzt der MDP voraus, dass der Agent, in unserem Beispiel der Roboter, den Zustand der Umgebung zu jedem Zeitpunkt exakt erkennen kann. Wir müssten also annehmen, dass die Sensoren des Roboters perfekt funktionieren.
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=0.72]{images/autnmRobot_POMDPPathA.png}
-	\caption{Die Strategie zu einem Zeitpunkt, an dem die Orientierung des Roboters noch nicht feststeht. Um zu vermeiden, auf Grund der Symmetrie der Umgebung in die falsche Richtung zu fahren ist es sinnvoll an den linken bzw. den rechten Rand der Umgebung zu fahren, die sich deutlich unterscheiden. (Aus \cite{thrun2005probabilistic})}
-	\label{autnmRobot_POMDPPathA}
-\end{figure}
+In der Praxis ist natürlich auch diese Annahme nicht haltbar. Jedes Sensormodul hat mehr oder weniger stark ausgeprägtes Fehlerrauschen. Bei den meisten Anwendungen, wie auch bei unserem Beispiel, kommt sogar noch ein weiteres Problem hinzu: Falls der Roboter nicht über äußerst ausgeklügelte Positionsbestimmungssensoren verfügt, dann ist es ihm auf Grund der Symmetrie der Beispielumgebung nicht möglich festzustellen, wie er orientiert ist und damit in welcher Richtung das Ziel liegt.
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=0.72]{images/autnmRobot_POMDPPathB.png}
-	\caption{Die Strategie zu dem Zeitpunkt, an dem durch den Markanten Punkt am rechten Rand der Roboter den Ort des Zieles mit sehr hoher Wahrscheinlichkeit kennt. (Aus \cite{thrun2005probabilistic})}
-	\label{autnmRobot_POMDPPathB}
-\end{figure}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=0.72]{images/autnmRobot_POMDPPathC.png}
-	\caption{Die Strategie zu dem Zeitpunkt, an dem durch den Markanten Punkt am linken Rand der Roboter den Ort des Zieles mit sehr hoher Wahrscheinlichkeit kennt. (Aus \cite{thrun2005probabilistic})}
-	\label{autnmRobot_POMDPPathC}
-\end{figure}
-
-In der Praxis ist natürlich auch diese Annahme nicht haltbar. Jedes Sensormodul hat mehr oder weniger stark ausgeprägtes Fehlerrauschen. Bei den meisten Anwendungen, wie auch bei unserem Beispiel, kommt sogar noch ein weiteres Problem hinzu: Falls der Roboter nicht über äußerst ausgeklügelte Positionsbestimmungssensoren verfügt, dann ist es ihm auf Grund der Symmetrie der Beispielumgebung nicht möglich festzustellen, wie er orientiert ist und damit in welcher Richtung das Ziel liegt. Das einzige Unterscheidungsmerkmal findet sich am linken bzw. rechten Ende der Umgebung. Direkt in Richtung eines möglichen Zielortes zu fahren würde eine 50\% Chance mit sich bringen das Ziel zu verpassen und stattdessen zu dem entsprechenden Ort auf der anderen Seite zu fahren. Optimalerweise muss der Roboter nun also zuerst in eine der Ecken fahren um sicher feststellen zu können, wo sich das genau Ziel befindet. (Das Ziel selbst ist für die Sensoren des Roboters nicht wahrnehmbar)
-
-Wir benötigen also ein Modell, in dem der Zustand der Umgebung nicht mehr vollständig beobachtbar sein muss. Ein solches Modell ist der teilweise beobachtbare Markov-Entscheidungsprozess. (englisch: partially observable Markov decision process, kurz: POMDP)
+Ein solches Modell, der teilweise beobachtbare Markov-Entscheidungsprozess (englisch: partially observable Markov decision process, kurz: POMDP), wird im vierten Kapitel dieser Ausarbeitung kurz angerissen.
 
 \section{MDP}
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.42]{images/MDP_example.png}
-	\caption{Beispiel eines simplen MDP mit drei Zuständen $s_1, s_2, s_3$ und zwei Aktionen $a_0$ und $a_1$ dargestellt als Graph. Im Allgemeinen müssen nicht notwendigerweise alle Aktionen von jedem Zustand aus wählbar sein.}
+	\caption{Beispiel eines simplen MDP mit drei Zuständen $s_1, s_2, s_3$ und zwei Aktionen $a_0$ und $a_1$ dargestellt als Graph.}
 	\label{fig:MDP_example} %TODO Dieses Bild ist durch die Änderung der Definition nicht mehr passend. Am besten selbst ein Bild machen.
 \end{figure}
 Nach \cite{cassandra1995acting} ist ein MDP definiert als ein 4-Tupel
@@ -161,7 +140,7 @@ Nun haben wir ein Modell kennengelernt, mit dem wir Unsicherheit in der Aktionsa
 \begin{equation}
 	\pi: S \rightarrow A.
 \end{equation}
-Stichpunktartig:
+Stichpunktartig: %TODO
 
 Was ist eine optimale Aktion?
 
@@ -178,9 +157,41 @@ Endlicher Horizont: T=n
 Unendlicher Horizont: Probleme ohne discount factor (siehe Buch) %TODO schönerer deutscher Begriff hierfür?
 
 
-\section{Ausblick: POMDP}
+\section{POMDP}
 \subsection{Motivation}
-Die Annahme, dass Sensoren perfekt sind ist offensichtlich in der Realität nicht erfüllbar. Daher: POMDP!
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=0.72]{images/autnmRobot_POMDPPathA.png}
+	\caption{Die Strategie zu einem Zeitpunkt, an dem die Orientierung des Roboters noch nicht feststeht. Um zu vermeiden, auf Grund der Symmetrie der Umgebung in die falsche Richtung zu fahren ist es sinnvoll an den linken bzw. den rechten Rand der Umgebung zu fahren, die sich deutlich unterscheiden. (Aus \cite{thrun2005probabilistic})}
+	\label{autnmRobot_POMDPPathA}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=0.72]{images/autnmRobot_POMDPPathB.png}
+	\caption{Die Strategie zu dem Zeitpunkt, an dem durch den Markanten Punkt am rechten Rand der Roboter den Ort des Zieles mit sehr hoher Wahrscheinlichkeit kennt. (Aus \cite{thrun2005probabilistic})}
+	\label{autnmRobot_POMDPPathB}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=0.72]{images/autnmRobot_POMDPPathC.png}
+	\caption{Die Strategie zu dem Zeitpunkt, an dem durch den Markanten Punkt am linken Rand der Roboter den Ort des Zieles mit sehr hoher Wahrscheinlichkeit kennt. (Aus \cite{thrun2005probabilistic})}
+	\label{autnmRobot_POMDPPathC}
+\end{figure}
+
+Bisher nahmen wir an, dass die Sensoren des Roboters jederzeit den exakten Zustand der Umgebung wahrnehmen können. In der Praxis liefern Sensoren lediglich ein verrauschtes Abbild der Umgebung. Daher kann der Zustand nur bis zu einem gewissen Grade geschätzt werden.
+
+Um diese Problematik zu veranschaulichen betrachten wir nun wieder unsere Beispielanwendung. Das einzige Unterscheidungsmerkmal findet sich am linken bzw. rechten Ende der Umgebung. Direkt in Richtung eines möglichen Zielortes zu fahren würde eine 50\% Chance mit sich bringen das Ziel zu verpassen und stattdessen zu dem entsprechenden Ort auf der anderen Seite zu fahren. Optimalerweise muss der Roboter nun also zuerst in eine der Ecken fahren um sicher feststellen zu können, wo sich das genau Ziel befindet. (Das Ziel selbst ist für die Sensoren des Roboters nicht wahrnehmbar)
+
+Stichpunktartig: %TODO
+
+Schlüsselaspekt bei probabilistic robotics: Der Roboter führt information gather tasks aus (hier das fahren in eine der Ecken)
+
+Wir benötigen also ein Modell, in dem der Zustand der Umgebung nicht mehr vollständig beobachtbar sein muss. (Wahrscheinlichkeitsverteilung über die Zustände..?)
+
+Strategien generieren, die auf dem belief state oder information space arbeiten. Eine solche Strategie für unser einfaches Beispiel ist in Abbildungen \ref{autnmRobot_POMDPPathA}, \ref{autnmRobot_POMDPPathB}, \ref{autnmRobot_POMDPPathC} zu sehen.
+
 
 \subsection{POMDP}
 Unterschied zu MDP: Es ist nie klar, in welchem Zustand man sich befindet. Stattdessen gibt es eine Funktion, die eine Wahrscheinlichkeitsverteilung über die Zustände beschreibt.
