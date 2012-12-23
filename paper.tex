@@ -125,31 +125,75 @@ Es gibt also folgende vier grundlegende Komponenten:
 	drückt die Wahrscheinlichkeit aus, dass sich die Umgebung nach Wählen der Aktion $a$ in Zustand $s$ im Zustand $s'$ befindet.
 	\item Die Gütefunktion
 	\begin{equation}
-		R: S \times A \rightarrow \mathbb{R}
+		r: S \times A \rightarrow \mathbb{R}
 		\label{eq:guetefkt}
 	\end{equation}
-	drückt die sofortige Belohnung bzw. die sofortigen Kosten für den Agenten in Abhängigkeit von der gewählten Aktion in einem Zustand aus. Kosten werden als negative Zahlen und Belohnungen als positive Zahlen dargestellt.
+	drückt die sofortige Belohnung bzw. die sofortigen Kosten (englisch: payoff) für den Agenten in Abhängigkeit von der gewählten Aktion in einem Zustand aus. Kosten werden als negative Zahlen und Belohnungen als positive Zahlen dargestellt.
 \end{enumerate}
 In Abbildung \ref{fig:MDP_example} ist ein MDP mit drei Zuständen $s_1, s_2, s_3$ und zwei Aktionen $a_0$ und $a_1$ als Graph dargestellt. Für jeden Zustand $s \in S$ gibt es eine Teilmenge $A_s \subseteq A$ von Aktionen von denen ausgehende Kante die Wahrscheinlichkeit des Übergangs in den entsprechenden Folgezustand als Kantengewicht darstellen. Die gelben Pfeile symbolisieren die Belohnung bzw. die Kosten (siehe Gütefunktion(\ref{eq:guetefkt})) für bestimmte Aktionen in bestimmten Zuständen.
 
 In mancher Literatur finden sich auch leicht anders geartete Definitionen. In \cite{russell1995artificial} ist beispielsweise die Gütefunktion eine Funktion, die lediglich von dem Zustand abhängt und es gibt eine Teilmenge $S_{terminal} \subseteq S$ der Zustandsmenge die als Terminalzustände bezeichnet werden. Sobald sich der Agent in einem Temrinalzustand befindet kann er keine Aktionen mehr durchführen. Dadurch kann die Modellierungen bestimmter Umgebungen vereinfacht werden, verändert das Problem nur unwesentlich.
 
 
-\section{Lösen von MDPs}
+\section{Strategien aus dem MDP}
 \subsection{Motivation}
-Nun haben wir ein Modell kennengelernt, mit dem wir Unsicherheit in der Aktionsausführung korrekt modellieren können. Eine Strategie, die wir aus einem MDP errechnen ist eine Abbildung, die jedem Zustand eine optimale Aktion zuordnet
+Nun haben wir ein Modell kennengelernt, mit dem wir Unsicherheit in der Aktionsausführung korrekt modellieren können. Damit der Roboter aus unserem Beispiel tatsächlich etwas mit dieser Art der Modellierung anfangen kann, müssen wir einen Weg finden aus dem Modell eine Strategie vor zu berechnen. Wie wir schon erkannt haben reicht dazu eine festgelegte Sequenz an Aktionen nicht aus. Stattdessen muss eine Strategie für jeden möglichen Zustand festlegen, was zu tun ist. Eine gängige Bezeichnung einer Strategie (englisch: policy) ist
 \begin{equation}
-	\pi: S \rightarrow A.
+	\pi:S \rightarrow A
 \end{equation}
-Stichpunktartig: %TODO
+und $\pi(s)$ ist die von der Strategie $\pi$ vorgeschlagene Aktion im Zustand $s$. Hat der Roboter eine solche Strategie ist immer klar was er als nächstes zu tun hat - unabhängig davon, was bei der Aktionsausführung tatsächlich geschieht.
 
-Was ist eine optimale Aktion?
+\subsection{Optimale Strategie}
+Ein wichtiges Konzept im Kontext von Strategien ist der Planungshorizont. (englisch: planning horizon) In manchen Fällen kann es reichen eine Strategie so zu wählen, dass die unmittelbare Belohnung maximiert wird. In den meisten Fällen zahlen sich Aktionen aber nicht sofort aus. In unserem Beispiel wäre eine Gütefunktion
+\begin{equation}
+	r(s,a) = \left\{ \begin{array}{rl}
+		+100 &\mbox{ falls $a$ in das Ziel führt} \\
+		-1 &\mbox{ sonst}
+       \end{array} \right.
+\end{equation}
+denkbar. Hier wird deutlich erkennbar, dass die Belohnung erst nach vielen Aktionen eintritt. Daher kann eine Strategie, die lediglich die unmittelbare Belohnung maximiert hier kein optimales Ergebnis liefern: Jede Aktion, egal ob sie in Richtung des Ziels oder vom Ziel weg führt hat die Kosten -1 und wären somit für eine solche Strategie gleichwertig.
+Stattdessen setzt man sich häufig zum Ziel die Summe der zukünftigen Belohnungen zu maximieren.
 
-Unsere Strategie versucht auf irgendeine Art und Weise die Gütefunktion zu maximieren...
+Die folgenden Ausführungen basieren auf \cite{russell1995artificial}. Zunächst müssen wir uns über den Wert einer Aktionsfolge 
+\begin{equation}
+	V([(s_0, a_0), (s_1, a_1), ..., (s_n, a_n)])
+\end{equation}
+klar werden. Ist unser Planungshorizont endlich, dann gibt es einen Zeitpunkt $n \in N$ nach dem Aktionen des Agenten nichts mehr etwas Wert ist. Demnach ist 
+\begin{equation}
+	\begin{split}
+		V([ (s_0, a_0), (s_1, a_1), ..., (s_n, a_n)]) \\
+		= V([ (s_0, a_0), (s_1, a_1), ..., (s_{n+k}, a_{n+k})]),\\
+		\forall k \in \mathbb{N} \ .
+	\end{split}
+\end{equation}
+Dadurch kann es vorkommen, dass beispielsweise ein Zielpunkt mit besonders hoher Belohnung zu einem bestimmten Zeitpunkt von manchen Zuständen aus nicht mehr erreicht werden kann und daher die optimale Aktion in diesem Zustand eine andere ist, als wäre der Agent zu einem früheren Zeit in diesem Zustand gewesen. Daher kommt der Effekt, dass bei einem endlichen Planungshorizont die optimale Aktion in einem Zustand sich über die Zeit ändern kann. Die optimale Strategie für einen endlichen Planungshorizont ist nicht stationär. (englisch: nonstationary)
 
-Meistens möchte man nicht, dass die Aktion gewählt wird, die unmittelbar die höchste Belohnung liefert. Viel mehr ist es interessant bis zu einem gewissen zeitlichen Horizont Aktionen so zu wählen, dass die erwartete Summe der Belohnungen bzw. Kosten maximal wird.
+Diese Problematik existiert nicht, wenn wir einen unendlichen Planungshorizont annehmen. Dann gibt es keinen Grund zu verschiedenen Zeitpunkten eine andere Aktion in demselben Zustand zu wählen.
 
-In unserem Beispiel könnte die Gütefunktion so modelliert sein, dass nur das Erreichen das Zielpunktes eine Belohnung gibt, jede andere Bewegung kostet. 
+Es gibt zwei gängige Möglichkeiten einer Aktionsfolge einen Wert zuzuweisen:
+\begin{enumerate}
+	\item \textbf{Additive Güte:} (englisch: additive rewards)
+		\begin{equation}
+			V([ (s_0, a_0), (s_1, a_1), ..., (s_n, a_n)]) = \sum\limits_{t=0}^n r(s_t, a_t)\ .
+		\end{equation}
+		Die additive Güte funktioniert nur dann gut, wenn der Planungshorizont endlich ist. Bei einem unendlichen Planungshorizont ($n \rightarrow \infty$) divergiert die Wertefunktion und zwei Aktionsfolgen können nicht mehr unterschieden werden. Als anschauliches Beispiel kann man sich zwei Arbeitsplätze vorstellen, von denen uns der eine 1 Geldeinheit pro Stunde einbringt und der andere 10 Geldeinheiten pro Stunde. Bei unendlichem Planungshorizont bringen beide Jobs unendlich viel Geldeinheiten ein.
+	\item \textbf{Reduzierte Güte:} (englisch: discounted rewards)
+		\begin{equation}
+			\begin{split}
+				V([ (s_0, a_0), (s_1, a_1), ..., (s_n, a_n)]) = \sum\limits_{t=0}^n \gamma^t r(s_t, a_t),\\
+				\text{mit }\gamma \in [0,1]\ .
+			\end{split}
+		\end{equation}
+		Der Reduzierungsfaktor $\gamma$ drückt aus, wie wichtig die zeitliche Nähe der Belohnung ist. Für $\gamma=1$ lässt sich mit der reduzierten Güte auch das additive Modell darstellen. Die additive Güte ist also ein Spezialfall der reduzierten Güte. Für $\gamma < 1$ konvergiert die Wertefunktion auch bei unendlichem Planungshorizont. Außerdem scheint diese Reduzierung ein gutes Modell für menschliches oder tierisches Verhalten zu sein.
+	\item
+		Eine weitere Möglichkeit bei unendlichem Planungshorizont wäre die durchschnittliche Güte pro Zeitschritt zu betrachten, sprengt aber den Rahmen dieser Ausarbeitung.
+\end{enumerate}
+Zusammenfassend ist die Verwendung von reduzierter Güte mit den wenigsten Problemen verbunden, um mit ihr den Wert einer Aktionsfolge zu bewerten.
+
+Der letzte Schritt ist nun die beste Strategie $\pi$ zu wählen, wobei wir im Kopf behalten müssen, dass eine Strategie nicht nur eine Aktionsfolge bedeutet, sondern eine ganze Reihe von möglichen Aktionsfolgen. Daher ist der Wert einer Strategie die erwartete Summe der reduzierten Güte aller Aktionsfolgen, die $\pi$ generieren könnte. Eine optimale Strategie ist
+\begin{equation}
+	\pi^* = \underset{\pi}{argmax}\ E [ \sum\limits_{t=0}^{\infty} \gamma^t r(s_t, a_t) \ \vert\ \pi]\. .
+\end{equation}
 
 \subsection{Value Iteration} %TODO german title?
 Algorithmus beschreiben: Zeit Horizont, ... %TODO schönerer deutscher Begriff hierfür?
