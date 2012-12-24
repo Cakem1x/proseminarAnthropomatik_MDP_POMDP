@@ -132,7 +132,7 @@ Es gibt also folgende vier grundlegende Komponenten:
 \end{enumerate}
 In Abbildung \ref{fig:MDP_example} ist ein MDP mit drei Zuständen $s_1, s_2, s_3$ und zwei Aktionen $a_0$ und $a_1$ als Graph dargestellt. Für jeden Zustand $s \in S$ gibt es eine Teilmenge $A_s \subseteq A$ von Aktionen von denen ausgehende Kante die Wahrscheinlichkeit des Übergangs in den entsprechenden Folgezustand als Kantengewicht darstellen. Die gelben Pfeile symbolisieren die Belohnung bzw. die Kosten (siehe Gütefunktion(\ref{eq:guetefkt})) für bestimmte Aktionen in bestimmten Zuständen.
 
-In mancher Literatur finden sich auch leicht anders geartete Definitionen. In \cite{russell1995artificial} ist beispielsweise die Gütefunktion eine Funktion, die lediglich von dem Zustand abhängt und es gibt eine Teilmenge $S_{terminal} \subseteq S$ der Zustandsmenge die als Terminalzustände bezeichnet werden. Sobald sich der Agent in einem Temrinalzustand befindet kann er keine Aktionen mehr durchführen. Dadurch kann die Modellierungen bestimmter Umgebungen vereinfacht werden, verändert das Problem nur unwesentlich.
+In mancher Literatur finden sich auch leicht anders geartete Definitionen. In \cite{russell1995artificial} ist beispielsweise die Gütefunktion eine Funktion, die lediglich von dem Zustand abhängt und es gibt eine Teilmenge $S_{terminal} \subseteq S$ der Zustandsmenge die als Terminalzustände bezeichnet werden. Sobald sich der Agent in einem Terminalzustand befindet kann er keine Aktionen mehr durchführen. Dadurch kann die Modellierungen bestimmter Umgebungen vereinfacht werden, verändert das Problem nur unwesentlich.
 
 
 \section{Strategien aus dem MDP}
@@ -158,7 +158,7 @@ Die folgenden Ausführungen basieren auf \cite{russell1995artificial}. Zunächst
 \begin{equation}
 	V([(s_0, a_0), (s_1, a_1), ..., (s_n, a_n)])
 \end{equation}
-klar werden. Ist unser Planungshorizont endlich, dann gibt es einen Zeitpunkt $n \in N$ nach dem Aktionen des Agenten nichts mehr etwas Wert ist. Demnach ist 
+klar werden. Ist unser Planungshorizont endlich, dann gibt es einen Zeitpunkt $n \in N$ nach dem Aktionen des Agenten nichts mehr Wert sind. Demnach ist 
 \begin{equation}
 	\begin{split}
 		V([ (s_0, a_0), (s_1, a_1), ..., (s_n, a_n)]) \\
@@ -166,17 +166,17 @@ klar werden. Ist unser Planungshorizont endlich, dann gibt es einen Zeitpunkt $n
 		\forall k \in \mathbb{N} \ .
 	\end{split}
 \end{equation}
-Dadurch kann es vorkommen, dass beispielsweise ein Zielpunkt mit besonders hoher Belohnung zu einem bestimmten Zeitpunkt von manchen Zuständen aus nicht mehr erreicht werden kann und daher die optimale Aktion in diesem Zustand eine andere ist, als wäre der Agent zu einem früheren Zeit in diesem Zustand gewesen. Daher kommt der Effekt, dass bei einem endlichen Planungshorizont die optimale Aktion in einem Zustand sich über die Zeit ändern kann. Die optimale Strategie für einen endlichen Planungshorizont ist nicht stationär. (englisch: nonstationary)
+Dadurch kann es vorkommen, dass beispielsweise ein Zielpunkt mit besonders hoher Belohnung zu einem bestimmten Zeitpunkt von manchen Zuständen aus nicht mehr erreicht werden kann und daher die optimale Aktion in diesem Zustand eine andere ist, als wäre der Agent zu einem früheren Zeit in diesem Zustand gewesen. Daher kommt der Effekt, dass bei einem endlichen Planungshorizont sich die optimale Aktion in demselben Zustand über die Zeit ändern kann. Die optimale Strategie für einen endlichen Planungshorizont ist nicht stationär. (englisch: nonstationary)
 
 Diese Problematik existiert nicht, wenn wir einen unendlichen Planungshorizont annehmen. Dann gibt es keinen Grund zu verschiedenen Zeitpunkten eine andere Aktion in demselben Zustand zu wählen.
 
-Es gibt zwei gängige Möglichkeiten einer Aktionsfolge einen Wert zuzuweisen:
+Es gibt mehrere Möglichkeiten einer Aktionsfolge einen Wert zuzuweisen:
 \begin{enumerate}
 	\item \textbf{Additive Güte:} (englisch: additive rewards)
 		\begin{equation}
 			V([ (s_0, a_0), (s_1, a_1), ..., (s_n, a_n)]) = \sum\limits_{t=0}^n r(s_t, a_t)\ .
 		\end{equation}
-		Die additive Güte funktioniert nur dann gut, wenn der Planungshorizont endlich ist. Bei einem unendlichen Planungshorizont ($n \rightarrow \infty$) divergiert die Wertefunktion und zwei Aktionsfolgen können nicht mehr unterschieden werden. Als anschauliches Beispiel kann man sich zwei Arbeitsplätze vorstellen, von denen uns der eine 1 Geldeinheit pro Stunde einbringt und der andere 10 Geldeinheiten pro Stunde. Bei unendlichem Planungshorizont bringen beide Jobs unendlich viel Geldeinheiten ein.
+		Die additive Güte funktioniert nur dann gut, wenn der Planungshorizont endlich ist. Bei einem unendlichen Planungshorizont ($n \rightarrow \infty$) divergiert die Wertefunktion und zwei Aktionsfolgen können nicht mehr unterschieden werden. Als anschauliches Beispiel kann man sich zwei Arbeitsplätze vorstellen, von denen uns der eine 1 Geldeinheit pro Stunde einbringt und der andere 10 Geldeinheiten pro Stunde. Bei unendlichem Planungshorizont bringen beide Jobs unendlich viel Geldeinheiten ein und sind dadurch für die Strategie gleichwertig.
 	\item \textbf{Reduzierte Güte:} (englisch: discounted rewards)
 		\begin{equation}
 			\begin{split}
@@ -184,7 +184,7 @@ Es gibt zwei gängige Möglichkeiten einer Aktionsfolge einen Wert zuzuweisen:
 				\text{mit }\gamma \in [0,1]\ .
 			\end{split}
 		\end{equation}
-		Der Reduzierungsfaktor $\gamma$ drückt aus, wie wichtig die zeitliche Nähe der Belohnung ist. Für $\gamma=1$ lässt sich mit der reduzierten Güte auch das additive Modell darstellen. Die additive Güte ist also ein Spezialfall der reduzierten Güte. Für $\gamma < 1$ konvergiert die Wertefunktion auch bei unendlichem Planungshorizont. Außerdem scheint diese Reduzierung ein gutes Modell für menschliches oder tierisches Verhalten zu sein.
+		Der Reduzierungsfaktor $\gamma$ (englisch: discount factor) drückt aus, wie wichtig die zeitliche Nähe der Belohnung ist. Für $\gamma=1$ lässt sich mit der reduzierten Güte auch das additive Modell darstellen. Die additive Güte ist also ein Spezialfall der reduzierten Güte. Für $\gamma < 1$ konvergiert die Wertefunktion auch bei unendlichem Planungshorizont. Außerdem scheint diese Reduzierung ein gutes Modell für menschliches oder tierisches Verhalten zu sein.
 	\item
 		Eine weitere Möglichkeit bei unendlichem Planungshorizont wäre die durchschnittliche Güte pro Zeitschritt zu betrachten, sprengt aber den Rahmen dieser Ausarbeitung.
 \end{enumerate}
