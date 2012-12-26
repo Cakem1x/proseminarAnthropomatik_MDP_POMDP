@@ -184,7 +184,14 @@ Es gibt mehrere Möglichkeiten einer Aktionsfolge einen Wert zuzuweisen:
 				\text{mit }\gamma \in [0,1]\ .
 			\end{split}
 		\end{equation}
-		Der Reduzierungsfaktor $\gamma$ (englisch: discount factor) drückt aus, wie wichtig die zeitliche Nähe der Belohnung ist. Für $\gamma=1$ lässt sich mit der reduzierten Güte auch das additive Modell darstellen. Die additive Güte ist also ein Spezialfall der reduzierten Güte. Für $\gamma < 1$ konvergiert die Wertefunktion auch bei unendlichem Planungshorizont. Außerdem scheint diese Reduzierung ein gutes Modell für menschliches oder tierisches Verhalten zu sein.
+		Der Reduzierungsfaktor $\gamma$ (englisch: discount factor) drückt aus, wie wichtig die zeitliche Nähe der Belohnung ist. Für $\gamma=1$ lässt sich mit der reduzierten Güte auch das additive Modell darstellen. Die additive Güte ist also ein Spezialfall der reduzierten Güte. Nach \cite{thrun2005probabilistic} gilt für $\gamma < 1$ und bei beschränkter Güte 
+		\begin{equation}
+			\exists r_{max} \in \IR \forall s \in S \forall a \in A: |r(s,a)| < r_{max} \ ,
+		\end{equation}
+		dass die Wertefunktion auch bei unendlichem Planungshorizont konvergiert. Die Güte lässt sich dann abschätzen mit  
+		\begin{equation}
+			V = \sum\limits_{t=0}^n \gamma^t r(s_t, a_t) \leq \sum\limits_{t=0}^n \gamma^t r_{max} = \frac{r_{max}}{1-\gamma}  \ .
+		\end{equation}
 	\item
 		Eine weitere Möglichkeit bei unendlichem Planungshorizont wäre die durchschnittliche Güte pro Zeitschritt zu betrachten, sprengt aber den Rahmen dieser Ausarbeitung.
 \end{enumerate}
