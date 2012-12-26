@@ -125,7 +125,7 @@ Es gibt also folgende vier grundlegende Komponenten:
 	drückt die Wahrscheinlichkeit aus, dass sich die Umgebung nach Wählen der Aktion $a$ in Zustand $s$ im Zustand $s'$ befindet.
 	\item Die Gütefunktion
 	\begin{equation}
-		r: S \times A \rightarrow \mathbb{R}
+		r: S \times A \rightarrow \IR
 		\label{eq:guetefkt}
 	\end{equation}
 	drückt die sofortige Belohnung bzw. die sofortigen Kosten (englisch: payoff) für den Agenten in Abhängigkeit von der gewählten Aktion in einem Zustand aus. Kosten werden als negative Zahlen und Belohnungen als positive Zahlen dargestellt.
@@ -163,7 +163,7 @@ klar werden. Ist unser Planungshorizont endlich, dann gibt es einen Zeitpunkt $n
 	\begin{split}
 		V([ (s_0, a_0), (s_1, a_1), ..., (s_n, a_n)]) \\
 		= V([ (s_0, a_0), (s_1, a_1), ..., (s_{n+k}, a_{n+k})]),\\
-		\forall k \in \mathbb{N} \ .
+		\forall k \in \IN \ .
 	\end{split}
 \end{equation}
 Dadurch kann es vorkommen, dass beispielsweise ein Zielpunkt mit besonders hoher Belohnung zu einem bestimmten Zeitpunkt von manchen Zuständen aus nicht mehr erreicht werden kann und daher die optimale Aktion in diesem Zustand eine andere ist, als wäre der Agent zu einem früheren Zeit in diesem Zustand gewesen. Daher kommt der Effekt, dass bei einem endlichen Planungshorizont sich die optimale Aktion in demselben Zustand über die Zeit ändern kann. Die optimale Strategie für einen endlichen Planungshorizont ist nicht stationär. (englisch: nonstationary)
@@ -192,7 +192,7 @@ Zusammenfassend ist die Verwendung von reduzierter Güte mit den wenigsten Probl
 
 Der letzte Schritt ist nun die beste Strategie $\pi$ zu wählen, wobei wir im Kopf behalten müssen, dass eine Strategie nicht nur eine Aktionsfolge bedeutet, sondern eine ganze Reihe von möglichen Aktionsfolgen. Daher ist der Wert einer Strategie die erwartete Summe der reduzierten Güte aller Aktionsfolgen, die $\pi$ generieren könnte. Eine optimale Strategie ist
 \begin{equation}
-	\pi^* = \underset{\pi}{argmax}\ E [ \sum\limits_{t=0}^{\infty} \gamma^t r(s_t, a_t) \ \vert\ \pi]\. .
+	\pi^* = \underset{\pi}{argmax}\ \E [ \sum\limits_{t=0}^{\infty} \gamma^t r(s_t, a_t) \ \vert\ \pi]\ .
 \end{equation}
 
 \subsection{Value Iteration} %TODO german title?
