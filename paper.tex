@@ -192,7 +192,7 @@ Zusammenfassend ist die Verwendung von reduzierter Güte mit den wenigsten Probl
 
 Der letzte Schritt ist nun die beste Strategie $\pi$ zu wählen, wobei wir im Kopf behalten müssen, dass eine Strategie nicht nur eine Aktionsfolge bedeutet, sondern eine ganze Reihe von möglichen Aktionsfolgen. Daher ist der Wert einer Strategie die erwartete Summe der reduzierten Güte aller Aktionsfolgen, die $\pi$ generieren könnte. Eine optimale Strategie ist
 \begin{equation}
-	\pi^* = \underset{\pi}{argmax}\ \E [ \sum\limits_{t=0}^{\infty} \gamma^t r(s_t, a_t) \ \vert\ \pi]\ .
+	\pi^* = \underset{\pi}{argmax}\ \E \left[ \sum\limits_{t=0}^{\infty} \gamma^t r(s_t, a_t) \ \vert\ \pi \right]\ .
 \end{equation}
 
 \subsection{Value Iteration} %TODO german title?
