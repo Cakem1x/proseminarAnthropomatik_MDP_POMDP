@@ -206,13 +206,13 @@ Der letzte Schritt ist nun die beste Strategie $\pi$ zu wählen, wobei wir im Ko
 \subsection{Value iteration} %TODO german title?
 Nun da wir wissen wie eine optimale Strategie aussieht müssen wir nur noch eine Möglichkeit finden eine solche mit einem konkreten Algorithmus zu erzeugen. In Anlehnung an \cite{thrun2005probabilistic} folgt nun ein value iteration Algorithmus, der genau das bewerkstelligt. %TODO "value iteration" - german?
 
-Dazu betrachten wir zuerst einen beschränkten Planungshorizont. Eine optimale Strategie 
+Dazu betrachten wir zunächst einen beschränkten Planungshorizont. Eine optimale Strategie 
 \begin{equation}
-	\pi_1: s \rightarrow a
+	\pi_1^*: s \rightarrow a
 \end{equation}
 für einen Planungshorizont $n=1$ ist sehr einfach zu finden, in dem man für jeden Zustand jene Aktion wählt, welche die höchste Güte liefert
 \begin{equation}
-	\pi_1(s)= \underset{a}{argmax}\ r(s, a)
+	\pi_1^*(s)= \underset{a}{argmax}\ r(s, a)
 \end{equation}
 Außerdem definieren wir zu diesem Planungshorizont eine Wertefunktion, die jedem Zustand einen erwarteten Wert zuweist. Diese Wertefunktion
 \begin{equation}
@@ -222,7 +222,7 @@ ist der reduzierte Wert der höchsten Belohnung, die eine der möglichen Aktione
 
 Für den Planungshorizont $n=2$ können wir nun rekursiv auf die schon definierten Funktionen für den Planungshorizont $n=1$ aufbauen. Die optimale Strategie für $n=2$ wählt für jeden Zustand $s$ jene Aktion $a$, welche die Summe aus der sofortigen Belohnung $r(s,a)$ und der erwarteten Belohnung aus der Wertefunktion $V_1(s)$  maximiert
 \begin{equation}
-	\pi_2(s) = \underset{a}{argmax} \left[ r(s,a) + \int V_1(s')\ p(s, a, s')\ ds' \right]\ .
+	\pi_2^*(s) = \underset{a}{argmax} \left[ r(s,a) + \int V_1(s')\ p(s, a, s')\ ds' \right]\ .
 \end{equation}
 Die entsprechende Wertefunktion lautet dann
 \begin{equation}
