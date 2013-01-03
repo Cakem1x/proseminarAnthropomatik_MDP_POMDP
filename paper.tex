@@ -187,7 +187,7 @@ Es gibt mehrere Möglichkeiten einer Aktionsfolge einen Wert zuzuweisen:
 		\end{equation}
 		Der Reduzierungsfaktor $\gamma$ (englisch: discount factor) drückt aus, wie wichtig die zeitliche Nähe der Belohnung ist. Für $\gamma=1$ lässt sich mit der reduzierten Güte auch das additive Modell darstellen. Die additive Güte ist also ein Spezialfall der reduzierten Güte. Nach \cite{thrun2005probabilistic} gilt für $\gamma < 1$ und bei beschränkter Güte 
 		\begin{equation}
-			\exists r_{max} \in \IR \forall s \in S \forall a \in A: |r(s,a)| < r_{max} \ ,
+			\exists r_{max} \in \IR\ \forall s \in S\ \forall a \in A: |r(s,a)| < r_{max} \ ,
 		\end{equation}
 		dass die Wertefunktion auch bei unendlichem Planungshorizont konvergiert. Die Güte lässt sich dann abschätzen mit  
 		\begin{equation}
@@ -222,11 +222,11 @@ ist der reduzierte Wert der höchsten Belohnung, die eine der möglichen Aktione
 
 Für den Planungshorizont $n=2$ können wir nun rekursiv auf die schon definierten Funktionen für den Planungshorizont $n=1$ aufbauen. Die optimale Strategie für $n=2$ wählt für jeden Zustand $s$ jene Aktion $a$, welche die Summe aus der sofortigen Belohnung $r(s,a)$ und der erwarteten Belohnung aus der Wertefunktion $V_1(s)$  maximiert
 \begin{equation}
-	\pi_2^*(s) = \underset{a}{argmax} \left[ r(s,a) + \int V_1(s')\ p(s, a, s')\ ds' \right]\ .
+	\pi_2^*(s) = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} V_1(s')\ p(s, a, s') \right]\ .
 \end{equation}
 Die entsprechende Wertefunktion lautet dann
 \begin{equation}
-	V_2(s) = \gamma\ \underset{a}{max} \left[ r(s,a) + \int V_1(s')\ p(s, a, s')\ ds' \right]\ .
+	V_2(s) = \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} V_1(s')\ p(s, a, s') \right]\ .
 \end{equation}
 
 
