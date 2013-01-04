@@ -220,7 +220,7 @@ Außerdem definieren wir zu diesem Planungshorizont eine Wertefunktion, die jede
 \end{equation}
 ist der reduzierte Wert der höchsten Belohnung, die eine der möglichen Aktionen liefert.
 
-Für den Planungshorizont $n=2$ können wir nun rekursiv auf die schon definierten Funktionen für den Planungshorizont $n=1$ aufbauen. Die optimale Strategie für $n=2$ wählt für jeden Zustand $s$ jene Aktion $a$, welche die Summe aus der sofortigen Belohnung $r(s,a)$ und der erwarteten Belohnung aus der Wertefunktion $V_1(s)$  maximiert
+Für den Planungshorizont $n=2$ können wir nun auf die für den Planungshorizont $n=1$ schon definierten Funktionen aufbauen. Die optimale Strategie für $n=2$ wählt für jeden Zustand $s$ jene Aktion $a$, welche die Summe aus der sofortigen Belohnung $r(s,a)$ und der erwarteten Belohnung aus der Wertefunktion $V_1(s)$ maximiert
 \begin{equation}
 	\pi_2^*(s) = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} V_1(s')\ p(s, a, s') \right]\ .
 \end{equation}
@@ -229,9 +229,45 @@ Die entsprechende Wertefunktion lautet dann
 	V_2(s) = \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} V_1(s')\ p(s, a, s') \right]\ .
 \end{equation}
 
+Um nun eine optimale Strategie bzw. eine Wertefunktion für einen beliebigen Planungshorizont $n,\text{ mit }n > 1$ zu berechnen lässt sich rekursiv auf schon berechnete Wertefunktionen aufbauen.
+\begin{equation}
+	\pi_n^*(s) = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} V_{n-1}(s')\ p(s, a, s') \right]\
+\end{equation}
+\begin{equation}
+	V_n(s) = \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} V_{n-1}(s')\ p(s, a, s') \right]\
+\end{equation}
 
-\section{POMDP}
-\subsection{Motivation}
+Für einen unendlichen Planungshorizont neigt die Wertefunktion %TODO Nach Buch..?
+\begin{equation}
+	V_\infty(s) = \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} V_{\infty}(s')\ p(s, a, s') \right]\
+\end{equation}
+dazu irgendwann ein Gleichgewicht zu erreichen. Diese Invarianz ist als \emph{Optimalitätsprinzip von Bellman} bekannt.
+
+Diese Überlegungen führen uns zu einem konkreten Algorithmus, der aus einem MDP mit endlicher Zustandsmenge bei unendlichem Planungshorizont eine näherungsweise optimale Strategie berechnet. Unsere angenäherte Wertefunktion $\hat{V}$ initialisieren wir der kleinstmöglichen Güte $r_{min}$ %TODO Unsinn, das mit r_min zu machen? Warum nicht mit 0?
+\begin{equation}
+	\forall s \in S:\hat{V}(s) \leftarrow r_{min}\ .
+\end{equation}
+Daraufhin wird die Wertefunktion rekursiv mit
+\begin{equation}
+	\hat{V}(s) \leftarrow \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} \hat{V}(s')\ p(s, a, s') \right]\
+\end{equation}
+aktualisiert, bis die Wertefunktion konvergiert. Im Allgemeinen geschieht das nur für $\gamma < 1$, in einigen Spezialfällen auch für $\gamma = 1$.
+
+Zu jedem Zeitpunkt induziert die Wertefunktion $\hat{V}$ die Strategie
+\begin{equation}
+	\pi(s) = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} \hat{V}(s')\ p(s, a, s') \right]\
+\end{equation}
+Abbildung \ref{autnmRobot_policy} zeigt eine auf diese Weise berechnete Wertefunktion für unser Beispiel. Diese Wertefunktion induziert die Strategie, die in Abbildung \ref{autnmRobot_detA} dargestellt ist.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=0.72]{images/autnmRobot_MDPValueFunction.png}
+	\caption{Ein Beispiel einer Wertefunktion bei unendlichem Planungshorizont. Diese Wertefunktion induziert die Strategie in Abbildung \ref{autnmRobot_detA} (Aus \cite{thrun2005probabilistic})}
+	\label{autnmRobot_policy}
+\end{figure}
+
+\section{Ausblick}
+\subsection{POMDP}
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.72]{images/autnmRobot_POMDPPathA.png}
@@ -265,26 +301,50 @@ Wir benötigen also ein Modell, in dem der Zustand der Umgebung nicht mehr volls
 
 Strategien generieren, die auf dem belief state oder information space arbeiten. Eine solche Strategie für unser einfaches Beispiel ist in Abbildungen \ref{autnmRobot_POMDPPathA}, \ref{autnmRobot_POMDPPathB}, \ref{autnmRobot_POMDPPathC} zu sehen.
 
-
-\subsection{POMDP}
 Unterschied zu MDP: Es ist nie klar, in welchem Zustand man sich befindet. Stattdessen gibt es eine Funktion, die eine Wahrscheinlichkeitsverteilung über die Zustände beschreibt.
 
+\subsection{Strategien aus POMDP}
+Idee ein POMDP als Coninuous Space MDP zu sehen. --> Value Iteration artig lösen.
 
-\section{Lösen von POMDPs}
-\subsection{Value Iteration?}
-Idee ein POMDP als Coninuous Space MDP zu sehen. --> Value Iteration artig lösen. Eventuell tatsächliche Algorithmen nennen.
-
-\subsection{Weitere Algorithmen}
 Eine kleine Liste von weiteren (teilweise approximativen) Algorithmen. Dafür versuche ich am besten auch noch ein Papier zu finden, auf das ich dazu referenzieren kann.
 
-\section{Zusammenfassung und Ausblick}
-Zusammenfassung hier.
-
-Dann eine Liste von weiteren Anwendungsgebieten. (aus Papier zitiert)
-
-Testreferenz: \cite{russell1995artificial}
-
-Testreferenz: \cite{cassandra1998survey}
+\section{Weitere Anwendungsgebiete}
+Natürlich ist der MDP bzw. der POMDP nicht nur für die Aktionsplanung von autonomen Robotern interessant. In \cite{cassandra1998survey} wird eine Reihe von verschiedenen möglichen Anwendungsgebieten diskutiert. Die dort beleuchteten Anwendungsgebiete sind
+\begin{itemize}
+	\item Industrielle Anwendungsgebiete
+	\begin{itemize}
+		\item Wartung von Maschinen
+		\item Struktur-Inspektion
+		\item Aufzugsteuerungsstrategien
+	\end{itemize}
+	\item Wissenschaftliche Anwendungsgebiete
+	\begin{itemize}
+		\item Autonome Roboter
+		\item Verhaltensökologie
+		\item Maschinelles Sehen
+	\end{itemize}
+	\item Gewerbliche Anwendungsgebiete
+	\begin{itemize}
+		\item Fehlerbehebung in Netzwerken
+		\item Anfragen auf verteilte Datenbanken
+		\item Marketing
+		\item Entwurf von Fragebögen
+		\item Geschäftspolitik
+	\end{itemize}
+	\item Militärische Anwendungsgebiete
+	\begin{itemize}
+		\item Moving Target Search %TODO deutsche Übersetzung?
+		\item Search and Rescue
+		\item Target Identification
+		\item Weapon Allocation
+	\end{itemize}
+	\item Gesellschaftliche Anwendungsgebiete
+	\begin{itemize}
+		\item Erziehung
+		\item Medizinische Diagnose
+		\item Gesundheitspolitik
+	\end{itemize}
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Literaturverzeichnis (in literatur.bib, z.B. mit Jabref editieren) 
