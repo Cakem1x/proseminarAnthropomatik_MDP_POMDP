@@ -46,14 +46,14 @@
 
 
 \begin{abstract}
-Die Eigenschaft, dass Markov-Entscheidungsprozesse erlauben Unsicherheiten zu modellieren macht sie in vielen Gebieten interessant. Eines der Gebiete, in denen Unsicherheit eine große Rolle spielt ist die Pfadplanung von autonomen Robotern. Diese Ausarbeitung beschäftigt sich in erster Linie mit dem vollständig beobachtbaren Markov-Entscheidungsprozess in Bezug auf die Roboterpfadplanung.
+Markov-Entscheidungsprozesse sind ein in vielen Gebieten beliebtes Werkzeug um Unsicherheiten zu modellieren. Eines der Gebiete, in denen Unsicherheit eine große Rolle spielt ist die Pfadplanung von autonomen Robotern. Diese Ausarbeitung beschäftigt sich in erster Linie mit dem vollständig beobachtbaren Markov-Entscheidungsprozess in Bezug auf die Roboterpfadplanung.
 \end{abstract}
 
 
 \section{Einleitung}
-Der vollständig beobachtbare Markov-Entscheidungsprozess (englisch: completely observable Markov decision process, kurz coMDP, im Folgenden als MDP bezeichnet), ein mathematisches Modell zur Modellierung von Entscheidungsproblemen. Es wurde nach dem russischen Mathematiker Andrey Markov benannt. Der MDP wird verwendet um Situationen, bei denen Aktionen nicht deterministische Folgen haben können zu modellieren und aus dem Modell eine Strategie, also eine Aktion für jeden Zustand, zu errechnen.
+Der vollständig beobachtbare Markov-Entscheidungsprozess (englisch: completely observable Markov decision process, kurz coMDP, im Folgenden als MDP bezeichnet) ist ein mathematisches Modell zur Modellierung von Entscheidungsproblemen. Es wurde nach dem russischen Mathematiker Andrey Markov benannt. Der MDP wird verwendet um Situationen, bei denen Aktionen nicht deterministische Folgen haben können zu modellieren und aus dem Modell eine Strategie, also eine Aktion für jeden Zustand, zu errechnen.
 
-Die Erklärungen zu dem MDP werden unterstützt und motiviert durch Beispiele aus dem Bereich der autonomen Robotern. Die angeführten Beispiele basieren auf Beispielen aus \cite{thrun2005probabilistic}. Damit soll in keinster Weise impliziert werden, dass der MDP lediglich in diesem Bereich für von Interesse ist.
+Die Erklärungen zu dem MDP werden unterstützt und motiviert durch Beispiele aus dem Bereich der autonomen Roboter. Die angeführten Beispiele basieren auf Beispielen aus \cite{thrun2005probabilistic}. Damit soll in keinster Weise impliziert werden, dass der MDP lediglich in diesem Bereich für von Interesse ist. In Kapitel \ref{sec:furtherApplications} wird auf weitere mögliche Anwendungsgebiete eingegangen.
 
 \begin{figure}[ht]
 	\centering
@@ -62,9 +62,9 @@ Die Erklärungen zu dem MDP werden unterstützt und motiviert durch Beispiele au
 	\label{fig:autnmRob_bSit}
 \end{figure}
 
-Wie in Abbildung \ref{fig:autnmRob_bSit} dargestellt betrachten wir im Folgenden einen autonomen Roboter der sich im Zentrum einer nahezu symmetrischen Umgebung befindet. Im linken Bereich der Umgebung befindet sich ein Ziel. Die Aufgabe des Roboters ist es, das Ziel möglichst schnell zu erreichen. Allerdings existieren mehrere Pfade die den Roboter das Ziel bringen. Einen kurzen Pfad, der durch den engen Korridor führt und zwei längere und breitere Pfade, die außen herum führen.
+Wie in Abbildung \ref{fig:autnmRob_bSit} dargestellt betrachten wir im Folgenden einen autonomen Roboter der sich im Zentrum einer nahezu symmetrischen Umgebung befindet. Im linken Bereich der Umgebung befindet sich ein Ziel. Die Aufgabe des Roboters ist es, das Ziel möglichst schnell zu erreichen. Allerdings existieren mehrere Pfade die den Roboter an das Ziel bringen. Einen kurzen Pfad, der durch den engen Korridor führt und zwei längere, breitere Pfade außen herum.
 
-In einem klassischen Planungsbeispiel für Roboter existiert keine Unsicherheit. Der Roboter würde seine Position und die des Zielpunktes exakt kennen. Außerdem hätten ausgeführte Aktionen exakt vorhersehbare Effekte und solche Effekte können eingeplant werden. In so einer Situation würde vor Aktionsausführung die Vorberechnung einer Strategie, die lediglich eine einzelne Abfolge von Aktionen ist, ausreichen. Unter diesen Voraussetzungen wäre der Einbezug von Sensordaten während der Aktionsausführung unnötig, da der Roboter absolut fehlerfrei funktioniert.
+In einem klassischen Planungsbeispiel für Roboter existiert keine Unsicherheit. Der Roboter würde seine Position und die des Zielpunktes exakt kennen. Außerdem hätten ausgeführte Aktionen exakt vorhersehbare Effekte und solche Effekte können eingeplant werden. In so einer Situation würde vor Aktionsausführung die Vorberechnung einer Strategie, die lediglich aus einer einzelnen Abfolge von Aktionen besteht, ausreichen. Unter diesen Voraussetzungen wäre der Einbezug von Sensordaten während der Aktionsausführung unnötig, da der Roboter absolut fehlerfrei funktioniert.
 
 \begin{figure}[ht]
 	\centering
@@ -114,13 +114,13 @@ Nach \cite{cassandra1995acting} ist ein MDP definiert als ein 4-Tupel
 \begin{equation}
 	(S, A, T, R) \ .
 \end{equation}
-Es gibt also folgende vier grundlegende Komponenten:
-\begin{enumerate}
+Es gibt also die folgenden grundlegenden Komponenten:
+\begin{itemize}
 	\item Die endliche Zustandsmenge $S$ beinhaltet alle möglichen Zustände, in denen sich die Umgebung befinden kann. Der Agent kann jederzeit exakt feststellen, in welchem Zustand sich die Umgebung befindet.
 	\item Die endliche Menge der Aktionen $A$. In jedem Zustand kann der Agent aus einer Menge $A_s \subseteq A$ von ausführbaren Aktionen wählen.
-	\item $p$ ist das Zustandsübergangsmodell der Umgebung. Es ist eine Funktion, welche Elemente aus $S \times A$ auf eine diskrete Wahrscheinlichkeitsverteilung über $S$ abbildet. Der Übergang
+	\item $T$ ist das Zustandsübergangsmodell der Umgebung. Es ist eine Funktion, welche Elemente aus $S \times A$ auf eine diskrete Wahrscheinlichkeitsverteilung über $S$ abbildet. Der Übergang
 	\begin{equation}
-		p(s, a, s')
+		T(s, a, s')
 	\end{equation}
 	drückt die Wahrscheinlichkeit aus, dass sich die Umgebung nach Wählen der Aktion $a$ in Zustand $s$ im Zustand $s'$ befindet.
 	\item Die Gütefunktion
@@ -128,8 +128,8 @@ Es gibt also folgende vier grundlegende Komponenten:
 		r: S \times A \rightarrow \IR
 		\label{eq:payoff}
 	\end{equation}
-	drückt die sofortige Belohnung bzw. die sofortigen Kosten (englisch: payoff) für den Agenten in Abhängigkeit von der gewählten Aktion in einem Zustand aus. Kosten werden als negative Zahlen und Belohnungen als positive Zahlen dargestellt.
-\end{enumerate}
+	drückt die sofortige Belohnung bzw. die sofortigen Kosten, also die Güte (englisch: payoff), für den Agenten in Abhängigkeit von der gewählten Aktion in einem Zustand aus. Kosten werden als negative Zahlen und Belohnungen als positive Zahlen dargestellt.
+\end{itemize}
 In Abbildung \ref{fig:MDP_example} ist ein MDP mit drei Zuständen $s_1, s_2, s_3$ und zwei Aktionen $a_0$ und $a_1$ als Graph dargestellt. Für jeden Zustand $s \in S$ gibt es eine Teilmenge $A_s \subseteq A$ von Aktionen von denen ausgehende Kante die Wahrscheinlichkeit des Übergangs in den entsprechenden Folgezustand als Kantengewicht darstellen. Die gelben Pfeile symbolisieren die Belohnung bzw. die Kosten (siehe \ref{eq:payoff}) für bestimmte Aktionen in bestimmten Zuständen.
 
 In mancher Literatur finden sich auch leicht anders geartete Definitionen. In \cite{russell1995artificial} ist beispielsweise die Gütefunktion eine Funktion, die lediglich von dem Zustand abhängt und es gibt eine Teilmenge $S_{terminal} \subseteq S$ der Zustandsmenge die als Terminalzustände bezeichnet werden. Sobald sich der Agent in einem Terminalzustand befindet kann er keine Aktionen mehr durchführen. Dadurch kann die Modellierungen bestimmter Umgebungen vereinfacht werden, verändert das Problem nur unwesentlich.
@@ -155,7 +155,7 @@ Ein wichtiges Konzept im Kontext von Strategien ist der Planungshorizont. (engli
 denkbar. Hier wird deutlich erkennbar, dass die Belohnung erst nach vielen Aktionen eintritt. Daher kann eine Strategie, die lediglich die unmittelbare Belohnung maximiert hier kein optimales Ergebnis liefern: Jede Aktion, egal ob sie in Richtung des Ziels oder vom Ziel weg führt hat die Kosten -1 und wären somit für eine solche Strategie gleichwertig.
 Stattdessen setzt man sich häufig zum Ziel die Summe der zukünftigen Belohnungen zu maximieren.
 
-Die folgenden Ausführungen basieren auf \cite{russell1995artificial}. Zunächst müssen wir uns über den Wert bzw. der Nützlichkeit (englisch: utility) einer Aktionsfolge 
+Die folgenden Ausführungen basieren auf \cite{russell1995artificial}. Zunächst müssen wir uns über den Nutzen (englisch: utility) einer Aktionsfolge 
 \begin{equation}
 	U([(s_0, a_0), (s_1, a_1), ..., (s_n, a_n)])
 \end{equation}
@@ -167,11 +167,11 @@ klar werden. Ist unser Planungshorizont endlich, dann gibt es einen Zeitpunkt $n
 		\forall k \in \IN \ .
 	\end{split}
 \end{equation}
-Dadurch kann es vorkommen, dass beispielsweise ein Zielpunkt mit besonders hoher Belohnung zu einem bestimmten Zeitpunkt von manchen Zuständen aus nicht mehr erreicht werden kann und daher die optimale Aktion in diesem Zustand eine andere ist, als wäre der Agent zu einem früheren Zeit in diesem Zustand gewesen. Daher kommt der Effekt, dass bei einem endlichen Planungshorizont sich die optimale Aktion in demselben Zustand über die Zeit ändern kann. Die optimale Strategie für einen endlichen Planungshorizont ist nicht stationär. (englisch: nonstationary)
+Dadurch kann es vorkommen, dass beispielsweise ein Zielpunkt mit besonders hoher Belohnung zu einem bestimmten Zeitpunkt von manchen Zuständen aus nicht mehr erreicht werden kann und daher die optimale Aktion in diesem Zustand eine andere ist, als wäre der Agent zu einem früheren Zeitpunkt in diesem Zustand gewesen. Daher kommt der Effekt, dass sich bei einem endlichen Planungshorizont die optimale Aktion in demselben Zustand über die Zeit ändern kann. Die optimale Strategie für einen endlichen Planungshorizont ist also \emph{nicht stationär}. (englisch: \emph{nonstationary})
 
 Diese Problematik existiert nicht, wenn wir einen unendlichen Planungshorizont annehmen. Dann gibt es keinen Grund zu verschiedenen Zeitpunkten eine andere Aktion in demselben Zustand zu wählen.
 
-Es gibt mehrere Möglichkeiten einer Aktionsfolge einen Wert zuzuweisen:
+Es gibt mehrere Möglichkeiten einer Aktionsfolge einen Nutzen zuzuweisen:
 \begin{enumerate}
 	\item \textbf{Additive Güte:} (englisch: additive rewards)
 		\begin{equation}
@@ -189,23 +189,23 @@ Es gibt mehrere Möglichkeiten einer Aktionsfolge einen Wert zuzuweisen:
 		\begin{equation}
 			\exists r_{max} \in \IR\ \forall s \in S\ \forall a \in A: |r(s,a)| < r_{max} \ ,
 		\end{equation}
-		dass die Wertefunktion auch bei unendlichem Planungshorizont konvergiert. Die Güte lässt sich dann abschätzen mit  
+		dass die Wertefunktion auch bei unendlichem Planungshorizont konvergiert. Der Nutzen einer Aktionsfolge lässt sich dann abschätzen mit  
 		\begin{equation}
 			\sum\limits_{t=1}^n \gamma^t r(s_t, a_t) \leq \sum\limits_{t=1}^n \gamma^t r_{max} = \frac{r_{max}}{1-\gamma}  \ .
 		\end{equation}
 	\item
 		Eine weitere Möglichkeit bei unendlichem Planungshorizont wäre die durchschnittliche Güte pro Zeitschritt zu betrachten, sprengt aber den Rahmen dieser Ausarbeitung.
 \end{enumerate}
-Zusammenfassend ist die Verwendung von reduzierter Güte mit den wenigsten Problemen verbunden, um mit ihr den Wert einer Aktionsfolge zu bewerten.
+Zusammenfassend ist die Verwendung von reduzierter Güte mit den wenigsten Problemen verbunden, um mit ihr den Nutzen einer Aktionsfolge zu bewerten.
 
 Der letzte Schritt ist nun die beste Strategie $\pi$ zu wählen, wobei wir im Kopf behalten müssen, dass eine Strategie nicht nur eine Aktionsfolge bedeutet, sondern eine ganze Reihe von möglichen Aktionsfolgen. Daher ist der Wert einer Strategie die erwartete Summe der reduzierten Güte aller Aktionsfolgen, die $\pi$ generieren könnte. Eine optimale Strategie ist
 \begin{equation}
 	\pi^* = \underset{\pi}{argmax}\ \E \left[ \sum\limits_{t=1}^{\infty} \gamma^t r(s_t, a_t) \ \vert\ \pi \right]\ .
 \end{equation}
 
-\subsection{Value iteration} %TODO german title?
+\subsection{Value iteration}
 \label{sec:valueIteration}
-Nun da wir wissen wie eine optimale Strategie aussieht müssen wir nur noch eine Möglichkeit finden eine solche mit einem konkreten Algorithmus zu erzeugen. In Anlehnung an \cite{thrun2005probabilistic} folgt nun ein value iteration Algorithmus, der genau das bewerkstelligt. %TODO "value iteration" - german?
+Nun da wir wissen wie eine optimale Strategie aussieht müssen wir nur noch eine Möglichkeit finden eine solche mit einem konkreten Algorithmus zu erzeugen. In Anlehnung an \cite{thrun2005probabilistic} folgt nun ein value iteration Algorithmus, der genau das bewerkstelligt.
 
 Dazu betrachten wir zunächst einen beschränkten Planungshorizont. Eine optimale Strategie 
 \begin{equation}
@@ -221,43 +221,43 @@ Außerdem definieren wir zu diesem Planungshorizont eine Wertefunktion, die jede
 \end{equation}
 ist der reduzierte Wert der höchsten Belohnung, die eine der möglichen Aktionen liefert.
 
-Für den Planungshorizont $n=2$ können wir nun auf die für den Planungshorizont $n=1$ schon definierten Funktionen aufbauen. Die optimale Strategie für $n=2$ wählt für jeden Zustand $s$ jene Aktion $a$, welche die Summe aus der sofortigen Belohnung $r(s,a)$ und der erwarteten Belohnung aus der Wertefunktion $V_1(s)$ maximiert
+Für den Planungshorizont $n=2$ können wir nun auf die für den Planungshorizont $n=1$ schon definierte Wertefunktion aufbauen. Die optimale Strategie für $n=2$ wählt für jeden Zustand $s$ jene Aktion $a$, welche die Summe aus der sofortigen Belohnung $r(s,a)$ und der erwarteten Belohnung aus der Wertefunktion $V_1(s)$ maximiert
 \begin{equation}
-	\pi_2^*(s) = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} V_1(s')\ p(s, a, s') \right]\ .
+	\pi_2^*(s) = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} V_1(s')\ T(s, a, s') \right]\ .
 \end{equation}
 Die entsprechende Wertefunktion lautet dann
 \begin{equation}
-	V_2(s) = \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} V_1(s')\ p(s, a, s') \right]\ .
+	V_2(s) = \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} V_1(s')\ T(s, a, s') \right]\ .
 \end{equation}
 
 Um nun eine optimale Strategie bzw. eine Wertefunktion für einen beliebigen Planungshorizont $n,\text{ mit }n > 1$ zu berechnen lässt sich rekursiv auf schon berechnete Wertefunktionen aufbauen.
 \begin{equation}
-	\pi_n^*(s) = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} V_{n-1}(s')\ p(s, a, s') \right]\
+	\pi_n^*(s) = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} V_{n-1}(s')\ T(s, a, s') \right]\
 \end{equation}
 \begin{equation}
-	V_n(s) = \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} V_{n-1}(s')\ p(s, a, s') \right]\
+	V_n(s) = \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} V_{n-1}(s')\ T(s, a, s') \right]\
 \end{equation}
 
-Für einen unendlichen Planungshorizont neigt die Wertefunktion %TODO Nach Buch..?
+Für einen unendlichen Planungshorizont neigt die Wertefunktion
 \begin{equation}
 	\label{eq:valuefunction}
-	V_\infty(s) = \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} V_{\infty}(s')\ p(s, a, s') \right]\
+	V_\infty(s) = \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} V_{\infty}(s')\ T(s, a, s') \right]\
 \end{equation}
 dazu irgendwann ein Gleichgewicht zu erreichen. Diese Invarianz ist als \emph{Optimalitätsprinzip von Bellman} (englisch: Bellman equation) bekannt.
 
-Diese Überlegungen führen uns zu einem konkreten Algorithmus, der aus einem MDP mit endlicher Zustandsmenge bei unendlichem Planungshorizont eine Wertefunktion berechnet, die \eqref{eq:valuefunction} approximiert. Unsere angenäherte Wertefunktion $\hat{V}$ initialisieren wir der kleinstmöglichen Güte $r_{min}$ %TODO Unsinn, das mit r_min zu machen? Warum nicht mit 0?
+Diese Überlegungen führen uns zu einem konkreten Algorithmus, der aus einem MDP mit endlicher Zustandsmenge bei unendlichem Planungshorizont eine Wertefunktion berechnet, die \eqref{eq:valuefunction} approximiert. Unsere angenäherte Wertefunktion $\hat{V}$ initialisieren wir für jeden Zustand $s$ mit der kleinstmöglichen Güte $r_{min}$ %TODO Warum nicht mit 0?
 \begin{equation}
-	\forall s \in S:\hat{V}(s) \leftarrow r_{min}\ .
+	\hat{V}(s) \leftarrow r_{min}\ .
 \end{equation}
 Daraufhin wird die Wertefunktion rekursiv mit
 \begin{equation}
-	\hat{V}(s) \leftarrow \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} \hat{V}(s')\ p(s, a, s') \right]\
+	\hat{V}(s) \leftarrow \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} \hat{V}(s')\ T(s, a, s') \right]\
 \end{equation}
 aktualisiert, bis die value iteration konvergiert. Im Allgemeinen geschieht das nur für $\gamma < 1$, in einigen Spezialfällen auch für $\gamma = 1$.
 
 Zu jedem Zeitpunkt induziert die Wertefunktion $\hat{V}$ die Strategie
 \begin{equation}
-	\pi(s) = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} \hat{V}(s')\ p(s, a, s') \right]\ .
+	\pi(s) = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} \hat{V}(s')\ T(s, a, s') \right]\ .
 \end{equation}
 Nach Konvergenz der value iteration induziert die Wertefunktion $\hat{V}$ die optimale Strategie.
 Abbildung \ref{autnmRobot_policy} zeigt eine auf diese Weise berechnete Wertefunktion für unser Beispiel. Diese Wertefunktion induziert die Strategie, die in Abbildung \ref{autnmRobot_detA} dargestellt ist.
@@ -297,11 +297,11 @@ In dieser Ausarbeitung wurde der MDP mit endlicher Zustandsmenge definiert. Es g
 
 Bisher nahmen wir an, dass die Sensoren des Roboters jederzeit den exakten Zustand der Umgebung wahrnehmen können. In der Praxis liefern Sensoren allerdings lediglich ein verrauschtes Abbild der Umgebung. Daher kann der Zustand nur bis zu einem gewissen Grade geschätzt werden. Natürlich gibt es Bereiche der Umgebung, in denen Sensoren mehr oder weniger gut funktionieren.
 
-Um diese Problematik zu veranschaulichen betrachten wir nun wieder unsere Beispielanwendung. Das einzige Unterscheidungsmerkmal findet sich am linken bzw. rechten Ende der Umgebung. Direkt in Richtung eines möglichen Zielortes zu fahren würde eine 50\% Chance mit sich bringen das Ziel zu verpassen und stattdessen zu dem entsprechenden Ort auf der anderen Seite zu fahren. Optimalerweise muss der Roboter nun also zuerst in eine der Ecken fahren um sicher feststellen zu können, wo sich das genau Ziel befindet. (Das Ziel selbst ist für die Sensoren des Roboters nicht wahrnehmbar)
+Um diese Problematik zu veranschaulichen betrachten wir nun wieder unsere Beispiel. Das einzige Unterscheidungsmerkmal findet sich am linken bzw. rechten Ende der Umgebung. Direkt in Richtung eines möglichen Zielortes zu fahren würde eine 50\% Chance mit sich bringen das Ziel zu verpassen und stattdessen zu dem entsprechenden Ort auf der anderen Seite zu fahren. Optimalerweise muss der Roboter nun also zuerst in eine der Ecken fahren um sicher feststellen zu können, wo sich das genau Ziel befindet. (Das Ziel selbst ist für die Sensoren des Roboters nicht wahrnehmbar)
 
-Bei der Roboterpfadplanung muss nun in Betracht gezogen werden, wann es sich lohnt erst mal höhere Kosten auf sich zu nehmen, um die Wahrscheinlichkeit zu erhöhen den richtigen Umgebungszustand zu schätzen. Außerdem können bestimmte Pfade mehr oder weniger attraktiv werden, je nach dem wie gut die Sensoren des Roboters auf ihnen funktionieren. So kann die Pfadplanung beispielsweise eine Zone in der Lokalisierung mit Hilfe von GPS nur schwer möglich ist, gemieden werden, falls es bessere Alternativen gibt.
+Bei der Roboterpfadplanung muss nun in Betracht gezogen werden, wann es sich lohnt erst mal höhere Kosten auf sich zu nehmen, um die Wahrscheinlichkeit zu erhöhen den richtigen Umgebungszustand zu schätzen. Außerdem können bestimmte Pfade mehr oder weniger attraktiv werden, je nach dem wie gut die Sensoren des Roboters auf ihnen funktionieren. So kann bei der Pfadplanung beispielsweise eine Zone in der Lokalisierung mit Hilfe von GPS nur schwer möglich ist, gemieden werden, falls es bessere Alternativen gibt.
 
-Um die Unsicherheit in der Wahrnehmung des Roboters zu modellieren gibt es eine Erweiterung für den MDP. Das erweiterte Modell, der POMDP, sieht formal in erster Linie dem MDP sehr ähnlich. Es gibt eine Menge von Zuständen $S$, eine Menge von Aktionen $A$, ein Zustandsübergangsmodell $p$ sowie eine Gütefunktion $r$. Hinzu kommen
+Um diese Unsicherheit in der Wahrnehmung der Umgebung zu modellieren gibt es eine Erweiterung für den MDP. Das erweiterte Modell, der POMDP, sieht formal in erster Linie dem MDP sehr ähnlich. Es gibt eine Menge von Zuständen $S$, eine Menge von Aktionen $A$, ein Zustandsübergangsmodell $T$ sowie eine Gütefunktion $r$. Hinzu kommen
 \begin{itemize}
 	\item die Menge der Beobachtungen $Z = \{z_1, z_2, ..., z_{|Z|}\}$
 	\item die Menge der Beobachtungswahrscheinlichkeiten $O(z_i, a, s_j)$
@@ -314,6 +314,7 @@ Um auf Basis des POMDP eine Strategie zu entwickeln betrachtet man häufig eine 
 Konkrete Algorithmen zur exakten und/oder approximativen Berechnung von Strategien finden sich in \cite{cassandra1995acting}, \cite{roy2005finding} und \cite{thrun2005probabilistic}.
 
 \section{Weitere Anwendungsgebiete}
+\label{sec:furtherApplications}
 Natürlich ist der MDP bzw. der POMDP nicht nur für die Roboterpfadplanung interessant. In \cite{cassandra1998survey} werden eine Reihe von verschiedenen möglichen Anwendungsgebieten diskutiert. Die dort beleuchteten Anwendungsgebiete sind
 \begin{itemize}
 	\item Industrielle Anwendungsgebiete
