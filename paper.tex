@@ -289,7 +289,7 @@ Abbildung \ref{autnmRobot_policy} zeigt eine auf diese Weise berechnete Wertefun
 	\label{autnmRobot_POMDPPathC}
 \end{figure}
 
-Bisher nahmen wir an, dass die Sensoren des Roboters jederzeit den exakten Zustand der Umgebung wahrnehmen können. In der Praxis liefern Sensoren lediglich ein verrauschtes Abbild der Umgebung. Daher kann der Zustand nur bis zu einem gewissen Grade geschätzt werden.
+Bisher nahmen wir an, dass die Sensoren des Roboters jederzeit den exakten Zustand der Umgebung wahrnehmen können. In der Praxis liefern Sensoren allerdings lediglich ein verrauschtes Abbild der Umgebung. Daher kann der Zustand nur bis zu einem gewissen Grade geschätzt werden.
 
 Um diese Problematik zu veranschaulichen betrachten wir nun wieder unsere Beispielanwendung. Das einzige Unterscheidungsmerkmal findet sich am linken bzw. rechten Ende der Umgebung. Direkt in Richtung eines möglichen Zielortes zu fahren würde eine 50\% Chance mit sich bringen das Ziel zu verpassen und stattdessen zu dem entsprechenden Ort auf der anderen Seite zu fahren. Optimalerweise muss der Roboter nun also zuerst in eine der Ecken fahren um sicher feststellen zu können, wo sich das genau Ziel befindet. (Das Ziel selbst ist für die Sensoren des Roboters nicht wahrnehmbar)
 
@@ -309,7 +309,7 @@ Idee ein POMDP als Coninuous Space MDP zu sehen. --> Value Iteration artig löse
 Eine kleine Liste von weiteren (teilweise approximativen) Algorithmen. Dafür versuche ich am besten auch noch ein Papier zu finden, auf das ich dazu referenzieren kann.
 
 \section{Weitere Anwendungsgebiete}
-Natürlich ist der MDP bzw. der POMDP nicht nur für die Aktionsplanung von autonomen Robotern interessant. In \cite{cassandra1998survey} wird eine Reihe von verschiedenen möglichen Anwendungsgebieten diskutiert. Die dort beleuchteten Anwendungsgebiete sind
+Natürlich ist der MDP bzw. der POMDP nicht nur für die Aktionsplanung von autonomen Robotern interessant. In \cite{cassandra1998survey} werden eine Reihe von verschiedenen möglichen Anwendungsgebieten diskutiert. Die dort beleuchteten Anwendungsgebiete sind
 \begin{itemize}
 	\item Industrielle Anwendungsgebiete
 	\begin{itemize}
