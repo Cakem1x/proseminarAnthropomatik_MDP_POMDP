@@ -239,11 +239,12 @@ Um nun eine optimale Strategie bzw. eine Wertefunktion für einen beliebigen Pla
 
 Für einen unendlichen Planungshorizont neigt die Wertefunktion %TODO Nach Buch..?
 \begin{equation}
+	\label{eq:valuefunction}
 	V_\infty(s) = \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} V_{\infty}(s')\ p(s, a, s') \right]\
 \end{equation}
-dazu irgendwann ein Gleichgewicht zu erreichen. Diese Invarianz ist als \emph{Optimalitätsprinzip von Bellman} bekannt.
+dazu irgendwann ein Gleichgewicht zu erreichen. Diese Invarianz ist als \emph{Optimalitätsprinzip von Bellman} (englisch: Bellman equation) bekannt.
 
-Diese Überlegungen führen uns zu einem konkreten Algorithmus, der aus einem MDP mit endlicher Zustandsmenge bei unendlichem Planungshorizont eine näherungsweise optimale Strategie berechnet. Unsere angenäherte Wertefunktion $\hat{V}$ initialisieren wir der kleinstmöglichen Güte $r_{min}$ %TODO Unsinn, das mit r_min zu machen? Warum nicht mit 0?
+Diese Überlegungen führen uns zu einem konkreten Algorithmus, der aus einem MDP mit endlicher Zustandsmenge bei unendlichem Planungshorizont eine Wertefunktion berechnet, die \eqref{eq:valuefunction} approximiert. Unsere angenäherte Wertefunktion $\hat{V}$ initialisieren wir der kleinstmöglichen Güte $r_{min}$ %TODO Unsinn, das mit r_min zu machen? Warum nicht mit 0?
 \begin{equation}
 	\forall s \in S:\hat{V}(s) \leftarrow r_{min}\ .
 \end{equation}
@@ -251,20 +252,23 @@ Daraufhin wird die Wertefunktion rekursiv mit
 \begin{equation}
 	\hat{V}(s) \leftarrow \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} \hat{V}(s')\ p(s, a, s') \right]\
 \end{equation}
-aktualisiert, bis die Wertefunktion konvergiert. Im Allgemeinen geschieht das nur für $\gamma < 1$, in einigen Spezialfällen auch für $\gamma = 1$.
+aktualisiert, bis die value iteration konvergiert. Im Allgemeinen geschieht das nur für $\gamma < 1$, in einigen Spezialfällen auch für $\gamma = 1$.
 
 Zu jedem Zeitpunkt induziert die Wertefunktion $\hat{V}$ die Strategie
 \begin{equation}
-	\pi(s) = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} \hat{V}(s')\ p(s, a, s') \right]\
+	\pi(s) = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} \hat{V}(s')\ p(s, a, s') \right]\ .
 \end{equation}
+Nach Konvergenz der value iteration induziert die Wertefunktion $\hat{V}$ die optimale Strategie.
 Abbildung \ref{autnmRobot_policy} zeigt eine auf diese Weise berechnete Wertefunktion für unser Beispiel. Diese Wertefunktion induziert die Strategie, die in Abbildung \ref{autnmRobot_detA} dargestellt ist.
-
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.72]{images/autnmRobot_MDPValueFunction.png}
 	\caption{Ein Beispiel einer Wertefunktion bei unendlichem Planungshorizont. Diese Wertefunktion induziert die Strategie in Abbildung \ref{autnmRobot_detA} (Aus \cite{thrun2005probabilistic})}
 	\label{autnmRobot_policy}
 \end{figure}
+
+In dieser Ausarbeitung wurde der MDP mit endlicher Zustandsmenge definiert. Es gibt auch die Möglichkeit den MDP mit einer unendlichen Zustandsmenge zu definieren, was allerdings die Komplexität der Berechnung einer optimalen Strategie erhöht. 
+
 
 \section{Ausblick}
 \subsection{POMDP}
