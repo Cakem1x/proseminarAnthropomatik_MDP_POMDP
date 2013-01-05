@@ -293,9 +293,13 @@ In dieser Ausarbeitung wurde der MDP mit endlicher Zustandsmenge definiert. Es g
 	\label{autnmRobot_POMDPPathC}
 \end{figure}
 
-Bisher nahmen wir an, dass die Sensoren des Roboters jederzeit den exakten Zustand der Umgebung wahrnehmen können. In der Praxis liefern Sensoren allerdings lediglich ein verrauschtes Abbild der Umgebung. Daher kann der Zustand nur bis zu einem gewissen Grade geschätzt werden.
+Bisher nahmen wir an, dass die Sensoren des Roboters jederzeit den exakten Zustand der Umgebung wahrnehmen können. In der Praxis liefern Sensoren allerdings lediglich ein verrauschtes Abbild der Umgebung. Daher kann der Zustand nur bis zu einem gewissen Grade geschätzt werden. Natürlich gibt es Bereiche der Umgebung, in denen Sensoren mehr oder weniger gut funktionieren.
 
 Um diese Problematik zu veranschaulichen betrachten wir nun wieder unsere Beispielanwendung. Das einzige Unterscheidungsmerkmal findet sich am linken bzw. rechten Ende der Umgebung. Direkt in Richtung eines möglichen Zielortes zu fahren würde eine 50\% Chance mit sich bringen das Ziel zu verpassen und stattdessen zu dem entsprechenden Ort auf der anderen Seite zu fahren. Optimalerweise muss der Roboter nun also zuerst in eine der Ecken fahren um sicher feststellen zu können, wo sich das genau Ziel befindet. (Das Ziel selbst ist für die Sensoren des Roboters nicht wahrnehmbar)
+
+Bei der Roboterpfadplanung muss nun in Betracht gezogen werden, wann es sich lohnt erst mal höhere Kosten auf sich zu nehmen, um die Wahrscheinlichkeit zu erhöhen den richtigen Umgebungszustand zu schätzen. Außerdem können bestimmte Pfade mehr oder weniger attraktiv werden, je nach dem wie gut die Sensoren des Roboters auf ihnen funktionieren. So kann die Pfadplanung beispielsweise eine Zone in der keine Lokalisierung mit Hilfe von GPS möglich ist, gemieden werden, falls es bessere Alternativen gibt.
+
+
 
 Stichpunktartig: %TODO
 
