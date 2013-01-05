@@ -101,7 +101,7 @@ Allerdings setzt der MDP voraus, dass der Agent, in unserem Beispiel der Roboter
 
 In der Praxis ist natürlich auch diese Annahme nicht haltbar. Jedes Sensormodul hat mehr oder weniger stark ausgeprägtes Fehlerrauschen. Bei den meisten Anwendungen, wie auch bei unserem Beispiel, kommt sogar noch ein weiteres Problem hinzu: Falls der Roboter nicht über äußerst ausgeklügelte Positionsbestimmungssensoren verfügt, dann ist es ihm auf Grund der Symmetrie der Beispielumgebung nicht möglich festzustellen, wie er orientiert ist und damit in welcher Richtung das Ziel liegt.
 
-Ein solches Modell, der teilweise beobachtbare Markov-Entscheidungsprozess (englisch: partially observable Markov decision process, kurz: POMDP), wird im vierten Kapitel dieser Ausarbeitung kurz angerissen.
+Ein solches Modell, der teilweise beobachtbare Markov-Entscheidungsprozess (englisch: partially observable Markov decision process, kurz: POMDP), wird in Kapitel \ref{sec:pomdp} dieser Ausarbeitung kurz angerissen.
 
 \section{MDP}
 \begin{figure}[ht]
@@ -204,6 +204,7 @@ Der letzte Schritt ist nun die beste Strategie $\pi$ zu wählen, wobei wir im Ko
 \end{equation}
 
 \subsection{Value iteration} %TODO german title?
+\label{sec:valueIteration}
 Nun da wir wissen wie eine optimale Strategie aussieht müssen wir nur noch eine Möglichkeit finden eine solche mit einem konkreten Algorithmus zu erzeugen. In Anlehnung an \cite{thrun2005probabilistic} folgt nun ein value iteration Algorithmus, der genau das bewerkstelligt. %TODO "value iteration" - german?
 
 Dazu betrachten wir zunächst einen beschränkten Planungshorizont. Eine optimale Strategie 
@@ -271,6 +272,7 @@ In dieser Ausarbeitung wurde der MDP mit endlicher Zustandsmenge definiert. Es g
 
 
 \section{Ausblick}
+\label{sec:pomdp}
 \subsection{POMDP}
 \begin{figure}[ht]
 	\centering
@@ -309,10 +311,10 @@ durch die ausgedrückt wird, wie wahrscheinlich es ist, dass bei Aktion $a$ in Z
 \subsection{Strategien aus POMDP}
 Um auf Basis des POMDP eine Strategie zu entwickeln betrachtet man häufig eine Wertefunktion $V(b)$ über die Wahrscheinlichkeitsverteilung über alle Zustände \cite{roy2005finding}. Diese Wahrscheinlichkeitsverteilung $b$ wird auch \emph{belief space} genannt. Statt den Zustand wie bei dem MDP immer sicher zu wissen verwenden wir jetzt also die Wahrscheinlichkeitsverteilung $b$, der für jeden Zustand die Wahrscheinlichkeit angibt, dass sich die Umgebung in diesem Zustand befindet. Diese Wahrscheinlichkeitsverteilung wird anhand der Beobachtungen $Z$ und den Beobachtungswahrscheinlichkeiten $O$ verändert.
 
-Eine kleine Liste von weiteren (teilweise approximativen) Algorithmen. Dafür versuche ich am besten auch noch ein Papier zu finden, auf das ich dazu referenzieren kann.
+Konkrete Algorithmen zur exakten und/oder approximativen Berechnung von Strategien finden sich in \cite{cassandra1995acting}, \cite{roy2005finding} und \cite{thrun2005probabilistic}.
 
 \section{Weitere Anwendungsgebiete}
-Natürlich ist der MDP bzw. der POMDP nicht nur für die Aktionsplanung von autonomen Robotern interessant. In \cite{cassandra1998survey} werden eine Reihe von verschiedenen möglichen Anwendungsgebieten diskutiert. Die dort beleuchteten Anwendungsgebiete sind
+Natürlich ist der MDP bzw. der POMDP nicht nur für die Roboterpfadplanung interessant. In \cite{cassandra1998survey} werden eine Reihe von verschiedenen möglichen Anwendungsgebieten diskutiert. Die dort beleuchteten Anwendungsgebiete sind
 \begin{itemize}
 	\item Industrielle Anwendungsgebiete
 	\begin{itemize}
