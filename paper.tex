@@ -118,7 +118,7 @@ Es gibt also folgende vier grundlegende Komponenten:
 \begin{enumerate}
 	\item Die endliche Zustandsmenge $S$ beinhaltet alle möglichen Zustände, in denen sich die Umgebung befinden kann. Der Agent kann jederzeit exakt feststellen, in welchem Zustand sich die Umgebung befindet.
 	\item Die endliche Menge der Aktionen $A$. In jedem Zustand kann der Agent aus einer Menge $A_s \subseteq A$ von ausführbaren Aktionen wählen.
-	\item $T$ ist das Zustandsübergangsmodell der Umgebung. Es ist eine Funktion, welche Elemente aus $S \times A$ auf eine diskrete Wahrscheinlichkeitsverteilung über $S$ abbildet. Der Übergang
+	\item $p$ ist das Zustandsübergangsmodell der Umgebung. Es ist eine Funktion, welche Elemente aus $S \times A$ auf eine diskrete Wahrscheinlichkeitsverteilung über $S$ abbildet. Der Übergang
 	\begin{equation}
 		p(s, a, s')
 	\end{equation}
@@ -297,22 +297,17 @@ Bisher nahmen wir an, dass die Sensoren des Roboters jederzeit den exakten Zusta
 
 Um diese Problematik zu veranschaulichen betrachten wir nun wieder unsere Beispielanwendung. Das einzige Unterscheidungsmerkmal findet sich am linken bzw. rechten Ende der Umgebung. Direkt in Richtung eines möglichen Zielortes zu fahren würde eine 50\% Chance mit sich bringen das Ziel zu verpassen und stattdessen zu dem entsprechenden Ort auf der anderen Seite zu fahren. Optimalerweise muss der Roboter nun also zuerst in eine der Ecken fahren um sicher feststellen zu können, wo sich das genau Ziel befindet. (Das Ziel selbst ist für die Sensoren des Roboters nicht wahrnehmbar)
 
-Bei der Roboterpfadplanung muss nun in Betracht gezogen werden, wann es sich lohnt erst mal höhere Kosten auf sich zu nehmen, um die Wahrscheinlichkeit zu erhöhen den richtigen Umgebungszustand zu schätzen. Außerdem können bestimmte Pfade mehr oder weniger attraktiv werden, je nach dem wie gut die Sensoren des Roboters auf ihnen funktionieren. So kann die Pfadplanung beispielsweise eine Zone in der keine Lokalisierung mit Hilfe von GPS möglich ist, gemieden werden, falls es bessere Alternativen gibt.
+Bei der Roboterpfadplanung muss nun in Betracht gezogen werden, wann es sich lohnt erst mal höhere Kosten auf sich zu nehmen, um die Wahrscheinlichkeit zu erhöhen den richtigen Umgebungszustand zu schätzen. Außerdem können bestimmte Pfade mehr oder weniger attraktiv werden, je nach dem wie gut die Sensoren des Roboters auf ihnen funktionieren. So kann die Pfadplanung beispielsweise eine Zone in der Lokalisierung mit Hilfe von GPS nur schwer möglich ist, gemieden werden, falls es bessere Alternativen gibt.
 
-
-
-Stichpunktartig: %TODO
-
-Schlüsselaspekt bei probabilistic robotics: Der Roboter führt information gather tasks aus (hier das fahren in eine der Ecken)
-
-Wir benötigen also ein Modell, in dem der Zustand der Umgebung nicht mehr vollständig beobachtbar sein muss. (Wahrscheinlichkeitsverteilung über die Zustände..?)
-
-Strategien generieren, die auf dem belief state oder information space arbeiten. Eine solche Strategie für unser einfaches Beispiel ist in Abbildungen \ref{autnmRobot_POMDPPathA}, \ref{autnmRobot_POMDPPathB}, \ref{autnmRobot_POMDPPathC} zu sehen.
-
-Unterschied zu MDP: Es ist nie klar, in welchem Zustand man sich befindet. Stattdessen gibt es eine Funktion, die eine Wahrscheinlichkeitsverteilung über die Zustände beschreibt.
+Um die Unsicherheit in der Wahrnehmung des Roboters zu modellieren gibt es eine Erweiterung für den MDP. Das erweiterte Modell, der POMDP, sieht formal in erster Linie dem MDP sehr ähnlich. Es gibt eine Menge von Zuständen $S$, eine Menge von Aktionen $A$, ein Zustandsübergangsmodell $p$ sowie eine Gütefunktion $r$. Hinzu kommen
+\begin{itemize}
+	\item die Menge der Beobachtungen $Z = \{z_1, z_2, ..., z_{|Z|}\}$
+	\item die Menge der Beobachtungswahrscheinlichkeiten $O(z_i, a, s_j)$
+\end{itemize}
+durch die ausgedrückt wird, wie wahrscheinlich es ist, dass bei Aktion $a$ in Zustand $s_j$ die Beobachtung $z_i$ gemacht wird.
 
 \subsection{Strategien aus POMDP}
-Idee ein POMDP als Coninuous Space MDP zu sehen. --> Value Iteration artig lösen.
+Um auf Basis des POMDP eine Strategie zu entwickeln betrachtet man häufig eine Wertefunktion $V(b)$ über die Wahrscheinlichkeitsverteilung über alle Zustände \cite{roy2005finding}. Diese Wahrscheinlichkeitsverteilung $b$ wird auch \emph{belief space} genannt. Statt den Zustand wie bei dem MDP immer sicher zu wissen verwenden wir jetzt also die Wahrscheinlichkeitsverteilung $b$, der für jeden Zustand die Wahrscheinlichkeit angibt, dass sich die Umgebung in diesem Zustand befindet. Diese Wahrscheinlichkeitsverteilung wird anhand der Beobachtungen $Z$ und den Beobachtungswahrscheinlichkeiten $O$ verändert.
 
 Eine kleine Liste von weiteren (teilweise approximativen) Algorithmen. Dafür versuche ich am besten auch noch ein Papier zu finden, auf das ich dazu referenzieren kann.
 
