@@ -147,12 +147,12 @@ In mancher Literatur finden sich auch leicht anders geartete Definitionen. In \c
 
 \section{Strategien aus dem MDP}
 \subsection{Motivation}
-Nun haben wir ein Modell kennengelernt, mit dem wir Unsicherheit in der Aktionsausführung korrekt modellieren können. Damit der Roboter aus unserem Beispiel tatsächlich etwas mit dieser Art der Modellierung anfangen kann, müssen wir einen Weg finden aus dem Modell eine Strategie vor zu berechnen. Wie wir schon erkannt haben reicht dazu eine festgelegte Sequenz an Aktionen nicht aus. Stattdessen muss eine Strategie für jeden möglichen Zustand festlegen, was zu tun ist. Eine gängige Bezeichnung einer Strategie (englisch: policy) ist
+Nun ist ein Modell definiert, welches stochastische Effekte in der Aktionsausführung berücksichtigt. Damit der Roboter aus unserem Beispiel tatsächlich etwas mit dieser Art der Modellierung anfangen kann, muss ein Weg gefunden werden, um aus dem Modell mehrere verschiedene Aktionsfolgen vor zu berechnen, denn eine einzelne festgelegte Sequenz an Aktionen liefert kein optimales Ergebnis. Stattdessen muss eine Strategie (englisch: \emph{policy}) für jeden möglichen Systemzustand $s \in S$ festlegen, was zu tun ist. Eine solche Strategie ist definiert als
 \begin{equation}
 	\pi:S \rightarrow A
 	\label{eq:policy}
 \end{equation}
-und $\pi(s)$ ist die von der Strategie $\pi$ vorgeschlagene Aktion im Zustand $s$. Hat der Roboter eine solche Strategie ist immer klar was er als nächstes zu tun hat - unabhängig davon, was bei der Aktionsausführung tatsächlich geschieht.
+und $\pi(s)$ ist die von der Strategie $\pi$ vorgegebene Aktion im Zustand $s$. Hat der Roboter eine solche Strategie ist immer klar, was er als nächstes zu tun hat - unabhängig davon, was bei der Aktionsausführung tatsächlich geschieht.
 
 \subsection{Optimale Strategie}
 Ein wichtiges Konzept im Kontext von Strategien ist der Planungshorizont. (englisch: planning horizon) In manchen Fällen kann es reichen eine Strategie so zu wählen, dass die unmittelbare Belohnung maximiert wird. In den meisten Fällen zahlen sich Aktionen aber nicht sofort aus. In unserem Beispiel wäre eine Gütefunktion
