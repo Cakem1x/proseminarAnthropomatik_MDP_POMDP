@@ -59,7 +59,7 @@ In \cite{cassandra1998survey} werden eine ganze Reihe von verschiedenen Anwendun
 
 In der Verhaltensökologie kann unter der Annahme, dass sich Organismen immer optimal in Bezug auf ihr internes Modell der Welt verhalten, mit Hilfe von Markov-Entscheidungsprozessen so ein Modell nachgebaut werden. Daraufhin werden die aus dem nachgebauten Modell berechneten Verhaltensweisen mit den tatsächlichen Verhaltensweisen des Organismus verglichen und bei Abweichungen das nachgebaute Modell verbessert. Dieses Vorgehen führt zu einem besseren Verständnis des Verhaltens des Organismus.
 
-Es gibt auch eine Vielzahl von nicht-wissenschaftlichen Anwendungsbereichen. So erschließt sich beispielsweise im Bereich der medizinischen Diagnose dem Arzt niemals der genaue Zustand des Patienten. Viel mehr stehen ihm ein beschränktes Maß an Aktionen wie zum Beispiel Labortests oder das Verabreichen von Medikamenten zur Verfügung. Daraufhin kann der Arzt verschiedene Reaktionen beobachten, die mit einem gewissen Maß an Unsicherheit auf seinen Zustand schließen lassen und muss sich an Hand derer für eine weitere Behandlung entscheiden. 
+Es gibt auch eine Vielzahl von nicht-wissenschaftlichen Anwendungsbereichen. So erschließt sich beispielsweise im Bereich der medizinischen Diagnose einem Arzt niemals der genaue Zustand des Patienten. Viel mehr stehen ihm ein beschränktes Maß an Aktionen wie zum Beispiel Labortests oder das Verabreichen von Medikamenten zur Verfügung. Daraufhin kann der Arzt verschiedene Reaktionen beobachten, die mit einem gewissen Maß an Unsicherheit auf seinen Zustand schließen lassen und muss sich an Hand derer für eine weitere Behandlung entscheiden. 
 
 Das Konzept der MDPs wird im Folgenden anhand eines Beispiel aus dem Bereich der autonomen Roboter veranschaulicht. Das angeführte Beispiel basiert auf \cite{thrun2005probabilistic}.
 
@@ -102,11 +102,11 @@ Daher werden in der Praxis häufig Planungsalgorithmen dieser Art mit einem sens
 	\label{autnmRobot_ndetA}
 \end{figure}
 
-Als Konsequenz muss eine präzisere Herangehensweise nicht lediglich eine einzelne Aktionsabfolge vorberechnen, sondern mehrere Aktionen für eine Vielfalt an Situationen, in die der Roboter auf Grund seiner unvorhersehbaren, fehlerbehafteten Aktionsausführung geraten könnte.
+Als Konsequenz muss eine präzisere Herangehensweise nicht lediglich eine einzelne Aktionsabfolge vorberechnen, sondern mehrere Aktionen für eine Vielfalt an Situationen, in denen der Roboter auf Grund seiner unvorhersehbaren, fehlerbehafteten Aktionsausführung geraten könnte.
 
 Um eine solche Aktionsfolgen vorberechnen zu können benötigen wir ein Modell, welches stochastische Effekte in der Aktionsausführung berücksichtigt. Ein solches Modell ist der MDP. Eine aus einem MDP berechnete Strategie gibt für jeden Zustand der Umgebung, hier der Ort, an dem sich der Roboter befindet, eine bestmögliche Aktion an. In diesem Beispiel ist eine solche Aktion eine Bewegung in eine bestimmte Richtung. Egal ob bei der Bewegung Fehler auftreten oder nicht, der Roboter kann danach mit seinen Sensoren seinen Ort erneut feststellen und findet in der vorberechneten Strategie eine nächste optimale Aktion.
 
-Abbildung \ref{autnmRobot_detA} zeigt eine solche Vorberechnung für einen Roboter mit fehlerfreier Aktionsausführung. Hier wählt die Strategie bevorzugt den Weg durch den engen, kurzen Korridor. Bei der Ausführung würde diese Vorberechnung zu dem selben Ergebnis führen wie die vorberechnete Aktionsfolge in Abbildung \ref{fig:autnmRob_dirPath}. In Abbildung \ref{autnmRobot_ndetA} ist eine Vorberechnung für einen Roboter mit fehlerbehafteter Aktionsausführung dargestellt. Hier wird hingegen einer der längeren, breiten Pfade bevorzugt.
+Abbildung \ref{autnmRobot_detA} zeigt eine solche Vorberechnung für einen Roboter mit fehlerfreier Aktionsausführung. Hier wählt die Strategie bevorzugt den Weg durch den engen, kurzen Korridor. Bei der Ausführung würde durch diese Vorberechnung das selbe Ergebnis hervorgerufen werden, wie der vorberechneten Aktionsfolge in Abbildung \ref{fig:autnmRob_dirPath}. In Abbildung \ref{autnmRobot_ndetA} ist eine Vorberechnung für einen Roboter mit fehlerbehafteter Aktionsausführung dargestellt. Hier wird hingegen einer der längeren, breiten Pfade bevorzugt.
 
 Allerdings setzt der MDP voraus, dass der Agent, in unserem Beispiel der Roboter, den Zustand der Umgebung zu jedem Zeitpunkt exakt erkennen kann. Wir müssten also annehmen, dass die Sensoren des Roboters perfekt funktionieren.
 
