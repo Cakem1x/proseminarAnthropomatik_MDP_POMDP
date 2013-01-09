@@ -116,7 +116,7 @@ Ein solches Modell, der teilweise beobachtbare Markov-Entscheidungsprozess (engl
 \section{MDP}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=0.42]{images/MDP_example.png}
+	\includegraphics[scale=0.60]{images/MDP_example.png}
 	\caption{Beispiel eines simplen MDP mit drei Zuständen $s_1, s_2, s_3$ und zwei Aktionen $a_0$ und $a_1$ dargestellt als Graph.}
 	\label{fig:MDP_example} %TODO Dieses Bild ist durch die Änderung der Definition nicht mehr passend. Am besten selbst ein Bild machen.
 \end{figure}
@@ -124,23 +124,23 @@ Nach \cite{cassandra1995acting} ist ein MDP definiert als ein 4-Tupel
 \begin{equation}
 	(S, A, T, R) \ .
 \end{equation}
-Es gibt also die folgenden grundlegenden Komponenten:
+Es gibt die folgenden grundlegenden Komponenten:
 \begin{itemize}
-	\item Die diskrete, endliche Zustandsmenge $S$ beinhaltet alle möglichen Zustände, in denen sich die Umgebung befinden kann. Der Agent kann jederzeit exakt feststellen, in welchem Zustand sich die Umgebung befindet.
-	\item Die endliche Menge der Aktionen $A$. In jedem Zustand kann der Agent aus einer Menge $A_s \subseteq A$ von ausführbaren Aktionen wählen.
-	\item $T$ ist das Zustandsübergangsmodell der Umgebung. Es ist eine Funktion, welche Elemente aus $S \times A$ auf eine diskrete Wahrscheinlichkeitsverteilung über $S$ abbildet. Der Übergang
+	\item Die diskrete, endliche Zustandsmenge $S$ enthält alle möglichen Zustände, in denen sich das System befinden kann. Der Agent kann jederzeit exakt feststellen, in welchem Zustand sich das System befindet.
+	\item Die endliche Menge der Aktionen $A$.
+	\item $T$ ist das Zustandsübergangsmodell des Systems. Es ist eine Funktion, welche Elemente aus $S \times A$ auf eine diskrete Wahrscheinlichkeitsverteilung über $S$ abbildet. Der Übergang
 	\begin{equation}
 		T(s, a, s')
 	\end{equation}
 	drückt die Wahrscheinlichkeit aus, dass sich die Umgebung nach Wählen der Aktion $a$ in Zustand $s$ im Zustand $s'$ befindet.
-	\item Die Gütefunktion
+	\item Die Funktion
 	\begin{equation}
 		r: S \times A \rightarrow \IR
 		\label{eq:payoff}
 	\end{equation}
-	drückt die sofortige Belohnung bzw. die sofortigen Kosten, also die Güte (englisch: payoff), für den Agenten in Abhängigkeit von der gewählten Aktion in einem Zustand aus. Kosten werden als negative Zahlen und Belohnungen als positive Zahlen dargestellt.
+	drückt die Güte (englisch: \emph{payoff}), für den Agenten in Abhängigkeit von der gewählten Aktion in einem Zustand aus. Für das hier behandelte Anwendungsgebiet werden Kosten werden als negative Zahlen und Belohnungen als positive Zahlen dargestellt.
 \end{itemize}
-In Abbildung \ref{fig:MDP_example} ist ein MDP mit drei Zuständen $s_1, s_2, s_3$ und zwei Aktionen $a_0$ und $a_1$ als Graph dargestellt. Für jeden Zustand $s \in S$ gibt es eine Teilmenge $A_s \subseteq A$ von Aktionen von denen ausgehende Kante die Wahrscheinlichkeit des Übergangs in den entsprechenden Folgezustand als Kantengewicht darstellen. Die gelben Pfeile symbolisieren die Belohnung bzw. die Kosten (siehe \ref{eq:payoff}) für bestimmte Aktionen in bestimmten Zuständen.
+In Abbildung \ref{fig:MDP_example} ist ein MDP mit drei Zuständen $s_1, s_2, s_3$ und zwei Aktionen $a_0$ und $a_1$ als Graph dargestellt. Für jeden Zustand $s \in S$ gibt es eine Teilmenge $A_s \subseteq A$ von Aktionen von denen ausgehende Kante die Wahrscheinlichkeit des Übergangs in den entsprechenden Folgezustand als Kantengewicht darstellen. Die gestrichelten Pfeile symbolisieren die Güte (siehe \ref{eq:payoff}) bestimmter Aktionen in bestimmten Zuständen.
 
 In mancher Literatur finden sich auch leicht anders geartete Definitionen. In \cite{russell1995artificial} ist beispielsweise die Gütefunktion eine Funktion, die lediglich von dem Zustand abhängt und es gibt eine Teilmenge $S_{terminal} \subseteq S$ der Zustandsmenge die als Terminalzustände bezeichnet werden. Sobald sich der Agent in einem Terminalzustand befindet kann er keine Aktionen mehr durchführen. Dadurch kann die Modellierungen bestimmter Umgebungen vereinfacht werden, verändert das Problem nur unwesentlich.
 
