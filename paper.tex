@@ -68,50 +68,50 @@ Das Konzept der MDPs wird im Folgenden anhand eines Beispiel aus dem Bereich der
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.72]{images/autnmRobot_basicSituation.png}
-	\caption{Eine beispielhafte Umgebung mit Roboter und Ziel. Der Roboter befindet sich mittig mit der Aufgabe sich zu dem Zielpunkt im linken Bereich der Umgebung zu bewegen. (Aus \cite{thrun2005probabilistic})}
+	\caption{Eine beispielhafte Umgebung mit Roboter und Ziel. Der Roboter befindet sich mittig mit der Aufgabe sich zu dem Zielpunkt im linken Bereich der Umgebung zu bewegen (aus \cite{thrun2005probabilistic}).}
 	\label{fig:autnmRob_bSit}
 \end{figure}
 
-Wie in Abbildung \ref{fig:autnmRob_bSit} dargestellt betrachten wir im Folgenden einen autonomen Roboter der sich im Zentrum einer nahezu symmetrischen Umgebung befindet. Im linken Bereich der Umgebung befindet sich ein Ziel. Die Aufgabe des Roboters ist es, das Ziel möglichst schnell zu erreichen. Allerdings existieren mehrere Pfade die den Roboter an das Ziel bringen. Einen kurzen Pfad, der durch den engen Korridor führt und zwei längere, breitere Pfade außen herum.
+Wie in Abbildung \ref{fig:autnmRob_bSit} dargestellt betrachten wir im Folgenden einen autonomen Roboter der sich im Zentrum einer nahezu symmetrischen Umgebung befindet. Im linken Bereich der Umgebung befindet sich ein Ziel. Die Aufgabe des Roboters ist es, das Ziel zuverlässig und möglichst schnell zu erreichen. Es existieren mehrere Pfade die den Roboter an das Ziel bringen. Einen kurzen Pfad, der durch den engen Korridor führt und zwei längere, breitere Pfade außen herum.
 
-In einem klassischen Planungsbeispiel für Roboter existiert keine Unsicherheit. Der Roboter würde seine Position und die des Zielpunktes exakt kennen. Außerdem hätten ausgeführte Aktionen exakt vorhersehbare Effekte und solche Effekte können eingeplant werden. In so einer Situation würde vor Aktionsausführung die Vorberechnung einer Strategie, die lediglich aus einer einzelnen Abfolge von Aktionen besteht, ausreichen. Unter diesen Voraussetzungen wäre der Einbezug von Sensordaten während der Aktionsausführung unnötig, da der Roboter absolut fehlerfrei funktioniert.
+In der klassischen Planung für Roboter existiert keine Unsicherheit. Es wird angenommen der Roboter kenne seine Position und die des Zielpunktes exakt. Zusätzlich haben ausgeführte Aktionen genau vorhersehbare Effekte. In dieser Situation würde vor Aktionsausführung die Vorberechnung einer einzelnen Abfolge von Aktionen, die den Roboter sicher und möglichst schnell an das Ziel bringt, ein leichtes sein. Der Einbezug von Sensordaten während der Aktionsausführung wäre unnötig, da der Roboter absolut fehlerfrei funktioniert.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.72]{images/autnmRobot_directPath.png}
-	\caption{Ohne die Anwesenheit von Fehlern in der Bewegung des Roboters ist der kürzere, enge Pfad dem längeren, breiten Pfad klar überlegen. (Aus \cite{thrun2005probabilistic})}
+	\caption{Ohne die Anwesenheit von Fehlern in der Bewegung des Roboters ist der kürzere, enge Pfad dem längeren, breiten Pfad klar überlegen (aus \cite{thrun2005probabilistic}).}
 	\label{fig:autnmRob_dirPath}
 \end{figure}
 
-Abbildung \ref{fig:autnmRob_dirPath} zeigt eine solche vorberechnete Strategie. Da bisher angenommen wurde, dass der Roboter absolut fehlerfrei funktioniert ist der kürzere, enge Pfad jedem der längeren, breiten Pfade vorzuziehen.
+Abbildung \ref{fig:autnmRob_dirPath} zeigt eine solche vorberechnete Aktionsfolge. Da bisher angenommen wurde, dass der Roboter absolut fehlerfrei funktioniert ist der kürzere, enge Pfad jedem der längeren, breiten Pfade vorzuziehen.
 
-In der Praxis funktionieren solche Strategien meist aus mehreren Gründen nicht richtig: Ein Roboter, der blind einem engen Korridor folgt läuft Gefahr mit den Wänden zu kollidieren. Außerdem ist es sehr wahrscheinlich, dass der Roboter auf Grund des während der Aktionsausführung akkumulierten Fehlers das Ziel verfehlt.
+In der Praxis funktionieren solche einfachen Aktionsfolgen meist aus mehreren Gründen nicht richtig: Ein Roboter, der blind einem engen Korridor folgt läuft Gefahr mit den Wänden zu kollidieren. Außerdem ist es sehr wahrscheinlich, dass der Roboter auf Grund des während der Aktionsausführung akkumulierten Fehlers das Ziel verfehlt.
 
-Daher werden in der Praxis häufig Planungsalgorithmen dieser Art mit einem sensorbasierten Kontrollmodul kombiniert. Dieses Kontrollmodul verwendet die Sensordaten des Roboters um Fehler, die bei der Aktionsausführung auftreten, zu erkennen und den Roboter immer wieder auf den geplanten Kurs zurück zu führen. Insbesondere bei einem Fall wie dem engen Korridor in unserem Beispiel muss so eine Korrektur besonders häufig stattfinden, um eine Kollision mit der Wand des Korridors zu vermeiden. Dadurch ergibt sich eine signifikante Verringerung der Fortbewegungsgeschwindigkeit des Roboters, die von dem klassischen Planungsalgorithmus nicht berücksichtigt wird. 
+Daher werden in der Praxis häufig Planungsalgorithmen dieser Art mit einem sensorbasierten Kontrollmodul kombiniert. Dieses Kontrollmodul verwendet die Sensordaten des Roboters um Fehler, die bei der Aktionsausführung auftreten, zu erkennen, und den Roboter immer wieder auf den geplanten Kurs zurück zu führen. Insbesondere bei einem Fall wie dem engen Korridor in unserem Beispiel muss so eine Korrektur besonders häufig stattfinden, um eine Kollision mit der Wand des Korridors zu vermeiden. Dadurch wird eine größere Zahl an Messungen benötigt, die eine signifikante Verringerung der Fortbewegungsgeschwindigkeit des Roboters mit sich bringen, die von dem klassischen Planungsalgorithmus nicht berücksichtigt wird. 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.72]{images/autnmRobot_detActionMDP.png}
-	\caption{Darstellung einer Strategie bei \emph{nicht} probabilistischen Effekten bei der Aktionsausführung. Hier ist der kurze Pfad klar überlegen. (Aus \cite{thrun2005probabilistic})}
+	\caption{Darstellung einer Strategie bei \emph{nicht} probabilistischen Effekten bei der Aktionsausführung. Hier ist der kurze Pfad klar überlegen (aus \cite{thrun2005probabilistic}).}
 	\label{autnmRobot_detA}
 \end{figure}
 \begin{figure}
 	\includegraphics[scale=0.72]{images/autnmRobot_ndetActionMDP.png}
-	\caption{Darstellung einer Strategie bei probabilistischen Effekten bei der Aktionsausführung. Hier wird der längere Pfad bevorzugt. (Aus \cite{thrun2005probabilistic})}
+	\caption{Darstellung einer Strategie bei probabilistischen Effekten bei der Aktionsausführung. Hier wird der längere Pfad bevorzugt (aus \cite{thrun2005probabilistic}).}
 	\label{autnmRobot_ndetA}
 \end{figure}
 
-Als Konsequenz muss eine robustere Strategien nicht lediglich eine einzelne Aktionsabfolge vorberechnen, sondern mehrere Aktionen für eine Vielfalt an Situationen, in die der Roboter auf Grund seiner unvorhersehbaren, fehlerbehafteten Aktionsausführung geraten könnte.
+Als Konsequenz muss eine präzisere Herangehensweise nicht lediglich eine einzelne Aktionsabfolge vorberechnen, sondern mehrere Aktionen für eine Vielfalt an Situationen, in die der Roboter auf Grund seiner unvorhersehbaren, fehlerbehafteten Aktionsausführung geraten könnte.
 
-Um eine solche Strategie vorberechnen zu können benötigen wir ein Modell, welches stochastische Effekte in der Aktionsausführung erlaubt. Ein solches Modell ist der MDP. Eine aus einem MDP berechnete Strategie gibt für jeden Zustand der Umgebung, hier der Ort, an dem sich der Roboter befindet, eine bestmögliche Aktion an. In diesem Beispiel ist eine solche Aktion eine Bewegung in eine bestimmte Richtung. Egal ob bei der Bewegung Fehler auftreten oder nicht, der Roboter kann danach mit seinen Sensoren seinen Ort erneut feststellen und findet in der vorberechneten Strategie eine nächste optimale Aktion.
+Um eine solche Aktionsfolgen vorberechnen zu können benötigen wir ein Modell, welches stochastische Effekte in der Aktionsausführung berücksichtigt. Ein solches Modell ist der MDP. Eine aus einem MDP berechnete Strategie gibt für jeden Zustand der Umgebung, hier der Ort, an dem sich der Roboter befindet, eine bestmögliche Aktion an. In diesem Beispiel ist eine solche Aktion eine Bewegung in eine bestimmte Richtung. Egal ob bei der Bewegung Fehler auftreten oder nicht, der Roboter kann danach mit seinen Sensoren seinen Ort erneut feststellen und findet in der vorberechneten Strategie eine nächste optimale Aktion.
 
-Abbildung \ref{autnmRobot_detA} zeigt eine solche Strategie für einen Roboter mit fehlerfreier Aktionsausführung. Hier wählt die Strategie bevorzugt den Weg durch den engen, kurzen Korridor. In Abbildung \ref{autnmRobot_ndetA} ist eine Strategie für einen Roboter mit fehlerbehafteter Aktionsausführung dargestellt. Hier wird hingegen einer der längeren, breiten Pfade bevorzugt.
+Abbildung \ref{autnmRobot_detA} zeigt eine solche Vorberechnung für einen Roboter mit fehlerfreier Aktionsausführung. Hier wählt die Strategie bevorzugt den Weg durch den engen, kurzen Korridor. Bei der Ausführung würde diese Vorberechnung zu dem selben Ergebnis führen wie die vorberechnete Aktionsfolge in Abbildung \ref{fig:autnmRob_dirPath}. In Abbildung \ref{autnmRobot_ndetA} ist eine Vorberechnung für einen Roboter mit fehlerbehafteter Aktionsausführung dargestellt. Hier wird hingegen einer der längeren, breiten Pfade bevorzugt.
 
 Allerdings setzt der MDP voraus, dass der Agent, in unserem Beispiel der Roboter, den Zustand der Umgebung zu jedem Zeitpunkt exakt erkennen kann. Wir müssten also annehmen, dass die Sensoren des Roboters perfekt funktionieren.
 
-In der Praxis ist natürlich auch diese Annahme nicht haltbar. Jedes Sensormodul hat mehr oder weniger stark ausgeprägtes Fehlerrauschen. Bei den meisten Anwendungen, wie auch bei unserem Beispiel, kommt sogar noch ein weiteres Problem hinzu: Falls der Roboter nicht über äußerst ausgeklügelte Positionsbestimmungssensoren verfügt, dann ist es ihm auf Grund der Symmetrie der Beispielumgebung nicht möglich festzustellen, wie er orientiert ist und damit in welcher Richtung das Ziel liegt.
+In der Praxis ist natürlich auch diese Annahme nicht haltbar. Jedes Sensormodul hat mehr oder weniger stark ausgeprägtes Fehlerrauschen. Bei den meisten Anwendungen, wie auch bei unserem Beispiel, kommt sogar noch ein weiteres Problem hinzu: Falls der Roboter lediglich über Distanz- oder Winkelsensoren verfügt, dann ist es ihm auf Grund der Symmetrie der Beispielumgebung nicht möglich festzustellen, wie er orientiert ist und damit in welcher Richtung das Ziel liegt.
 
-Ein solches Modell, der teilweise beobachtbare Markov-Entscheidungsprozess (englisch: partially observable Markov decision process, kurz: POMDP), wird in Kapitel \ref{sec:pomdp} dieser Ausarbeitung kurz angerissen.
+Ein solches Modell, der teilweise beobachtbare Markov-Entscheidungsprozess (englisch: \emph{partially observable Markov decision process}, kurz: POMDP), wird in Kapitel \ref{sec:pomdp} dieser Ausarbeitung kurz angerissen.
 
 \section{MDP}
 \begin{figure}[ht]
@@ -126,7 +126,7 @@ Nach \cite{cassandra1995acting} ist ein MDP definiert als ein 4-Tupel
 \end{equation}
 Es gibt also die folgenden grundlegenden Komponenten:
 \begin{itemize}
-	\item Die endliche Zustandsmenge $S$ beinhaltet alle möglichen Zustände, in denen sich die Umgebung befinden kann. Der Agent kann jederzeit exakt feststellen, in welchem Zustand sich die Umgebung befindet.
+	\item Die diskrete, endliche Zustandsmenge $S$ beinhaltet alle möglichen Zustände, in denen sich die Umgebung befinden kann. Der Agent kann jederzeit exakt feststellen, in welchem Zustand sich die Umgebung befindet.
 	\item Die endliche Menge der Aktionen $A$. In jedem Zustand kann der Agent aus einer Menge $A_s \subseteq A$ von ausführbaren Aktionen wählen.
 	\item $T$ ist das Zustandsübergangsmodell der Umgebung. Es ist eine Funktion, welche Elemente aus $S \times A$ auf eine diskrete Wahrscheinlichkeitsverteilung über $S$ abbildet. Der Übergang
 	\begin{equation}
