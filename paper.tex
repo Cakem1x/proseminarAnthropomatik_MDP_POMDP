@@ -51,10 +51,17 @@ Markov-Entscheidungsprozesse sind ein in vielen Gebieten beliebter Weg, um Entsc
 
 
 \section{Einleitung}
-Der vollständig beobachtbare Markov-Entscheidungsprozess (englisch: completely observable Markov decision process, kurz coMDP, im Folgenden als MDP bezeichnet) ist ein mathematisches Modell zur Modellierung von Entscheidungsproblemen. Der MDP wird verwendet, um Systeme, bei denen Aktionen nicht deterministische Folgen haben können zu modellieren und dann aus diesem Modell eine Strategie, also eine Aktion für jeden Zustand, zu errechnen.
+Der vollständig beobachtbare Markov-Entscheidungsprozess (englisch: \emph{completely observable Markov decision process}, kurz coMDP, im Folgenden als MDP bezeichnet) ist ein mathematisches Modell zur Modellierung von Entscheidungsproblemen. Der MDP wird verwendet, um Systeme, bei denen Aktionen nicht deterministische Folgen haben können zu modellieren und dann aus diesem Modell eine Strategie, also eine Aktion für jeden Zustand, zu errechnen.
 
-%TODO More stuff here! \o/
-Das Konzept der MDPs wird an einem Beispiel aus dem Bereich der autonomen Roboter veranschaulicht. Das angeführte Beispiel basiert auf \cite{thrun2005probabilistic}.
+In fast allen Bereichen können Unsicherheiten auftreten, was dazu führt, dass der Einbezug von Unsicherheiten in das Modell in vielen Bereichen äußerst interessant ist. Da es für ein reales Entscheidungsproblem nie möglich ist, dessen Eigenschaften vollständig und exakt in ein Modell zu überführen wird sich so ein Modell immer in gewissem Maße von der Wirklichkeit unterscheiden. Dadurch entsteht schon allein wegen des modellbasierten Vorgehens ein gewisses Maß an Unsicherheit.
+
+In \cite{cassandra1998survey} werden eine ganze Reihe von verschiedenen Anwendungsbereichen für Markov-Entscheidungsprozesse beschrieben. So verursachen im Bereich der autonomen Roboter äußere Störungen, wie zum Beispiel Schlupf, unterschiedliche Beschaffenheit des Bodens oder Fehlerrauschen an den Sensoren zusätzliche Unsicherheiten.
+
+In der Verhaltensökologie kann unter der Annahme, dass sich Organismen immer optimal in Bezug auf ihr internes Modell der Welt verhalten, mit Hilfe von Markov-Entscheidungsprozessen so ein Modell nachgebaut werden. Daraufhin werden die aus dem nachgebauten Modell berechneten Verhaltensweisen mit den tatsächlichen Verhaltensweisen des Organismus verglichen und bei Abweichungen das nachgebaute Modell verbessert. Dieses Vorgehen führt zu einem besseren Verständnis des Verhaltens des Organismus.
+
+Es gibt auch eine Vielzahl von nicht-wissenschaftlichen Anwendungsbereichen. So erschließt sich beispielsweise im Bereich der medizinischen Diagnose dem Arzt niemals der genaue Zustand des Patienten. Viel mehr stehen ihm ein beschränktes Maß an Aktionen wie zum Beispiel Labortests oder das Verabreichen von Medikamenten zur Verfügung. Daraufhin kann der Arzt verschiedene Reaktionen beobachten, die mit einem gewissen Maß an Unsicherheit auf seinen Zustand schließen lassen und muss sich an Hand derer für eine weitere Behandlung entscheiden. 
+
+Das Konzept der MDPs wird im Folgenden anhand eines Beispiel aus dem Bereich der autonomen Roboter veranschaulicht. Das angeführte Beispiel basiert auf \cite{thrun2005probabilistic}.
 
 
 \section{Planung unter Unsicherheit}
@@ -315,45 +322,6 @@ durch die ausgedrückt wird, wie wahrscheinlich es ist, dass bei Aktion $a$ in Z
 Um auf Basis des POMDP eine Strategie zu entwickeln betrachtet man häufig eine Wertefunktion $V(b)$ über die Wahrscheinlichkeitsverteilung über alle Zustände \cite{roy2005finding}. Diese Wahrscheinlichkeitsverteilung $b$ wird auch \emph{belief space} genannt. Statt den Zustand wie bei dem MDP immer sicher zu wissen verwenden wir jetzt also die Wahrscheinlichkeitsverteilung $b$, der für jeden Zustand die Wahrscheinlichkeit angibt, dass sich die Umgebung in diesem Zustand befindet. Diese Wahrscheinlichkeitsverteilung wird anhand der Beobachtungen $Z$ und den Beobachtungswahrscheinlichkeiten $O$ verändert.
 
 Konkrete Algorithmen zur exakten und/oder approximativen Berechnung von Strategien finden sich in \cite{cassandra1995acting}, \cite{roy2005finding} und \cite{thrun2005probabilistic}.
-
-\section{Weitere Anwendungsgebiete}
-\label{sec:furtherApplications}
-Natürlich ist der MDP bzw. der POMDP nicht nur für die Roboterpfadplanung interessant. In \cite{cassandra1998survey} werden eine Reihe von verschiedenen möglichen Anwendungsgebieten diskutiert. Die dort beleuchteten Anwendungsgebiete sind
-\begin{itemize}
-	\item Industrielle Anwendungsgebiete
-	\begin{itemize}
-		\item Wartung von Maschinen
-		\item Struktur-Inspektion
-		\item Steuerung von Aufzügen
-	\end{itemize}
-	\item Wissenschaftliche Anwendungsgebiete
-	\begin{itemize}
-		\item Autonome Roboter
-		\item Verhaltensökologie
-		\item Maschinelles Sehen
-	\end{itemize}
-	\item Gewerbliche Anwendungsgebiete
-	\begin{itemize}
-		\item Fehlerbehebung in Netzwerken
-		\item Anfragen auf verteilte Datenbanken
-		\item Marketing
-		\item Entwurf von Fragebögen
-		\item Geschäftspolitik
-	\end{itemize}
-	\item Militärische Anwendungsgebiete
-	\begin{itemize}
-		\item Verfolgen von bewegten Zielen
-		\item Suche und Rettung
-		\item Zielidentifikation
-		\item Waffenzuteilung
-	\end{itemize}
-	\item Gesellschaftliche Anwendungsgebiete
-	\begin{itemize}
-		\item Bildung
-		\item Medizinische Diagnose
-		\item Gesundheitspolitik
-	\end{itemize}
-\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Literaturverzeichnis (in literatur.bib, z.B. mit Jabref editieren) 
