@@ -147,7 +147,7 @@ In mancher Literatur finden sich auch leicht anders geartete Definitionen. In \c
 
 \section{Strategien aus dem MDP}
 \subsection{Motivation}
-Nun ist ein Modell definiert, welches stochastische Effekte in der Aktionsausführung berücksichtigt. Damit der Roboter aus unserem Beispiel tatsächlich etwas mit dieser Art der Modellierung anfangen kann, muss ein Weg gefunden werden, um aus dem Modell mehrere verschiedene Aktionsfolgen vor zu berechnen, denn eine einzelne festgelegte Sequenz an Aktionen liefert kein optimales Ergebnis. Stattdessen muss eine Strategie (englisch: \emph{policy}) für jeden möglichen Systemzustand $s \in S$ festlegen, was zu tun ist. Eine solche Strategie ist definiert als
+Nun ist ein Modell definiert, welches stochastische Effekte in der Aktionsausführung berücksichtigt. Damit der Roboter aus unserem Beispiel tatsächlich etwas mit dieser Art der Modellierung anfangen kann, muss ein Weg gefunden werden, um aus dem Modell mehrere verschiedene Aktionsfolgen vor zu berechnen, denn eine einzelne festgelegte Sequenz an Aktionen funktioniert aus den in Kapitel \ref{sec:planning} angeführten Gründen selten gut. Stattdessen muss eine Strategie (englisch: \emph{policy}) für jeden möglichen Systemzustand $s \in S$ festlegen, was zu tun ist. Eine solche Strategie ist definiert als
 \begin{equation}
 	\pi:S \rightarrow A
 	\label{eq:policy}
@@ -155,7 +155,7 @@ Nun ist ein Modell definiert, welches stochastische Effekte in der Aktionsausfü
 und $\pi(s)$ ist die von der Strategie $\pi$ vorgegebene Aktion im Zustand $s$. Hat der Roboter eine solche Strategie ist immer klar, was er als nächstes zu tun hat - unabhängig davon, was bei der Aktionsausführung tatsächlich geschieht.
 
 \subsection{Optimale Strategie}
-Ein wichtiges Konzept im Kontext von Strategien ist der Planungshorizont. (englisch: planning horizon) In manchen Fällen kann es reichen eine Strategie so zu wählen, dass die unmittelbare Belohnung maximiert wird. In den meisten Fällen zahlen sich Aktionen aber nicht sofort aus. In unserem Beispiel wäre eine Gütefunktion
+Ob eine Strategie optimale ist unterscheidet sich von Anwendung zu Anwendung. Bevor eine optimale Strategie vor berechnet werden kann, muss zu erst definiert werden, was optimal tatsächlich bedeutet. In diesem Kontext ist der Planungshorizont (englisch: \emph{planning horizon}) ein wichtiges Konzept. In manchen Fällen kann es reichen eine Strategie so zu wählen, dass die unmittelbare Belohnung maximiert wird. In den meisten Fällen zahlen sich Aktionen aber nicht sofort aus. In unserem Beispiel wäre eine Gütefunktion
 \begin{equation}
 	r(s,a) = \left\{ \begin{array}{rl}
 		+100 &\mbox{ falls $a$ in das Ziel führt} \\
@@ -165,11 +165,11 @@ Ein wichtiges Konzept im Kontext von Strategien ist der Planungshorizont. (engli
 denkbar. Hier wird deutlich erkennbar, dass die Belohnung erst nach vielen Aktionen eintritt. Daher kann eine Strategie, die lediglich die unmittelbare Belohnung maximiert hier kein optimales Ergebnis liefern: Jede Aktion, egal ob sie in Richtung des Ziels oder vom Ziel weg führt hat die Kosten -1 und wären somit für eine solche Strategie gleichwertig.
 Stattdessen setzt man sich häufig zum Ziel die Summe der zukünftigen Belohnungen zu maximieren.
 
-Die folgenden Ausführungen basieren auf \cite{russell1995artificial}. Zunächst müssen wir uns über den Nutzen (englisch: utility) einer Aktionsfolge 
+Die folgenden Ausführungen basieren auf \cite{russell1995artificial}. Zunächst wird der Nutzen (englisch: \emph{utility}) einer Aktionsfolge 
 \begin{equation}
 	U([(s_0, a_0), (s_1, a_1), ..., (s_n, a_n)])
 \end{equation}
-klar werden. Ist unser Planungshorizont endlich, dann gibt es einen Zeitpunkt $n \in N$ nach dem Aktionen des Agenten nichts mehr Wert sind. Demnach ist 
+definiert. Ist unser Planungshorizont endlich, dann gibt es einen Zeitpunkt $n \in N$ nach dem Aktionen des Agenten nichts mehr Wert sind. Demnach ist 
 \begin{equation}
 	\begin{split}
 		U([ (s_0, a_0), (s_1, a_1), ..., (s_n, a_n)]) \\
@@ -177,25 +177,25 @@ klar werden. Ist unser Planungshorizont endlich, dann gibt es einen Zeitpunkt $n
 		\forall k \in \IN \ .
 	\end{split}
 \end{equation}
-Dadurch kann es vorkommen, dass beispielsweise ein Zielpunkt mit besonders hoher Belohnung zu einem bestimmten Zeitpunkt von manchen Zuständen aus nicht mehr erreicht werden kann und daher die optimale Aktion in diesem Zustand eine andere ist, als wäre der Agent zu einem früheren Zeitpunkt in diesem Zustand gewesen. Daher kommt der Effekt, dass sich bei einem endlichen Planungshorizont die optimale Aktion in demselben Zustand über die Zeit ändern kann. Die optimale Strategie für einen endlichen Planungshorizont ist also \emph{nicht stationär}. (englisch: \emph{nonstationary})
+Dadurch kann es vorkommen, dass beispielsweise ein Zielpunkt mit besonders hoher Belohnung zu einem bestimmten Zeitpunkt von manchen Zuständen aus nicht mehr erreicht werden kann und daher die optimale Aktion in einem diesen Zuständen eine andere ist, als wäre der Agent zu einem früheren Zeitpunkt in einem dieser Zustände gewesen. Daher kommt der Effekt, dass sich bei einem endlichen Planungshorizont die optimale Aktion in demselben Zustand über die Zeit verändern kann. Die optimale Strategie für einen endlichen Planungshorizont ist also \emph{nicht stationär}.
 
-Diese Problematik existiert nicht, wenn wir einen unendlichen Planungshorizont annehmen. Dann gibt es keinen Grund zu verschiedenen Zeitpunkten eine andere Aktion in demselben Zustand zu wählen.
+Diese Problematik existiert nicht, wenn ein unendlichen Planungshorizont angenommen wird. Dann gibt es keinen Grund zu verschiedenen Zeitpunkten eine andere Aktion in demselben Zustand zu wählen.
 
 Es gibt mehrere Möglichkeiten einer Aktionsfolge einen Nutzen zuzuweisen:
 \begin{enumerate}
-	\item \textbf{Additive Güte:} (englisch: additive rewards)
+	\item \textbf{Additive Güte:} (englisch: \emph{additive rewards})
 		\begin{equation}
 			U([ (s_0, a_0), (s_1, a_1), ..., (s_n, a_n)]) = \sum\limits_{t=1}^n r(s_t, a_t)\ .
 		\end{equation}
-		Die additive Güte funktioniert nur dann gut, wenn der Planungshorizont endlich ist. Bei einem unendlichen Planungshorizont ($n \rightarrow \infty$) divergiert die Wertefunktion und zwei Aktionsfolgen können nicht mehr unterschieden werden. Als anschauliches Beispiel kann man sich zwei Arbeitsplätze vorstellen, von denen uns der eine 1 Geldeinheit pro Stunde einbringt und der andere 10 Geldeinheiten pro Stunde. Bei unendlichem Planungshorizont bringen beide Jobs unendlich viel Geldeinheiten ein und sind dadurch für die Strategie gleichwertig.
-	\item \textbf{Reduzierte Güte:} (englisch: discounted rewards)
+		Die additive Güte funktioniert nur dann gut, wenn der Planungshorizont endlich ist. Bei einem unendlichen Planungshorizont ($n \rightarrow \infty$) divergiert die Wertefunktion und zwei Aktionsfolgen können nicht mehr unterschieden werden. Als anschauliches Beispiel kann man sich zwei Arbeitsplätze vorstellen, von denen der eine 1 Geldeinheit pro Stunde und der andere 10 Geldeinheiten pro Stunde einbringt. Bei unendlichem Planungshorizont bringen beide Jobs unendlich viel Geldeinheiten ein und sind dadurch für die Strategie gleichwertig.
+	\item \textbf{Reduzierte Güte:} (englisch: \emph{discounted rewards})
 		\begin{equation}
 			\begin{split}
 				U([ (s_0, a_0), (s_1, a_1), ..., (s_n, a_n)]) = \sum\limits_{t=1}^n \gamma^t r(s_t, a_t),\\
 				\text{mit }\gamma \in [0,1]\ .
 			\end{split}
 		\end{equation}
-		Der Reduzierungsfaktor $\gamma$ (englisch: discount factor) drückt aus, wie wichtig die zeitliche Nähe der Belohnung ist. Für $\gamma=1$ lässt sich mit der reduzierten Güte auch das additive Modell darstellen. Die additive Güte ist also ein Spezialfall der reduzierten Güte. Nach \cite{thrun2005probabilistic} gilt für $\gamma < 1$ und bei beschränkter Güte 
+		Der Reduzierungsfaktor $\gamma$ (englisch: \emph{discount factor}) drückt aus, wie wichtig die zeitliche Nähe der Belohnung ist. Für $\gamma=1$ lässt sich mit der reduzierten Güte auch das additive Modell darstellen. Die additive Güte ist also ein Spezialfall der reduzierten Güte. Nach \cite{thrun2005probabilistic} gilt für $\gamma < 1$ und bei beschränkter Güte 
 		\begin{equation}
 			\exists r_{max} \in \IR\ \forall s \in S\ \forall a \in A: |r(s,a)| < r_{max} \ ,
 		\end{equation}
@@ -204,11 +204,11 @@ Es gibt mehrere Möglichkeiten einer Aktionsfolge einen Nutzen zuzuweisen:
 			\sum\limits_{t=1}^n \gamma^t r(s_t, a_t) \leq \sum\limits_{t=1}^n \gamma^t r_{max} = \frac{r_{max}}{1-\gamma}  \ .
 		\end{equation}
 	\item
-		Eine weitere Möglichkeit bei unendlichem Planungshorizont wäre die durchschnittliche Güte pro Zeitschritt zu betrachten, sprengt aber den Rahmen dieser Ausarbeitung.
+		Eine weitere Möglichkeit bei unendlichem Planungshorizont wäre die durchschnittliche Güte pro Zeitschritt zu betrachten. Diese Möglichkeit übersteigt aber den Rahmen dieser Ausarbeitung.
 \end{enumerate}
 Zusammenfassend ist die Verwendung von reduzierter Güte mit den wenigsten Problemen verbunden, um mit ihr den Nutzen einer Aktionsfolge zu bewerten.
 
-Der letzte Schritt ist nun die beste Strategie $\pi$ zu wählen, wobei wir im Kopf behalten müssen, dass eine Strategie nicht nur eine Aktionsfolge bedeutet, sondern eine ganze Reihe von möglichen Aktionsfolgen. Daher ist der Wert einer Strategie die erwartete Summe der reduzierten Güte aller Aktionsfolgen, die $\pi$ generieren könnte. Eine optimale Strategie ist
+Nun, da der Wert einer Aktionsfolge klar definiert ist, kann bestimmt werden, wann eine Strategie optimal ist. Dabei sollte sich in Erinnerung gerufen werden, dass eine Strategie nicht eine Aktionsfolge ist, sondern eine ganze Reihe von möglichen Aktionsfolgen. Daher ist der Wert einer Strategie $\pi$ die erwartete Summe der reduzierten Güte aller Aktionsfolgen, die $\pi$ generieren könnte. Eine optimale Strategie ist
 \begin{equation}
 	\pi^* = \underset{\pi}{argmax}\ \E \left[ \sum\limits_{t=1}^{\infty} \gamma^t r(s_t, a_t) \ \vert\ \pi \right]\ .
 \end{equation}
