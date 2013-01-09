@@ -65,6 +65,7 @@ Das Konzept der MDPs wird im Folgenden anhand eines Beispiel aus dem Bereich der
 
 
 \section{Planung unter Unsicherheit}
+\label{sec:planning}
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.72]{images/autnmRobot_basicSituation.png}
@@ -213,29 +214,29 @@ Nun, da der Wert einer Aktionsfolge klar definiert ist, kann bestimmt werden, wa
 	\pi^* = \underset{\pi}{argmax}\ \E \left[ \sum\limits_{t=1}^{\infty} \gamma^t r(s_t, a_t) \ \vert\ \pi \right]\ .
 \end{equation}
 
-\subsection{Value iteration}
+\subsection{Value Iteration}
 \label{sec:valueIteration}
-Nun da wir wissen wie eine optimale Strategie aussieht müssen wir nur noch eine Möglichkeit finden eine solche mit einem konkreten Algorithmus zu erzeugen. In Anlehnung an \cite{thrun2005probabilistic} folgt nun ein value iteration Algorithmus, der genau das bewerkstelligt.
+Um eine optimale Strategie zu einem gegebenen MDP zu berechnen, wird in \cite{thrun2005probabilistic} ein value iteration Algorithmus angegeben. 
 
-Dazu betrachten wir zunächst einen beschränkten Planungshorizont. Eine optimale Strategie 
+Zunächst wird ein beschränkter Planungshorizont betrachtet. Eine optimale Strategie 
 \begin{equation}
 	\pi_1^*: s \rightarrow a
 \end{equation}
-für einen Planungshorizont $n=1$ ist sehr einfach zu finden, in dem man für jeden Zustand jene Aktion wählt, welche die höchste Güte liefert
+für einen Planungshorizont $n=1$ ist sehr einfach zu finden, in dem für jeden Zustand jene Aktion ausgewählt wird, welche die höchste Güte liefert, nämlich
 \begin{equation}
-	\pi_1^*(s)= \underset{a}{argmax}\ r(s, a)
+	\pi_1^*(s)= \underset{a}{argmax}\ r(s, a)\ .
 \end{equation}
-Außerdem definieren wir zu diesem Planungshorizont eine Wertefunktion, die jedem Zustand einen erwarteten Wert zuweist. Diese Wertefunktion
+Daraufhin wird zu diesem Planungshorizont eine Wertefunktion definiert, die jedem Zustand einen erwarteten Wert zuweist. Diese Wertefunktion
 \begin{equation}
 	V_1(s) = \gamma\ \underset{a}{max}\ r(s, a)
 \end{equation}
 ist der reduzierte Wert der höchsten Belohnung, die eine der möglichen Aktionen liefert.
 
-Für den Planungshorizont $n=2$ können wir nun auf die für den Planungshorizont $n=1$ schon definierte Wertefunktion aufbauen. Die optimale Strategie für $n=2$ wählt für jeden Zustand $s$ jene Aktion $a$, welche die Summe aus der sofortigen Belohnung $r(s,a)$ und der erwarteten Belohnung aus der Wertefunktion $V_1(s)$ maximiert
+Für den Planungshorizont $n=2$ wird nun auf die für den Planungshorizont $n=1$ schon definierte Wertefunktion aufgebaut. Die optimale Strategie für $n=2$ gibt für jeden Zustand $s$ jene Aktion $a$ vor, welche die Summe aus der sofortigen Belohnung $r(s,a)$ und der erwarteten Belohnung aus der Wertefunktion $V_1(s)$ maximiert, nämlich
 \begin{equation}
 	\pi_2^*(s) = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} V_1(s')\ T(s, a, s') \right]\ .
 \end{equation}
-Die entsprechende Wertefunktion lautet dann
+Die entsprechende Wertefunktion lautet
 \begin{equation}
 	V_2(s) = \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} V_1(s')\ T(s, a, s') \right]\ .
 \end{equation}
@@ -248,14 +249,14 @@ Um nun eine optimale Strategie bzw. eine Wertefunktion für einen beliebigen Pla
 	V_n(s) = \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} V_{n-1}(s')\ T(s, a, s') \right]\
 \end{equation}
 
-Für einen unendlichen Planungshorizont neigt die Wertefunktion
+Für einen unendlichen Planungshorizont erreicht die Wertefunktion
 \begin{equation}
 	\label{eq:valuefunction}
 	V_\infty(s) = \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} V_{\infty}(s')\ T(s, a, s') \right]\
 \end{equation}
-dazu irgendwann ein Gleichgewicht zu erreichen. Diese Invarianz ist als \emph{Optimalitätsprinzip von Bellman} (englisch: Bellman equation) bekannt.
+irgendwann ein Gleichgewicht. Diese Invarianz ist als \emph{Bellman-Gleichung} bekannt.
 
-Diese Überlegungen führen uns zu einem konkreten Algorithmus, der aus einem MDP mit endlicher Zustandsmenge bei unendlichem Planungshorizont eine Wertefunktion berechnet, die \eqref{eq:valuefunction} approximiert. Unsere angenäherte Wertefunktion $\hat{V}$ initialisieren wir für jeden Zustand $s$ mit der kleinstmöglichen Güte $r_{min}$ %TODO Warum nicht mit 0?
+Diese Überlegungen führen zu einem konkreten Algorithmus, der aus einem MDP mit endlicher, diskreter Zustandsmenge bei unendlichem Planungshorizont eine Wertefunktion berechnet, die \eqref{eq:valuefunction} approximiert. Unsere angenäherte Wertefunktion $\hat{V}$ initialisieren wir für jeden Zustand $s$ mit der kleinstmöglichen Güte $r_{min}$ %TODO Warum nicht mit 0?
 \begin{equation}
 	\hat{V}(s) \leftarrow r_{min}\ .
 \end{equation}
@@ -274,7 +275,7 @@ Abbildung \ref{autnmRobot_policy} zeigt eine auf diese Weise berechnete Wertefun
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.72]{images/autnmRobot_MDPValueFunction.png}
-	\caption{Ein Beispiel einer Wertefunktion bei unendlichem Planungshorizont. Diese Wertefunktion induziert die Strategie in Abbildung \ref{autnmRobot_detA} (Aus \cite{thrun2005probabilistic})}
+	\caption{Ein Beispiel einer Wertefunktion bei unendlichem Planungshorizont. Diese Wertefunktion induziert die Strategie in Abbildung \ref{autnmRobot_detA} (aus \cite{thrun2005probabilistic}).}
 	\label{autnmRobot_policy}
 \end{figure}
 
@@ -287,27 +288,27 @@ In dieser Ausarbeitung wurde der MDP mit endlicher Zustandsmenge definiert. Es g
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.72]{images/autnmRobot_POMDPPathA.png}
-	\caption{Die Strategie zu einem Zeitpunkt, an dem die Orientierung des Roboters noch nicht feststeht. Um zu vermeiden, auf Grund der Symmetrie der Umgebung in die falsche Richtung zu fahren ist es sinnvoll an den linken bzw. den rechten Rand der Umgebung zu fahren, die sich deutlich unterscheiden. (Aus \cite{thrun2005probabilistic})}
+	\caption{Die Strategie zu einem Zeitpunkt, an dem die Orientierung des Roboters noch nicht feststeht. Um zu vermeiden, auf Grund der Symmetrie der Umgebung in die falsche Richtung zu fahren ist es sinnvoll an den linken bzw. den rechten Rand der Umgebung zu fahren, die sich deutlich unterscheiden (aus \cite{thrun2005probabilistic}).}
 	\label{autnmRobot_POMDPPathA}
 \end{figure}
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.72]{images/autnmRobot_POMDPPathB.png}
-	\caption{Die Strategie zu dem Zeitpunkt, an dem durch den Markanten Punkt am rechten Rand der Roboter den Ort des Zieles mit sehr hoher Wahrscheinlichkeit kennt. (Aus \cite{thrun2005probabilistic})}
+	\caption{Die Strategie zu dem Zeitpunkt, an dem durch den Markanten Punkt am rechten Rand der Roboter den Ort des Zieles mit sehr hoher Wahrscheinlichkeit kennt (aus \cite{thrun2005probabilistic}).}
 	\label{autnmRobot_POMDPPathB}
 \end{figure}
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.72]{images/autnmRobot_POMDPPathC.png}
-	\caption{Die Strategie zu dem Zeitpunkt, an dem durch den Markanten Punkt am linken Rand der Roboter den Ort des Zieles mit sehr hoher Wahrscheinlichkeit kennt. (Aus \cite{thrun2005probabilistic})}
+	\caption{Die Strategie zu dem Zeitpunkt, an dem durch den Markanten Punkt am linken Rand der Roboter den Ort des Zieles mit sehr hoher Wahrscheinlichkeit kennt (aus \cite{thrun2005probabilistic}).}
 	\label{autnmRobot_POMDPPathC}
 \end{figure}
 
-Bisher nahmen wir an, dass die Sensoren des Roboters jederzeit den exakten Zustand der Umgebung wahrnehmen können. In der Praxis liefern Sensoren allerdings lediglich ein verrauschtes Abbild der Umgebung. Daher kann der Zustand nur bis zu einem gewissen Grade geschätzt werden. Natürlich gibt es Bereiche der Umgebung, in denen Sensoren mehr oder weniger gut funktionieren.
+Bisher wurde angenommen, dass die Sensoren des Roboters jederzeit den exakten Zustand der Umgebung wahrnehmen können. In der Praxis liefern Sensoren allerdings lediglich ein verrauschtes Abbild der Umgebung. Daher kann der Zustand nur bis zu einem gewissen Grade geschätzt werden. Natürlich gibt es Bereiche der Umgebung, in denen Sensoren mehr oder weniger gut funktionieren.
 
-Um diese Problematik zu veranschaulichen betrachten wir nun wieder unsere Beispiel. Das einzige Unterscheidungsmerkmal findet sich am linken bzw. rechten Ende der Umgebung. Direkt in Richtung eines möglichen Zielortes zu fahren würde eine 50\% Chance mit sich bringen das Ziel zu verpassen und stattdessen zu dem entsprechenden Ort auf der anderen Seite zu fahren. Optimalerweise muss der Roboter nun also zuerst in eine der Ecken fahren um sicher feststellen zu können, wo sich das genau Ziel befindet. (Das Ziel selbst ist für die Sensoren des Roboters nicht wahrnehmbar)
+Zur Veranschaulichung dieser Problematik wird wieder das in Kapitel \ref{sec:planning} erläuterte Beispiel verwendet. Das einzige Unterscheidungsmerkmal findet sich am linken bzw. rechten Ende der Umgebung. Direkt in Richtung eines möglichen Zielortes zu fahren würde eine 50\% Chance mit sich bringen das Ziel zu verpassen und stattdessen zu dem entsprechenden Ort auf der anderen Seite zu fahren. Optimalerweise muss der Roboter nun also zuerst in eine der Ecken fahren um sicher feststellen zu können, wo sich das genau Ziel befindet. (Das Ziel selbst ist für die Sensoren des Roboters nicht wahrnehmbar)
 
 Bei der Roboterpfadplanung muss nun in Betracht gezogen werden, wann es sich lohnt erst mal höhere Kosten auf sich zu nehmen, um die Wahrscheinlichkeit zu erhöhen den richtigen Umgebungszustand zu schätzen. Außerdem können bestimmte Pfade mehr oder weniger attraktiv werden, je nach dem wie gut die Sensoren des Roboters auf ihnen funktionieren. So kann bei der Pfadplanung beispielsweise eine Zone in der Lokalisierung mit Hilfe von GPS nur schwer möglich ist, gemieden werden, falls es bessere Alternativen gibt.
 
