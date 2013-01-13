@@ -64,13 +64,28 @@
 
 \section{Planung unter Unsicherheit}
 \begin{frame}
-	\frametitle{Planung unter Unsicherheit}
+	\frametitle{Planung unter Unsicherheit}	
+	\visible<2,3>{
+		\only<2>{
+			\includegraphics[scale=0.7]{images/autnmRobot_basicSituation.png}
+		}
+		\only<3>{
+			\includegraphics[scale=0.7]{images/autnmRobot_directPath.png}
+		}
+	}
 	\begin{block}{Klassische Pfadplanung}
 		Annahmen:
 		\begin{enumerate}
-		\item Genauer Zustand erkennbar
-		\item Aktionsausführung fehlerfrei
+			\item Genauer Zustand erkennbar
+			\item Aktionsausführung fehlerfrei
 		\end{enumerate}
+		\only<4->{
+		Probleme:
+		\begin{itemize}
+			\item the cake...
+			\item it's a lie!
+		\end{itemize}
+		}
 	\end{block}
 \end{frame}
 
