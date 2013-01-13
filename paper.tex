@@ -51,11 +51,11 @@ Markov-Entscheidungsprozesse sind ein in vielen Gebieten beliebter Weg, um Entsc
 
 
 \section{Einleitung}
-Der vollständig beobachtbare Markov-Entscheidungsprozess (englisch: \emph{completely observable Markov decision process}, kurz coMDP, im Folgenden als MDP bezeichnet) ist ein mathematisches Modell zur Modellierung von Entscheidungsproblemen. Der MDP wird verwendet, um Systeme, bei denen Aktionen nichtdeterministische Folgen haben können zu modellieren und dann aus diesem Modell eine Strategie, also eine Aktion für jeden Zustand, zu errechnen.
+Der vollständig beobachtbare Markov-Entscheidungsprozess (englisch: \emph{completely observable Markov decision process}, kurz coMDP, im Folgenden als MDP bezeichnet) ist ein mathematisches Modell zur Modellierung von Entscheidungsproblemen. Der MDP wird verwendet, um Systeme, bei denen Aktionen nichtdeterministische Folgen haben können, zu modellieren und dann aus diesem Modell eine Strategie, also eine Aktion für jeden Zustand, zu errechnen.
 
 In fast allen Bereichen können Unsicherheiten auftreten, was dazu führt, dass der Einbezug von Unsicherheiten in das Modell in vielen Bereichen äußerst interessant ist. Da es für ein reales Entscheidungsproblem nie möglich ist, dessen Eigenschaften vollständig und exakt in ein Modell zu überführen, wird sich ein solches Modell immer in gewissem Maße von der Wirklichkeit unterscheiden. Dadurch entsteht schon allein aufgrund des modellbasierten Vorgehens ein gewisses Maß an Unsicherheit.
 
-In \cite{cassandra1998survey} werden eine ganze Reihe von verschiedenen Anwendungsbereichen für Markov-Entscheidungsprozesse beschrieben. So verursachen im Bereich der autonomen Roboter äußere Störungen, wie zum Beispiel Schlupf, unterschiedliche Beschaffenheit des Bodens oder Fehlerrauschen an den Sensoren, zusätzliche Unsicherheiten.
+In \cite{cassandra1998survey} werden eine ganze Reihe von verschiedenen Anwendungsbereichen für Markov-Entscheidungsprozesse beschrieben. So verursachen im Bereich der autonomen Roboter äußere Störungen, wie zum Beispiel Schlupf zwischen Antriebsrädern und Untergrund, unterschiedliche Beschaffenheit des Bodens oder Fehlerrauschen an den Sensoren, zusätzliche Unsicherheiten.
 
 In der Verhaltensökologie kann unter der Annahme, dass sich Organismen immer optimal in Bezug auf ihr internes Modell der Welt verhalten, mit Hilfe von Markov-Entscheidungsprozessen solch ein Modell nachgebaut werden. Daraufhin werden die aus dem nachgebauten Modell berechneten Verhaltensweisen mit den tatsächlichen Verhaltensweisen des Organismus verglichen und bei Abweichungen das nachgebaute Modell verbessert. Dieses Vorgehen führt zu einem besseren Verständnis des Verhaltens des Organismus.
 
@@ -88,7 +88,7 @@ Abbildung \ref{fig:autnmRob_dirPath} zeigt eine solche vorberechnete Aktionsfolg
 
 In der Praxis funktionieren solche einfachen Aktionsfolgen meist aus mehreren Gründen nicht richtig: Ein Roboter, der blind einem engen Korridor folgt, läuft Gefahr mit den Wänden zu kollidieren. Außerdem ist es sehr wahrscheinlich, dass der Roboter aufgrund des während der Aktionsausführung akkumulierten Fehlers das Ziel verfehlt.
 
-Daher werden in der Praxis häufig Planungsalgorithmen dieser Art mit einem sensorbasierten Kontrollmodul kombiniert. Dieses Kontrollmodul verwendet die Sensordaten des Roboters um Fehler, die bei der Aktionsausführung auftreten, zu erkennen, und den Roboter immer wieder auf den geplanten Kurs zurück zu führen. Insbesondere bei einem Fall wie dem engen Korridor in unserem Beispiel muss solch eine Korrektur besonders häufig stattfinden, um eine Kollision mit der Wand des Korridors zu vermeiden. Dadurch wird eine größere Anzahl an Messungen benötigt, die eine signifikante Verringerung der Fortbewegungsgeschwindigkeit des Roboters mit sich bringen. Dies wird einem klassischen Planungsalgorithmus nicht berücksichtigt.
+Daher werden in der Praxis häufig Planungsalgorithmen dieser Art mit einem sensorbasierten Kontrollmodul kombiniert. Dieses Kontrollmodul verwendet die Sensordaten des Roboters um Fehler, die bei der Aktionsausführung auftreten, zu erkennen, und den Roboter immer wieder auf den geplanten Kurs zurück zu führen. Insbesondere bei einem Fall wie dem engen Korridor in unserem Beispiel muss solch eine Korrektur besonders häufig stattfinden, um eine Kollision mit der Wand des Korridors zu vermeiden. Dadurch wird eine größere Anzahl an Messungen benötigt, die eine signifikante Verringerung der Fortbewegungsgeschwindigkeit des Roboters mit sich bringen. Dies wird bei einem klassischen Planungsalgorithmus nicht berücksichtigt.
 
 \begin{figure}[ht]
 	\centering
@@ -163,7 +163,7 @@ Ob eine Strategie optimal ist, unterscheidet sich von Anwendung zu Anwendung. Be
 		-1 &\mbox{ sonst}
        \end{array} \right.
 \end{equation}
-denkbar. Hier wird deutlich erkennbar, dass die Belohnung erst nach vielen Aktionen eintritt. Daher kann eine Strategie, die lediglich die unmittelbare Belohnung maximiert hier kein optimales Ergebnis liefern: Jede Aktion, egal ob sie in Richtung des Ziels oder vom Ziel weg führt, hat die Kosten -1 und wäre somit für eine solche Strategie gleichwertig.
+denkbar. Hier wird deutlich erkennbar, dass die Belohnung erst nach vielen Aktionen eintritt. Daher kann eine Strategie, die lediglich die unmittelbare Belohnung maximiert, hier kein optimales Ergebnis liefern: Jede Aktion, egal ob sie in Richtung des Ziels oder vom Ziel weg führt, hat die Kosten -1 und wäre somit für eine solche Strategie gleichwertig.
 Stattdessen wird häufig die Summe der zukünftigen Belohnungen maximiert.
 
 Die folgenden Ausführungen basieren auf \cite{russell1995artificial}. Zunächst wird der Nutzen (englisch: \emph{utility}) einer Aktionsfolge 
@@ -209,7 +209,7 @@ Es gibt mehrere Möglichkeiten einer Aktionsfolge einen Nutzen zuzuweisen:
 \end{enumerate}
 Die Verwendung von reduzierter Güte ist für die Bewertung des Nutzens einer Aktionsfolge mit den wenigsten Problemen verbunden.
 
-Nun, da der Wert einer Aktionsfolge klar definiert ist, kann bestimmt werden, wann eine Strategie optimal ist. Dabei sollte sich in Erinnerung gerufen werden, dass eine Strategie nicht eine Aktionsfolge ist, sondern eine ganze Reihe von möglichen Aktionsfolgen. Daher ist der Wert einer Strategie $\pi$ die erwartete Summe der reduzierten Güte aller Aktionsfolgen, die $\pi$ generieren könnte. Eine optimale Strategie ist
+Nun, da der Wert einer Aktionsfolge klar definiert ist, kann bestimmt werden, wann eine Strategie optimal ist. Dabei sollte beachtet werden, dass eine Strategie nicht eine Aktionsfolge ist, sondern eine ganze Reihe von möglichen Aktionsfolgen. Daher ist der Wert einer Strategie $\pi$ die erwartete Summe der reduzierten Güte aller Aktionsfolgen, die $\pi$ generieren könnte. Eine optimale Strategie ist
 \begin{equation}
 	\pi^* = \underset{\pi}{argmax}\ \E \left[ \sum\limits_{t=1}^{\infty} \gamma^t r(s_t, a_t) \ \vert\ \pi \right]\ .
 \end{equation}
@@ -306,9 +306,9 @@ In dieser Ausarbeitung wurde der MDP mit endlicher Zustandsmenge definiert. Es b
 	\label{autnmRobot_POMDPPathC}
 \end{figure}
 
-Bisher wurde angenommen, dass die Sensoren des Roboters jederzeit den exakten Zustand der Umgebung wahrnehmen können. In der Praxis liefern Sensoren allerdings lediglich ein mehr oder weniger stark verrauschtes Abbild der Umgebung. Daher kann der Zustand nur bis zu einem gewissen Grad geschätzt werden. Wie gut die Sensoren funktionieren, hängt häufig von der Beschaffenheit der Umgebung ab. Es kann also sein, dass in manchen Bereichen der Umgebung die Wahrscheinlichkeit, den korrekten Umgebungszustand zu schätzen, wesentlich höher ist.
+Bisher wurde angenommen, dass die Sensoren des Roboters jederzeit den exakten Zustand der Umgebung wahrnehmen können. In der Praxis liefern Sensoren allerdings lediglich ein mehr oder weniger stark verrauschtes Abbild der Umgebung. Daher kann der Zustand nur bis zu einem gewissen Grad geschätzt werden. Wie gut die Sensoren funktionieren, hängt häufig von der Beschaffenheit der Umgebung ab. Es kann also sein, dass in manchen Bereichen der Umgebung die Wahrscheinlichkeit wesentlich höher ist, dass der Umgebungszustand korrekt geschätzt wird.
 
-Zur Veranschaulichung dieser Problematik wird wieder das in Kapitel \ref{sec:planning} erläuterte Beispiel verwendet. Das einzige Unterscheidungsmerkmal findet sich am linken bzw. rechten Ende der Umgebung. Direkt in Richtung eines möglichen Zielortes zu fahren, birgt die Gefahr mit einer Wahrscheinlichkeit von 50\% das Ziel zu verpassen und stattdessen zu dem entsprechenden Ort auf der anderen Seite zu fahren. Optimalerweise muss der Roboter nun also zuerst in eine der Ecken fahren um sicher feststellen zu können, wo sich das genaue Ziel befindet. (Das Ziel selbst ist für die Sensoren des Roboters nicht wahrnehmbar)
+Zur Veranschaulichung dieser Problematik wird wieder das in Kapitel \ref{sec:planning} erläuterte Beispiel verwendet. Das einzige Unterscheidungsmerkmal findet sich am linken bzw. rechten Ende der Umgebung. Direkt in Richtung eines möglichen Zielortes zu fahren, birgt die Gefahr mit einer Wahrscheinlichkeit von 50\% das Ziel zu verpassen und stattdessen zu dem entsprechenden Ort auf der anderen Seite zu fahren. Optimalerweise muss der Roboter nun also zuerst in eine der Ecken fahren um sicher feststellen zu können, wo sich das Ziel befindet, denn Ziel selbst ist für die Sensoren des Roboters nicht wahrnehmbar.
 
 Bei der Roboterpfadplanung muss also ebenfalls in Betracht gezogen werden, wann es sich lohnt zunächst höhere Kosten in Kauf zu nehmen, um die Wahrscheinlichkeit zu erhöhen den richtigen Umgebungszustand zu schätzen. Außerdem können bestimmte Pfade mehr oder weniger attraktiv werden, je nachdem wie gut die Sensoren des Roboters auf ihnen funktionieren. So kann bei der Pfadplanung beispielsweise eine Zone, in der Lokalisierung mit Hilfe von GPS nur schwer möglich ist, gemieden werden, falls es bessere Alternativen gibt.
 
