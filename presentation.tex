@@ -18,9 +18,9 @@
 
 % the presentation starts here
 
-\title[Kurzer Titel]{Ganz unglaublich langer Titel\\des Vortrags zum Thema des Proseminars}
-\subtitle{Untertitel - brauchen wir das?}
-\author{Vorname Nachname}
+\title[MDP Pfadplanung]{Markov-Entscheidungsprozesse für die Roboterpfadplanung}
+\subtitle{Entscheidungsprobleme unter Unsicherheit} %TODO nötig?
+\author{Matthias Holoch}
 
 \institute{Proseminar Anthropomatik: Von der Theorie zur Anwendung}
 
@@ -30,14 +30,55 @@
 
 %title page
 \begin{frame}
-\titlepage
+	\titlepage
 \end{frame}
 
-%table of contents
+%table of contents %TODO remove it, maybe
 \frame{
-\frametitle{Gliederung}
-\tableofcontents
+	\frametitle{Gliederung}
+	\tableofcontents
 }
+
+\section{Einleitung}
+\begin{frame}
+	\frametitle{Wozu das Ganze?}
+	\begin{itemize}
+		\item Lösen von Entscheidungsproblemen 
+		\begin{itemize}
+			\item Einbezug von Unsicherheiten
+		\end{itemize}
+		\visible<2->{
+		\item Medizinische Diagnose
+		\begin{itemize}
+			\item genauer Patientenzustand unbekannt
+			\item Menge an Therapiemöglichkeiten
+			\item Beobachtungen als Hinweis auf den Patientenzustand
+			\item Abwägen von Kosten
+		\end{itemize}
+		}
+		\visible<3->{
+		\item Roboterpfadplanung
+		}
+	\end{itemize}
+\end{frame}
+
+\section{Planung unter Unsicherheit}
+\begin{frame}
+	\frametitle{Planung unter Untersicherheit}
+	\begin{block}{Klassische Pfadplanung}
+		Annahmen:
+		\begin{enumerate}
+		\item Genauer Zustand erkennbar
+		\item Aktionsausführung fehlerfrei
+		\end{enumerate}
+	\end{block}
+\end{frame}
+
+\section{MDP}
+
+\section{Strategien}
+\subsection{Optimale Strategie}
+\subsection{Algorithmus}
 
 \begin{frame}{~}
 	\begin{center}
