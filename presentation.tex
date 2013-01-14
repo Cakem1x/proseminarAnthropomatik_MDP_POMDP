@@ -39,7 +39,9 @@
 	\tableofcontents
 }
 
+
 \section{Einleitung}
+\subsection{Wozu das Ganze?}
 \begin{frame}
 	\frametitle{Wozu das Ganze?}
 	\begin{itemize}
@@ -62,39 +64,67 @@
 	\end{itemize}
 \end{frame}
 
+
 \section{Planung unter Unsicherheit}
+\subsection{Planung klassisch}
 \begin{frame}
-	\frametitle{Planung unter Unsicherheit}	
-	\visible<2,3>{
-		\only<2>{
+	\frametitle{Klassische Pfadplanung}	
+	\visible<2->{
+		\only<1,2>{
 			\includegraphics[scale=0.7]{images/autnmRobot_basicSituation.png}
 		}
-		\only<3>{
+		\only<3->{
 			\includegraphics[scale=0.7]{images/autnmRobot_directPath.png}
 		}
 	}
-	\begin{block}{Klassische Pfadplanung}
-		Annahmen:
-		\begin{enumerate}
-			\item Genauer Zustand erkennbar
-			\item Aktionsausführung fehlerfrei
-		\end{enumerate}
-		\only<4->{
-		Probleme:
-		\begin{itemize}
-			\item the cake...
-			\item it's a lie!
-		\end{itemize}
-		}
-	\end{block}
+	\only<-4>{
+	\\Annahmen:
+	\begin{enumerate}
+		\item Genauer Zustand erkennbar
+		\item Aktionsausführung fehlerfrei
+	\end{enumerate}
+	\visible<4->{
+	Probleme:
+	\begin{itemize}
+		\item Fehler im Bewegungsmodell
+		\item Schlupf zwischen Antriebsrädern und Untergrund
+		\item verrauschte Sensordaten
+	\end{itemize}
+	}
+	}
+	\only<5->{
+	\\ Aktionsausführung nicht fehlerfrei, genauer Zustand nicht erkennbar.
+	\begin{itemize}
+		\item Verlassen des geplanten Pfads
+		\item häufige Korrektur
+		\item erhöhtes Messintervall bei engen Korridoren
+	\end{itemize}
+	\visible<6>{
+	\textbf{Einzelne Aktionsfolge reicht nicht aus.}
+	}
+	}
 \end{frame}
+
+\subsection{Pfadplanung mit MDPs}
+\begin{frame}
+\frametitle{Pfadplanung mit MDPs}
+
+\end{frame}
+
 
 \section{MDP}
 
+
 \section{Strategien}
 \subsection{Optimale Strategie}
+
 \subsection{Algorithmus}
 
+
+\section{Schluss}
+\subsection{Ausblick}
+
+\subsection{Quellen}
 \begin{frame}{~}
 	\begin{center}
 		\huge{DANKE FÜR DIE AUFMERKSAMKEIT!}
