@@ -71,49 +71,129 @@
 	\frametitle{Klassische Pfadplanung}	
 	\visible<2->{
 		\only<1,2>{
-			\includegraphics[scale=0.7]{images/autnmRobot_basicSituation.png}
+			\includegraphics[scale=0.8]{images/autnmRobot_basicSituation.png}
 		}
 		\only<3->{
-			\includegraphics[scale=0.7]{images/autnmRobot_directPath.png}
+			\includegraphics[scale=0.8]{images/autnmRobot_directPath.png}
 		}
 	}
 	\only<-4>{
-	\\Annahmen:
-	\begin{enumerate}
-		\item Genauer Zustand erkennbar
-		\item Aktionsausführung fehlerfrei
-	\end{enumerate}
-	\visible<4->{
-	Probleme:
-	\begin{itemize}
-		\item Fehler im Bewegungsmodell
-		\item Schlupf zwischen Antriebsrädern und Untergrund
-		\item verrauschte Sensordaten
-	\end{itemize}
-	}
+		\\Annahmen
+		\begin{enumerate}
+			\item Genauer Zustand erkennbar
+			\item Aktionsausführung fehlerfrei
+		\end{enumerate}
+		\visible<4->{
+			Probleme
+			\begin{itemize}
+				\item Fehler im Bewegungsmodell
+				\item Schlupf zwischen Antriebsrädern und Untergrund
+				\item verrauschte Sensordaten
+			\end{itemize}
+		}
 	}
 	\only<5->{
-	\\ Aktionsausführung nicht fehlerfrei, genauer Zustand nicht erkennbar.
-	\begin{itemize}
-		\item Verlassen des geplanten Pfads
-		\item häufige Korrektur
-		\item erhöhtes Messintervall bei engen Korridoren
-	\end{itemize}
-	\visible<6>{
-	\textbf{Einzelne Aktionsfolge reicht nicht aus.}
-	}
+		\\ Aktionsausführung nicht fehlerfrei, genauer Zustand nicht erkennbar.
+		\begin{itemize}
+			\item Verlassen des geplanten Pfads
+			\item häufige Korrektur
+			\item erhöhtes Messintervall bei engen Korridoren
+		\end{itemize}
+		\visible<6>{
+			\textbf{Einzelne Aktionsfolge reicht nicht aus.}
+		}
 	}
 \end{frame}
 
 \subsection{Pfadplanung mit MDPs}
 \begin{frame}
-\frametitle{Pfadplanung mit MDPs}
-
+	\frametitle{Pfadplanung mit MDPs}
+	\visible<3->{
+		\only<1,2,3>{
+			\includegraphics[scale=0.8]{images/autnmRobot_basicSituation.png}
+		}
+		\only<4>{
+			\includegraphics[scale=0.8]{images/autnmRobot_detActionMDP.png}
+		}
+		\only<5>{
+			\includegraphics[scale=0.8]{images/autnmRobot_ndetActionMDP.png}
+		}
+	}
+	\\Annahmen
+	\begin{enumerate}
+		\item Genauer Zustand erkennbar
+	\end{enumerate}
+	\visible<2->{
+		Vorberechnete Aktionsfolgen
+		\begin{itemize}
+			\item antizipieren Fehlverhalten
+			\item sind \glqq optimal\grqq
+		\end{itemize}
+	}
 \end{frame}
 
 
 \section{MDP}
+\subsection{Formal}
+\begin{frame}
+	\frametitle{MDP}
+	Ein MDP ist ein 4-Tupel
+	\begin{equation}
+		(S, A, T, R)
+	\end{equation}
+	mit
+	\begin{itemize}
+		\visible<1->{
+			\item diskreter, endlicher Zustandsmenge $S$
+		}
+		\visible<2->{
+			\item diskreter, endlicher Aktionsmenge $A$
+		}		
+		\visible<3->{
+			\item Zustandsübergangsmodell des Systems $T$
+				\begin{equation}
+					T(s, a, s') = \mathbf{p}(s'|s, a)
+				\end{equation}
+		}
+		\visible<4->{
+			\item Funktion
+				\begin{equation}
+					r: S \times A \rightarrow \mathbb{R}
+				\end{equation}
+		}
+	\end{itemize}
+\end{frame}
 
+\subsection{Beispiel}
+\begin{frame}
+	\frametitle{MDP Beispiel}
+	\only<1>{
+		\includegraphics[scale=0.2]{images/MDP_example_part2.png}
+	}
+	\only<2>{
+		\includegraphics[scale=0.2]{images/MDP_example_part1.png}
+	}
+	\only<3>{
+		\includegraphics[scale=0.2]{images/MDP_example_part0.png}
+	}
+	\only<4>{
+		\includegraphics[scale=0.2]{images/MDP_example.png}
+	}
+	\begin{itemize}
+	\visible<1->{
+		\item $S = \{s_0, s_1, s_2\}$
+	}
+	\visible<2->{
+		\item $A = \{a_0, a_1\}$
+	}
+	\visible<3->{
+		\item $T(s_0, a_0, s_0) = 0.2;\ T(s_0, a_0, s_1) = 0.8;\ ...$
+	}
+	\visible<4->{
+		\item $r(s_0, a_1) = 1;\ r(s_2, a_0) = 10;\ r(s_1, a_1) = -5$
+	}
+	\end{itemize}
+\end{frame}
 
 \section{Strategien}
 \subsection{Optimale Strategie}
@@ -126,9 +206,8 @@
 
 \subsection{Quellen}
 \begin{frame}{~}
-	\begin{center}
-		\huge{DANKE FÜR DIE AUFMERKSAMKEIT!}
-	\end{center}
+		\bibliographystyle{plain}
+		\bibliography{literatur}
 \end{frame}
 
 \end{document}
