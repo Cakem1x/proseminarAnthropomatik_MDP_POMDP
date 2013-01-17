@@ -291,20 +291,30 @@
 \begin{frame}
 	\frametitle{Algorithmus}
 	\begin{itemize}
-		\item dynamische Programmierung
-		\item Initialisierung
-			\begin{equation}
-				\hat{V}(s) \leftarrow 0
-			\end{equation}
-		\item pro Iteration
-			\begin{equation}
-				\hat{V}(s) \leftarrow \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} \hat{V}(s')\ T(s, a, s') \right]
-			\end{equation}
-		\item Bis $\hat{V}$ konvergiert
-		\item $\hat{V}$ induziert nun
-			\begin{equation}
-				\pi(s)^* = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} \hat{V}(s')\ T(s, a, s') \right]
-			\end{equation}
+		\visible<2->{
+			\item dynamische Programmierung
+		}
+		\visible<3->{
+			\item Initialisierung
+				\begin{equation}
+					\hat{V}(s) \leftarrow 0
+				\end{equation}
+		}
+		\visible<4->{
+			\item pro Iteration
+				\begin{equation}
+					\hat{V}(s) \leftarrow \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} \hat{V}(s')\ T(s, a, s') \right]
+				\end{equation}
+		}
+		\visible<5->{
+			\item Bis $\hat{V}$ konvergiert
+		}
+		\visible<6->{
+			\item $\hat{V}$ induziert nun
+				\begin{equation}
+					\pi(s)^* = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} \hat{V}(s')\ T(s, a, s') \right]
+				\end{equation}
+		}
 	\end{itemize}
 \end{frame}
 
