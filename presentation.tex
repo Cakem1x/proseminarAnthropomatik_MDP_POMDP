@@ -251,11 +251,62 @@
 	\end{itemize}
 	}
 	\begin{center}
-		\visible<3->{$\pi^*$}\visible<5->{$ = \underset{\pi}{argmax}\ \mathrm{E}\left[\visible<9->{\sum\limits_{t=1}^{\infty} \gamma^t r(s_t, a_t) \ \vert\ \pi}\right]$}
+		\visible<3->{$\pi^*$}\visible<5->{$ = \underset{\pi}{argmax}\ \mathrm{E}\left[\visible<9->{\sum\limits_{t=1}^{n} \gamma^t r(s_t, a_t) \ \vert\ \pi}\right]$}
 	\end{center}
 \end{frame}
 
 \subsection{Algorithmus}
+\begin{frame}
+	\frametitle{Algorithmus - Vorüberlegung}
+	\begin{itemize}
+		\only<2,3>{
+			\item $n=1$:
+				\begin{equation}
+					\begin{split}
+						\pi_1^*(s)= \underset{a}{argmax}\ r(s, a) \\
+						V_1(s) = \gamma\ \underset{a}{max}\ r(s, a)
+					\end{split}
+				\end{equation}
+		}
+		\visible<3->{
+			\item $n=2$:
+				\begin{equation}
+					\begin{split}
+						\pi_2^*(s) = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} V_1(s')\ T(s, a, s') \right] \\
+						V_2(s) = \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} V_1(s')\ T(s, a, s') \right]
+					\end{split}
+				\end{equation}
+		}
+		\only<4->{
+			\item $\forall n > 1$:
+				\begin{equation}
+					\begin{split}
+						\pi_n^*(s) = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} V_{n-1}(s')\ T(s, a, s') \right] \\
+						V_n(s) = \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} V_{n-1}(s')\ T(s, a, s') \right]
+					\end{split}
+				\end{equation}
+		}
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Algorithmus}
+	\begin{itemize}
+		\item dynamische Programmierung
+		\item Initialisierung
+			\begin{equation}
+				\hat{V}(s) \leftarrow 0
+			\end{equation}
+		\item pro Iteration
+			\begin{equation}
+				\hat{V}(s) \leftarrow \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} \hat{V}(s')\ T(s, a, s') \right]
+			\end{equation}
+		\item Bis $\hat{V}$ konvergiert
+		\item $\hat{V}$ induziert nun
+			\begin{equation}
+				\pi(s)^* = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} \hat{V}(s')\ T(s, a, s') \right]
+			\end{equation}
+	\end{itemize}
+\end{frame}
 
 
 \section{Schluss}
