@@ -9,7 +9,6 @@
 %%
 %% Problems, bugs and comments to
 %% burger@kit.edu
-
 \documentclass[18pt]{beamer}
 \usetheme{kit}
 
@@ -23,6 +22,9 @@
 \author{Matthias Holoch}
 
 \institute{Proseminar Anthropomatik: Von der Theorie zur Anwendung}
+
+\setbeamertemplate{bibliography item}[text] %Creates numbers in the bibliography at the end of the presentation
+\usepackage{multicol}
 
 \begin{document}
 
@@ -52,6 +54,11 @@
 		\visible<5->{
 		\item Abwägen des Nutzens
 		}
+		Foozitat \cite{flickrniklas}
+		Foozitat \cite{flickrammar}
+		Foozitat \cite{flickrpanama}
+		Foozitat \cite{flickrrodrigo}
+		Foozitat \cite{thrun2005probabilistic}
 	\end{itemize}
 \end{frame}
 \subsection{Problemstellung}
@@ -349,10 +356,13 @@
 \subsection{Quellen}
 \begin{frame}{~}
 \begin{center}
-	\textbf{{\LARGE Vielen Dank für Ihre Aufmerksamkeit}}
-\end{center}
-		\bibliographystyle{plain}
-		\bibliography{literatur}
+\vspace{1.5cm}%
+	\textbf{{\LARGE Vielen Dank für Ihre Aufmerksamkeit}}%
+\end{center}%
+	\begin{multicols}{2}%
+		\bibliographystyle{plain}%
+		\bibliography{literatur}%
+	\end{multicols}%
 \end{frame}
 
 \end{document}
