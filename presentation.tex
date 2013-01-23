@@ -33,108 +33,114 @@
 	\titlepage
 \end{frame}
 
-%table of contents %TODO remove it, maybe
-\frame{
-	\frametitle{Gliederung}
-	\tableofcontents
-}
-
 
 \section{Einleitung}
-\subsection{Wozu das Ganze?}
+\subsection{Motivation}
 \begin{frame}
-	\frametitle{Wozu das Ganze?}
+	\frametitle{Motivation}
+	Medizinische Diagnose
 	\begin{itemize}
-		\item Lösen von Entscheidungsproblemen 
-		\begin{itemize}
-			\item Einbezug von Unsicherheiten
-		\end{itemize}
 		\visible<2->{
-		\item Medizinische Diagnose
-		\begin{itemize}
-			\item genauer Patientenzustand unbekannt
-			\item Menge an Therapiemöglichkeiten
-			\item Beobachtungen als Hinweis auf den Patientenzustand
-			\item Abwägen von Kosten
-		\end{itemize}
+		\item genauer Patientenzustand unbekannt
 		}
 		\visible<3->{
-		\item Roboterpfadplanung
+		\item Menge an Therapiemöglichkeiten
+		}		
+		\visible<4->{
+		\item Beobachtungen als Hinweis auf den Patientenzustand
+		}
+		\visible<5->{
+		\item Abwägen des Nutzens
 		}
 	\end{itemize}
 \end{frame}
-
-
-\section{Planung unter Unsicherheit}
-\subsection{Planung klassisch}
+\subsection{Problemstellung}
 \begin{frame}
-	\frametitle{Klassische Pfadplanung}	
+	\frametitle{Problemstellung}
+	Lösen von Entscheidungsproblemen unter Einbezug von\\Unsicherheiten\\
+	\vspace{0.5cm}
 	\visible<2->{
-		\only<1,2>{
+		\textbf{Im Folgenden: Roboterpfadplanung}
+		\begin{figure}
 			\includegraphics[scale=0.8]{images/autnmRobot_basicSituation.png}
-		}
-		\only<3->{
-			\includegraphics[scale=0.8]{images/autnmRobot_directPath.png}
-		}
+		\end{figure}
 	}
-	\only<-4>{
-		\\Annahmen
-		\begin{enumerate}
-			\item Genauer Zustand erkennbar
-			\item Aktionsausführung fehlerfrei
-		\end{enumerate}
-		\visible<4->{
-			Probleme
+\end{frame}
+
+
+\section{Pfadplanung unter Unsicherheit}
+\subsection{Pfadplanung klassisch}
+\begin{frame}
+	\frametitle{Klassische Pfadplanung}
+	\vspace{-0.5cm}
+	\only<1>{
+		\includegraphics[scale=0.8]{images/autnmRobot_basicSituation.png}
+	}
+	\only<2->{
+		\includegraphics[scale=0.8]{images/autnmRobot_directPath.png}
+	}
+	\begin{columns}
+		\column[t]{0.5\textwidth}
+			Annahmen
 			\begin{itemize}
-				\item Fehler im Bewegungsmodell
-				\item Schlupf zwischen Antriebsrädern und Untergrund
-				\item verrauschte Sensordaten
+				\item genauer Zustand bekannt
+				\item Aktionsausführung fehlerfrei
 			\end{itemize}
-		}
-	}
-	\only<5->{
-		\\ Aktionsausführung nicht fehlerfrei, genauer Zustand nicht erkennbar.
-		\begin{itemize}
-			\item Verlassen des geplanten Pfads
-			\item häufige Korrektur
-			\item erhöhtes Messintervall bei engen Korridoren
-		\end{itemize}
-		\visible<6>{
-			\textbf{Einzelne Aktionsfolge reicht nicht aus.}
-		}
+		\column[t]{0.5\textwidth}
+			\visible<3->{
+				Realität
+				\begin{itemize}
+					\item verrauschte Sensordaten
+					\item Fehler im Bewegungsmodell
+					\item exogene Störungen
+				\end{itemize}
+			}
+	\end{columns}
+	\visible<4>{
+		\vspace{0.5cm}
+		Einbezug von Unsicherheiten nötig\\
+		\textbf{$\Rightarrow$ Einzelne Aktionsfolge reicht nicht aus}
 	}
 \end{frame}
 
 \subsection{Pfadplanung mit MDPs}
 \begin{frame}
 	\frametitle{Pfadplanung mit MDPs}
-	\visible<3->{
-		\only<1,2,3>{
-			\includegraphics[scale=0.8]{images/autnmRobot_basicSituation.png}
-		}
-		\only<4>{
-			\includegraphics[scale=0.8]{images/autnmRobot_detActionMDP.png}
-		}
-		\only<5>{
-			\includegraphics[scale=0.8]{images/autnmRobot_ndetActionMDP.png}
-		}
+	\only<1,2>{
+		\includegraphics[scale=0.8]{images/autnmRobot_basicSituation.png}
 	}
+	\only<3>{
+		\includegraphics[scale=0.8]{images/autnmRobot_detActionMDP.png}
+	}
+	\only<4>{
+		\includegraphics[scale=0.8]{images/autnmRobot_ndetActionMDP.png}
+	}
+	\begin{columns}
+	\column[t]{0.5\textwidth}
 	\\Annahmen
-	\begin{enumerate}
-		\item Genauer Zustand erkennbar
-	\end{enumerate}
+	\begin{itemize}
+		\item genauer Zustand bekannt
+	\end{itemize}
 	\visible<2->{
 		Vorberechnete Aktionsfolgen
 		\begin{itemize}
-			\item antizipieren Fehlverhalten
-			\item sind \glqq optimal\grqq
+			\item Antizipation des Fehlverhaltens
+			\item optimales Verfahren
 		\end{itemize}
 	}
+	\column[t]{0.3\textwidth}
+	\only<3>{
+	\textcolor{blue}{deterministische Aktionseffekte}
+	}%
+	\only<4>{
+	\textcolor{blue}{nichtdeterministische Aktionseffekte}
+	}%
+	\end{columns}
 \end{frame}
 
 
 \section{MDP}
-\subsection{Formal}
+\subsection{Definition}
 \begin{frame}
 	\frametitle{MDP}
 	Ein MDP ist ein 4-Tupel
@@ -152,7 +158,7 @@
 		\visible<3->{
 			\item Zustandsübergangsmodell des Systems $T$
 				\begin{equation}
-					T(s, a, s') = \mathbf{p}(s'|s, a)
+					T(s, a, s') = \mathbf{p}(s'|s, a)\text{, mit } s,s' \in S, a \in A
 				\end{equation}
 		}
 		\visible<4->{
@@ -187,10 +193,10 @@
 		\item $A = \{a_0, a_1\}$
 	}
 	\visible<3->{
-		\item $T(s_0, a_0, s_0) = 0.2;\ T(s_0, a_0, s_1) = 0.8;\ ...$
+		\item $T(s_0, a_0, s_0) = 0.2,\ T(s_0, a_0, s_1) = 0.8,\ ...$
 	}
 	\visible<4->{
-		\item $r(s_0, a_1) = 1;\ r(s_2, a_0) = 10;\ r(s_1, a_1) = -5$
+		\item $r(s_0, a_1) = 1,\ r(s_2, a_0) = 10,\ r(s_1, a_1) = -5$
 	}
 	\end{itemize}
 \end{frame}
@@ -207,20 +213,22 @@
 	}
 	\visible<3->{
 	\vspace{1cm}
-		Eine Strategie ist eine Funktion
+		Strategie ist Funktion
 		\begin{equation}
-			\pi: S \rightarrow A\ .
+			\pi: S \rightarrow A
 		\end{equation}
+	}%
+	\visible<4->{%
+		Gesucht: Optimale Strategie\\
+		Was bedeutet optimal?
 	}
 \end{frame}
 \begin{frame}
-	\only<1, 3->{
-		\frametitle{Optimale Strategien}
-	}
-	\only<2>{
-		\frametitle{\glqq Optimale\grqq\ Strategien?!}
-	}
-	\visible<4->{
+	\frametitle{Optimale Strategien}
+	\begin{center}
+		\visible<2->{$\pi^*$}\visible<4->{$ = \underset{\pi}{argmax}\ \mathrm{E}\left[\visible<8->{\sum\limits_{t=1}^{n} \gamma^t r(s_t, a_t) \ \vert\ \pi}\right]$}
+	\end{center}
+	\visible<3->{
 	\begin{itemize}
 		\item Planungshorizont $n$
 		\begin{itemize}
@@ -228,36 +236,33 @@
 			\item Unendlicher Planungshorizont
 		\end{itemize}
 		}
-		\visible<5->{
+		\visible<4->{
 		\item Maximierung einer erwarteten Güte aller Aktionsfolgen \\
 			  $\left[(s_0, a_0), (s_1, a_1), ..., (s_n, a_n)\right]$
 		\begin{itemize}
-			\visible<6->{
+			\visible<5->{
 				\item additive Güte
 				\begin{equation}
 					\sum\limits_{t=1}^n r(s_t, a_t)
 				\end{equation}
 			}
-			\visible<7->{
+			\visible<6->{
 				\item reduzierte Güte
 				\begin{equation}
 					\sum\limits_{t=1}^n \gamma^t r(s_t, a_t),\ \text{mit }\gamma \in [0,1]
 				\end{equation}
 			}
-			\visible<8->{
+			\visible<7->{
 				\item durchschnittliche Güte pro Zeitschritt
 			}
 		\end{itemize}
 	\end{itemize}
 	}
-	\begin{center}
-		\visible<3->{$\pi^*$}\visible<5->{$ = \underset{\pi}{argmax}\ \mathrm{E}\left[\visible<9->{\sum\limits_{t=1}^{n} \gamma^t r(s_t, a_t) \ \vert\ \pi}\right]$}
-	\end{center}
 \end{frame}
 
 \subsection{Algorithmus}
 \begin{frame}
-	\frametitle{Algorithmus - Vorüberlegung}
+	\frametitle{Lösen von MDPs - Vorüberlegung}
 	\begin{itemize}
 		\only<2,3>{
 			\item $n=1$:
@@ -289,33 +294,30 @@
 	\end{itemize}
 \end{frame}
 \begin{frame}
-	\frametitle{Algorithmus}
+	\frametitle{Lösen von MDPs - dynamische Programmierung}
 	\begin{itemize}
 		\visible<2->{
-			\item dynamische Programmierung
-		}
-		\visible<3->{
 			\item Initialisierung
 				\begin{equation}
 					\hat{V}(s) \leftarrow 0
 				\end{equation}
 		}
-		\visible<4->{
+		\visible<3->{
 			\item pro Iteration
 				\begin{equation}
 					\hat{V}(s) \leftarrow \gamma\ \underset{a}{max} \left[ r(s,a) + \sum_{s' \in S} \hat{V}(s')\ T(s, a, s') \right]
 				\end{equation}
 		}
-		\visible<5->{
+		\visible<4->{
 			\item Bis $\hat{V}$ konvergiert
 		}
-		\visible<6->{
-			\item $\hat{V}$ induziert nun
+	\end{itemize}
+		\visible<5->{
+			$\hat{V}$ induziert nun
 				\begin{equation}
 					\pi(s)^* = \underset{a}{argmax} \left[ r(s,a) + \sum_{s' \in S} \hat{V}(s')\ T(s, a, s') \right]
 				\end{equation}
 		}
-	\end{itemize}
 \end{frame}
 
 
