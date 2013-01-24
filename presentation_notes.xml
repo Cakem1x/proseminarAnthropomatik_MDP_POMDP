@@ -1,0 +1,87 @@
+<notes>
+	<note number="1">
+Herzlich willkommen zu meiner Präsentation zum Thema Markov-Entscheidungsprozesse für die Roboterpfadplanung
+	</note>
+	<note number="2">
+Beginnen möchte ich mit einem motivierenden Anwendungsbeispiel aus der Medizin: Die medizinische Diagnose.
+Damit ist bestimmt jeder von Ihnen schon mal in Kontakt gekommen:
+Es geht darum als Arzt zu erkennen, was die Ursache für Beschwerden eines Patienten sind.
+
+Dabei Probleme:
+	</note>
+	<note number="3">
+Genauer P.-Zustand unbekannt, weder Patient noch Arzt mit Sicherheit sagen, was z.B. Krankheit ist
+	</note>
+	<note range="4-6">
+Nur Beobachten möglich -> Hinweis auf P.-Zustand
+
+Therapiemöglichkeiten ermöglichen Beobachtungen.
+
+Haben Vor- und Nachteile: Geldkosten, Gesundheitsrisiko, Zeitintensiv, ...
+	</note>
+	<note range="7-8">
+Problemstellung: Lösen von Entscheidungsproblemen unter Einbezug von Unsicherheiten.
+Bei Med. Diagnose: Unsicherheit bei P.-Zustand, Unsicherheit ob Therapie wirkt
+
+Folgenden: Roboterpfadplanung, Beispiel, Aufg. des Roboters
+	</note>
+	<note range="9-12">
+Klassische Pfadplanung: Vorberechnung mit Annahmen: Zustand, Aktionsausführung
+
+Also dieser Weg berechnet
+
+Probleme in Realität. Einfach Lösung: Sensorekontrollmodul
+
+Schöner: Einb. Unsicherh. Folgerung:...
+	</note>
+	<note range="13-16">
+MDP = ..., Annahme
+
+Eigenschaften Aktionsfolgen.
+optimal? Später genauer; Wertefunktion. Alles ist möglich
+
+Bsp det.
+
+Bsp ndet.
+	</note>
+	<note range="17-20">
+Formale Definition.
+...
+Wertefunktion erklären
+...
+Andere Definitionen, minimal anders
+	</note>
+	<note range="21-24">
+Beispiel
+...
+T(...) = ...: Hier gibt es noch mehr!
+	</note>
+	<note range="25-28">
+Rückblick: Klassische Pfadplanung -> Einzelne Aktionsfolge
+
+MDP Pfadplanung -> Viele Aktionsfolgen --> Strategie
+
+Ist Funktion... Wichtig: Strategie im Allg. nicht optimal.
+	</note>
+	<note range="29-36">
+Bezeichnung pi*
+
+Planungshorizont ist #Aktionen. Im Folgenden: Fokus unendl. Endl. problematisch.
+
+Maximierung -> Formel. Güte ("Wert") Aktionsfolge: Versch. Möglichkeiten
+
+Additiv. Fail bei unendl. Bsp: Jobs 10€ 100€
+
+Reduziert. DISCOUNT FACTOR! Additiv ist Spezialfall. Bildet Verhalten von Tieren und Menschen gut ab.
+
+Durchschnittl. Hier nicht näher behandelt.
+Reduzierte Güte am besten für unendl. Planungshorizont 
+	</note>
+	<note range="37-40">
+Lösung: Optimale Strategie
+Wertefkt. induziert Strategie
+	</note>
+	<note range="41-45">
+"Value Iteration", "backward induction"
+	</note>
+</notes>
