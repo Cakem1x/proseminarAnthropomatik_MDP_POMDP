@@ -80,9 +80,15 @@
 	\vspace{0.5cm}
 	\visible<2->{
 		\textbf{Im Folgenden: Roboterpfadplanung}
-		\begin{figure}
-			\includegraphics[scale=0.8]{images/autnmRobot_basicSituation.png}
-		\end{figure}
+		\begin{columns}
+		\column{0.8\textwidth}
+			\begin{figure}
+				\includegraphics[scale=0.8]{images/autnmRobot_basicSituation.png}
+			\end{figure}
+		\column{0.2\textwidth}
+		\vspace{3.2cm}\\
+			\cite{thrun2005probabilistic}
+		\end{columns}
 	}
 \end{frame}
 
@@ -92,12 +98,19 @@
 \begin{frame}
 	\frametitle{Klassische Pfadplanung}
 	\vspace{-0.5cm}
-	\only<1>{
-		\includegraphics[scale=0.8]{images/autnmRobot_basicSituation.png}
-	}
-	\only<2->{
-		\includegraphics[scale=0.8]{images/autnmRobot_directPath.png}
-	}
+	\begin{columns}
+	\column{0.8\textwidth}
+		\only<1>{
+			\includegraphics[scale=0.8]{images/autnmRobot_basicSituation.png}
+		}
+		\only<2->{
+			\includegraphics[scale=0.8]{images/autnmRobot_directPath.png}
+		}
+	\column{0.2\textwidth}
+		\vspace{2.3cm}\\
+			\cite{thrun2005probabilistic}
+	\end{columns}
+	\vspace{0.5cm}
 	\begin{columns}
 		\column[t]{0.5\textwidth}
 			Annahmen
@@ -125,15 +138,24 @@
 \subsection{Pfadplanung mit MDPs}
 \begin{frame}
 	\frametitle{Pfadplanung mit MDPs}
-	\only<1,2>{
-		\includegraphics[scale=0.8]{images/autnmRobot_basicSituation.png}
-	}
-	\only<3>{
-		\includegraphics[scale=0.8]{images/autnmRobot_detActionMDP.png}
-	}
-	\only<4>{
-		\includegraphics[scale=0.8]{images/autnmRobot_ndetActionMDP.png}
-	}
+	\vspace{-0.8cm}
+	{\footnotesize MDP steht für Markov-Entscheidungsprozess. \emph{(Markov Decision Process)}}
+	\vspace{0.5cm}
+	\begin{columns}
+	\column{0.8\textwidth}
+		\only<1,2>{
+			\includegraphics[scale=0.8]{images/autnmRobot_basicSituation.png}
+		}
+		\only<3>{
+			\includegraphics[scale=0.8]{images/autnmRobot_detActionMDP.png}
+		}
+		\only<4>{
+			\includegraphics[scale=0.8]{images/autnmRobot_ndetActionMDP.png}
+		}
+	\column{0.2\textwidth}
+		\vspace{2cm}\\
+		\cite{thrun2005probabilistic}
+	\end{columns}
 	\begin{columns}
 	\column[t]{0.5\textwidth}
 	\\Annahmen
@@ -224,12 +246,18 @@
 \subsection{Optimale Strategien}
 \begin{frame}
 	\frametitle{Strategien}
-	\only<1>{
-		\includegraphics[scale=0.8]{images/autnmRobot_directPath.png}\\
-	}
-	\only<2->{
-		\includegraphics[scale=0.8]{images/autnmRobot_detActionMDP.png}\\
-	}
+	\begin{columns}
+	\column{0.8\textwidth}
+		\only<1>{
+			\includegraphics[scale=0.8]{images/autnmRobot_directPath.png}\\
+		}
+		\only<2->{
+			\includegraphics[scale=0.8]{images/autnmRobot_detActionMDP.png}\\
+		}
+	\column{0.2\textwidth}
+		\vspace{2.3cm}\\
+			\cite{thrun2005probabilistic}
+	\end{columns}
 	\visible<3->{
 	\vspace{1cm}
 		Strategie ist Funktion
@@ -328,7 +356,7 @@
 				\end{equation}
 		}
 		\visible<4->{
-			\item Bis $\hat{V}$ konvergiert
+			\item bis $\hat{V}$ konvergiert
 		}
 	\end{itemize}
 		\visible<5->{
@@ -359,7 +387,7 @@
 	\visible<3->{
 		Ausblick: POMDP
 		\begin{itemize}
-			\item Erlaubt Unsicherheiten in dem Zustand
+			\item erlaubt Unsicherheiten in dem Zustand
 			\item Wahrscheinlichkeitsverteilung über alle Zustände
 		\end{itemize}
 	}
